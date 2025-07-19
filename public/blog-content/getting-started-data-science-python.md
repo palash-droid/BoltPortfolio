@@ -51,7 +51,7 @@ matrix = np.array([[1, 2], [3, 4]])
 result = np.sqrt(arr)
 print(result)
 ```
-
+![My Profile](/profile.jpg)
 ### Pandas - Data Manipulation Powerhouse
 Pandas is essential for data cleaning, transformation, and analysis.
 
