@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { Clock, ArrowRight } from 'lucide-react';
@@ -55,7 +54,7 @@ const Blog = () => {
                   </span>
                 </div>
               </div>
-              
+
               <div className="p-4">
                 <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-3">
                   <span>{new Date(post.publishDate).toLocaleDateString()}</span>
@@ -65,15 +64,15 @@ const Blog = () => {
                     {post.readTime}
                   </div>
                 </div>
-                
+
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2 line-clamp-2">
                   {post.title}
                 </h3>
-                
+
                 <p className="text-sm text-gray-600 dark:text-gray-300 mb-3 line-clamp-2">
                   {post.excerpt}
                 </p>
-                
+
                 <button className="text-sm text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors duration-200 font-medium">
                   Read More →
                 </button>

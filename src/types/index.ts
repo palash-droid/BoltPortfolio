@@ -11,14 +11,20 @@ export interface Project {
 
 export interface BlogPost {
   id: string;
+  slug: string;
   title: string;
   excerpt: string;
-  content: string;
   image: string;
   category: string;
   publishDate: string;
   readTime: string;
   featured?: boolean;
+  contentFile: string; // NEW: Path to markdown file
+}
+
+// NEW: Extended BlogPost with loaded content
+export interface BlogPostWithContent extends BlogPost {
+  content: string;
 }
 
 export interface Certification {

@@ -87,156 +87,40 @@ export const projects: Project[] = [
   }
 ];
 
+// UPDATED: Blog posts now reference markdown files instead of inline content
 export const blogPosts: BlogPost[] = [
   {
     id: '1',
     title: 'Getting Started with Data Science in Python',
     excerpt: 'A comprehensive guide to beginning your journey in data science using Python and essential libraries.',
-    content: `# Getting Started with Data Science in Python
-
-Data science has become one of the most sought-after skills in today's technology-driven world. Python, with its rich ecosystem of libraries and tools, has emerged as the go-to language for data scientists worldwide.
-
-## Why Python for Data Science?
-
-Python offers several advantages for data science:
-
-- **Easy to Learn**: Python's syntax is clean and readable
-- **Rich Ecosystem**: Extensive libraries like Pandas, NumPy, and Scikit-learn
-- **Community Support**: Large, active community providing resources and support
-- **Versatility**: Can be used for web development, automation, and more
-
-## Essential Libraries
-
-### 1. NumPy
-NumPy is the foundation of data science in Python, providing support for large, multi-dimensional arrays and matrices.
-
-### 2. Pandas
-Pandas offers data structures and operations for manipulating numerical tables and time series.
-
-### 3. Matplotlib & Seaborn
-These libraries provide powerful visualization capabilities for exploring and presenting data.
-
-### 4. Scikit-learn
-A machine learning library that provides simple and efficient tools for data mining and analysis.
-
-## Getting Started
-
-To begin your data science journey:
-
-1. Install Python and essential libraries
-2. Learn basic Python programming concepts
-3. Practice with real datasets
-4. Work on projects to build your portfolio
-
-## Conclusion
-
-Data science with Python opens up numerous opportunities in various industries. Start with the basics, practice regularly, and gradually work on more complex projects to build your expertise.`,
     image: 'https://images.pexels.com/photos/1181298/pexels-photo-1181298.jpeg?auto=compress&cs=tinysrgb&w=500',
     category: 'python',
     publishDate: '2024-01-15',
     readTime: '5 min read',
-    featured: true
+    featured: true,
+    contentFile: 'getting-started-data-science-python.md' // NEW: Markdown file reference
   },
   {
     id: '2',
     title: 'Advanced SQL Techniques for Data Analysis',
     excerpt: 'Explore advanced SQL techniques that will elevate your data analysis skills and improve query performance.',
-    content: `# Advanced SQL Techniques for Data Analysis
-
-SQL is the backbone of data analysis, and mastering advanced techniques can significantly improve your analytical capabilities and query performance.
-
-## Window Functions
-
-Window functions are powerful tools for performing calculations across a set of table rows that are somehow related to the current row.
-
-### Common Window Functions:
-- ROW_NUMBER()
-- RANK()
-- DENSE_RANK()
-- LAG() and LEAD()
-
-## Common Table Expressions (CTEs)
-
-CTEs provide a way to write more readable and maintainable queries by breaking complex logic into simpler, named sub-queries.
-
-## Advanced Joins
-
-Understanding different types of joins and when to use them:
-- INNER JOIN
-- LEFT/RIGHT OUTER JOIN
-- FULL OUTER JOIN
-- CROSS JOIN
-- SELF JOIN
-
-## Performance Optimization
-
-Tips for optimizing SQL queries:
-- Use appropriate indexes
-- Avoid SELECT *
-- Use LIMIT when possible
-- Optimize WHERE clauses
-
-## Conclusion
-
-Mastering these advanced SQL techniques will make you a more effective data analyst and help you extract deeper insights from your data.`,
     image: 'https://images.pexels.com/photos/1181676/pexels-photo-1181676.jpeg?auto=compress&cs=tinysrgb&w=500',
     category: 'sql',
     publishDate: '2024-01-10',
     readTime: '7 min read',
-    featured: true
+    featured: true,
+    contentFile: 'advanced-sql-techniques.md' // NEW: Markdown file reference
   },
   {
     id: '3',
     title: 'Building Interactive Dashboards with Power BI',
     excerpt: 'Learn how to create compelling and interactive dashboards using Microsoft Power BI for business intelligence.',
-    content: `# Building Interactive Dashboards with Power BI
-
-Microsoft Power BI is a powerful business intelligence tool that enables you to create interactive dashboards and reports from various data sources.
-
-## Getting Started with Power BI
-
-Power BI consists of several components:
-- Power BI Desktop
-- Power BI Service
-- Power BI Mobile
-
-## Data Connection and Preparation
-
-Learn how to:
-- Connect to various data sources
-- Clean and transform data using Power Query
-- Create relationships between tables
-
-## Visualization Best Practices
-
-Guidelines for creating effective visualizations:
-- Choose the right chart type
-- Use appropriate colors and formatting
-- Keep it simple and focused
-- Add interactivity with filters and slicers
-
-## Advanced Features
-
-Explore advanced Power BI capabilities:
-- DAX (Data Analysis Expressions)
-- Custom visuals
-- Drill-through pages
-- Bookmarks and navigation
-
-## Sharing and Collaboration
-
-Learn how to:
-- Publish dashboards to Power BI Service
-- Share with stakeholders
-- Set up automatic data refresh
-
-## Conclusion
-
-Power BI empowers organizations to make data-driven decisions through interactive and insightful dashboards. Master these techniques to become proficient in business intelligence.`,
     image: 'https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&cs=tinysrgb&w=500',
     category: 'powerbi',
     publishDate: '2024-01-05',
-    readTime: '6 min read'
+    readTime: '6 min read',
+    featured: true,
+    contentFile: 'building-interactive-dashboards-powerbi.md' // NEW: Markdown file reference
   }
 ];
 

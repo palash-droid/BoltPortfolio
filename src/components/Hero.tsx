@@ -1,4 +1,3 @@
-import React from 'react';
 import { ChevronDown, Github, Linkedin } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { skills } from '../data/portfolio';

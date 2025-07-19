@@ -1,0 +1,41 @@
+BoltPortfolio
+|-project
+| |-public
+| | |-profile.jpg
+| | -src
+| | |-components
+| | | |-Blogs.tsx
+| | | |-BlogModal.tsx
+| | | |-Contact.tsx
+| | | |-Footer.tsx
+| | | |-Hero.tsx
+| | | |-Interests.tsx
+| | | |-Navigation.tsx
+| | | |-projects.tsx
+| | |-contexts
+| | | |-BlogContext.tsx
+| | | |-ThemeContext.tsx
+| | |-data
+| | | |-portfolio.ts(currently here is all the data stored for the blog like id, content, etc)
+| | |-pages
+| | | |-BlogsPage.tsx
+| | | |-HomePage.tsx
+| | | |-ProjectsPage.tsx
+| | |-types
+| | | |-index.ts
+| | |-App.tsx
+| | |-index.css
+| | |-main.tsx
+| | |-vite-end.d.ts
+| |-.gitignore
+|-eslint.config.js
+|-index.html
+|-package-lock.json
+|-package.json
+|-postcss.config.js
+|-tailwind.config.ts
+|-tsconfig.app.json
+|-tsconfig.json
+|-tsconfig.node.json
+|-vite.config.ts
+
