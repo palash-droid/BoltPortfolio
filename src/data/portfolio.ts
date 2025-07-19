@@ -91,6 +91,7 @@ export const projects: Project[] = [
 export const blogPosts: BlogPost[] = [
   {
     id: '1',
+    slug: 'getting-started-with-data-science-in-python',
     title: 'Getting Started with Data Science in Python',
     excerpt: 'A comprehensive guide to beginning your journey in data science using Python and essential libraries.',
     image: 'https://images.pexels.com/photos/1181298/pexels-photo-1181298.jpeg?auto=compress&cs=tinysrgb&w=500',
@@ -102,6 +103,7 @@ export const blogPosts: BlogPost[] = [
   },
   {
     id: '2',
+    slug: 'advanced-sql-techniques-for-data-analysis',
     title: 'Advanced SQL Techniques for Data Analysis',
     excerpt: 'Explore advanced SQL techniques that will elevate your data analysis skills and improve query performance.',
     image: 'https://images.pexels.com/photos/1181676/pexels-photo-1181676.jpeg?auto=compress&cs=tinysrgb&w=500',
@@ -113,6 +115,7 @@ export const blogPosts: BlogPost[] = [
   },
   {
     id: '3',
+    slug: 'building-interactive-dashboards-with-power-bi',
     title: 'Building Interactive Dashboards with Power BI',
     excerpt: 'Learn how to create compelling and interactive dashboards using Microsoft Power BI for business intelligence.',
     image: 'https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&cs=tinysrgb&w=500',
