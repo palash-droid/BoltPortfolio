@@ -27,7 +27,7 @@ const Hero = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left Column - Profile Picture */}
           <motion.div
-            className="flex justify-center -mt-24" // 👈 moved upward here
+            className="flex justify-center mt-8 lg:-mt-24"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
