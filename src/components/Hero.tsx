@@ -31,16 +31,12 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full animate-pulse"></div>
-              <div className="relative bg-white dark:bg-dark-900 rounded-full p-2">
-                <img
-                  src="./profile.jpg"
-                  alt="Palash Bhagwatkar"
-                  className="w-96 h-96 rounded-full object-cover border-4 border-white dark:border-dark-900"
-                />
-              </div>
-              <div className="absolute -inset-4 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full opacity-20 animate-float"></div>
+            <div className="relative animate-float">
+              <img
+                src="./profile.jpg"
+                alt="Palash Bhagwatkar"
+                className="w-96 h-96 rounded-full object-cover border-4 border-white dark:border-dark-900 shadow-lg animate-pulse"
+              />
             </div>
           </motion.div>
 

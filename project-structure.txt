@@ -1,11 +1,16 @@
 BoltPortfolio
 |-project
 | |-public
+| | |-blog-content
+| | | |-getting-started-data-science.md
+| | | |-react-hooks-deep-dive.md
+| | |-blog-image
 | | |-profile.jpg
 | | -src
 | | |-components
 | | | |-Blogs.tsx
 | | | |-BlogModal.tsx
+| | | |-certifications.tsx
 | | | |-Contact.tsx
 | | | |-Footer.tsx
 | | | |-Hero.tsx
@@ -23,6 +28,8 @@ BoltPortfolio
 | | | |-ProjectsPage.tsx
 | | |-types
 | | | |-index.ts
+| | |-utils
+| | | |-blogLoader.tsx
 | | |-App.tsx
 | | |-index.css
 | | |-main.tsx
@@ -39,3 +46,6 @@ BoltPortfolio
 |-tsconfig.node.json
 |-vite.config.ts
 
+To add new Blog Post:
+Step 1: Add a new json entry in src/data/portfolio.ts
+Step 2: Add New md file in public/blog-content
