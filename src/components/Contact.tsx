@@ -2,10 +2,8 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
-import emailjs from 'emailjs-com';
 import { contactInfo } from '../data/portfolio';
 import { ChevronUp } from 'lucide-react';
-
 
 const Contact = () => {
   const [ref, inView] = useInView({
@@ -36,20 +34,27 @@ const Contact = () => {
     setSubmitStatus('idle');
 
     try {
-      await emailjs.send(
-        'service_your_service_id', // Replace with your EmailJS service ID
-        'template_your_template_id', // Replace with your EmailJS template ID
-        {
-          from_name: formData.name,
-          from_email: formData.email,
+      const response = await fetch('https://formspree.io/f/mjkogrzv', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
           subject: formData.subject,
           message: formData.message,
-        },
-        'your_public_key' // Replace with your EmailJS public key
-      );
+          _subject: `New contact from ${formData.name}: ${formData.subject}`,
+        }),
+      });
 
-      setSubmitStatus('success');
-      setFormData({ name: '', email: '', subject: '', message: '' });
+      if (response.ok) {
+        setSubmitStatus('success');
+        setFormData({ name: '', email: '', subject: '', message: '' });
+      } else {
+        setSubmitStatus('error');
+      }
     } catch (error) {
       setSubmitStatus('error');
     } finally {
@@ -83,6 +88,16 @@ const Contact = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Hidden honeypot field for spam protection */}
+              <input
+                type="text"
+                name="_gotcha"
+                className="sr-only"
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+              />
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
