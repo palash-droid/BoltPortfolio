@@ -4,6 +4,7 @@ import { Clock, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useBlog } from '../contexts/BlogContext';
 import { blogPosts } from '../data/portfolio';
+import ScrollDownIndicator from './ScrollDownIndicator';
 
 const Blog = () => {
   const [ref, inView] = useInView({
@@ -15,7 +16,7 @@ const Blog = () => {
   const featuredPosts = blogPosts.filter(post => post.featured).slice(0, 3);
 
   return (
-    <section id="blogs" className="py-20 bg-white dark:bg-dark-900">
+    <section id="blogs" className="relative min-h-[100vh] py-20 bg-gray-50 dark:bg-dark-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
@@ -95,6 +96,10 @@ const Blog = () => {
             <ArrowRight className="h-5 w-5" />
           </Link>
         </motion.div>
+      </div>
+      {/* Optionally scroll to contact or top */}
+      <div className="flex justify-center mt-10">
+        <ScrollDownIndicator targetId="contact" />
       </div>
     </section>
   );

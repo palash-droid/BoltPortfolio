@@ -1,8 +1,8 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { Award, ExternalLink } from 'lucide-react';
 import { certifications } from '../data/portfolio';
+import ScrollDownIndicator from './ScrollDownIndicator';
 
 const Certifications = () => {
   const [ref, inView] = useInView({
@@ -11,7 +11,7 @@ const Certifications = () => {
   });
 
   return (
-    <section id="certifications" className="py-20 bg-gray-50 dark:bg-dark-800">
+    <section id="certifications" className="relative min-h-[100vh] py-20 bg-gray-50 dark:bg-dark-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
@@ -40,22 +40,22 @@ const Certifications = () => {
               <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-accent-500 to-accent-600 rounded-lg mb-4 group-hover:scale-110 transition-transform duration-300">
                 <Award className="h-6 w-6 text-white" />
               </div>
-              
+
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
                 {cert.title}
               </h3>
-              
+
               <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">
                 {cert.issuer}
               </p>
-              
+
               <p className="text-xs text-gray-500 dark:text-gray-400 mb-4">
-                Issued: {new Date(cert.issueDate).toLocaleDateString('en-US', { 
-                  year: 'numeric', 
-                  month: 'long' 
+                Issued: {new Date(cert.issueDate).toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'long'
                 })}
               </p>
-              
+
               {cert.verifyLink && (
                 <a
                   href={cert.verifyLink}
@@ -69,6 +69,11 @@ const Certifications = () => {
               )}
             </motion.div>
           ))}
+        </div>
+
+        {/* ✅ Scroll Indicator */}
+        <div className="flex justify-center mt-12">
+          <ScrollDownIndicator targetId="blogs" />
         </div>
       </div>
     </section>

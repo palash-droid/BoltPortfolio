@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ExternalLink, Github } from 'lucide-react';
@@ -6,7 +5,13 @@ import { projects } from '../data/portfolio';
 
 const ProjectsPage = () => {
   return (
-    <div className="min-h-screen pt-16 bg-white dark:bg-dark-900">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.4, ease: 'easeInOut' }}
+      className="min-h-screen pt-16 bg-white dark:bg-dark-900"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         {/* Header */}
         <motion.div
@@ -30,7 +35,7 @@ const ProjectsPage = () => {
             <ArrowLeft className="h-5 w-5" />
             Back to Projects
           </Link>
-          
+
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
             All Projects
           </h1>
@@ -64,16 +69,16 @@ const ProjectsPage = () => {
                   </div>
                 )}
               </div>
-              
+
               <div className="p-6">
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
                   {project.title}
                 </h3>
-                
+
                 <p className="text-gray-600 dark:text-gray-300 mb-4">
                   {project.description}
                 </p>
-                
+
                 <div className="flex flex-wrap gap-2 mb-4">
                   {project.technologies.map((tech, techIndex) => (
                     <span
@@ -84,7 +89,7 @@ const ProjectsPage = () => {
                     </span>
                   ))}
                 </div>
-                
+
                 <div className="flex gap-4">
                   {project.liveDemo && (
                     <a
@@ -138,7 +143,7 @@ const ProjectsPage = () => {
           </Link>
         </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

@@ -1,13 +1,20 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { Cloud, Brain, BarChart3, DivideIcon as LucideIcon } from 'lucide-react';
-import { interests } from '../data/portfolio';
-
-const iconMap: Record<string, LucideIcon> = {
+import {
   Cloud,
   Brain,
   BarChart3,
+  DivideIcon,
+  LucideIcon as LucideIconType,
+} from 'lucide-react';
+import { interests } from '../data/portfolio';
+import ScrollDownIndicator from './ScrollDownIndicator';
+
+const iconMap: Record<string, LucideIconType> = {
+  Cloud,
+  Brain,
+  BarChart3,
+  DivideIcon,
 };
 
 const Interests = () => {
@@ -17,7 +24,10 @@ const Interests = () => {
   });
 
   return (
-    <section id="interests" className="py-20 bg-gray-50 dark:bg-dark-800">
+    <section
+      id="interests"
+      className="relative min-h-[100vh] py-20 bg-gray-50 dark:bg-dark-800"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
@@ -48,11 +58,11 @@ const Interests = () => {
                 <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-lg mb-4 group-hover:scale-110 transition-transform duration-300">
                   <IconComponent className="h-6 w-6 text-white" />
                 </div>
-                
+
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
                   {interest.title}
                 </h3>
-                
+
                 <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
                   {interest.description}
                 </p>
@@ -60,6 +70,11 @@ const Interests = () => {
             );
           })}
         </div>
+      </div>
+
+      {/* Scroll Down Indicator to Projects */}
+      <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2">
+        <ScrollDownIndicator targetId="projects" />
       </div>
     </section>
   );

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Clock } from 'lucide-react';
@@ -9,7 +8,13 @@ const BlogsPage = () => {
   const { openBlog } = useBlog();
 
   return (
-    <div className="min-h-screen pt-16 bg-white dark:bg-dark-900">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.4, ease: 'easeInOut' }}
+      className="min-h-screen pt-16 bg-white dark:bg-dark-900"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         {/* Header */}
         <motion.div
@@ -33,7 +38,7 @@ const BlogsPage = () => {
             <ArrowLeft className="h-5 w-5" />
             Back to Blogs
           </Link>
-          
+
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
             All Articles
           </h1>
@@ -72,7 +77,7 @@ const BlogsPage = () => {
                   </div>
                 )}
               </div>
-              
+
               <div className="p-6">
                 <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-3">
                   <span>{new Date(post.publishDate).toLocaleDateString()}</span>
@@ -82,15 +87,15 @@ const BlogsPage = () => {
                     {post.readTime}
                   </div>
                 </div>
-                
+
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
                   {post.title}
                 </h3>
-                
+
                 <p className="text-gray-600 dark:text-gray-300 mb-4">
                   {post.excerpt}
                 </p>
-                
+
                 <button className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors duration-200 font-medium">
                   Read More →
                 </button>
@@ -123,7 +128,7 @@ const BlogsPage = () => {
           </Link>
         </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

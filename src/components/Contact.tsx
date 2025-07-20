@@ -4,6 +4,8 @@ import { useInView } from 'react-intersection-observer';
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
 import emailjs from 'emailjs-com';
 import { contactInfo } from '../data/portfolio';
+import ScrollToTopIndicator from './ScrollToTopIndicator';
+
 
 const Contact = () => {
   const [ref, inView] = useInView({
@@ -111,7 +113,7 @@ const Contact = () => {
                   />
                 </div>
               </div>
-              
+
               <div>
                 <label htmlFor="subject" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Subject
@@ -126,7 +128,7 @@ const Contact = () => {
                   className="w-full px-4 py-3 border border-gray-300 dark:border-dark-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-dark-900 text-gray-900 dark:text-white"
                 />
               </div>
-              
+
               <div>
                 <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Message
@@ -141,7 +143,7 @@ const Contact = () => {
                   className="w-full px-4 py-3 border border-gray-300 dark:border-dark-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-dark-900 text-gray-900 dark:text-white"
                 />
               </div>
-              
+
               <button
                 type="submit"
                 disabled={isSubmitting}
@@ -159,13 +161,13 @@ const Contact = () => {
                   </>
                 )}
               </button>
-              
+
               {submitStatus === 'success' && (
                 <p className="text-green-600 dark:text-green-400 text-center">
                   Message sent successfully! I'll get back to you soon.
                 </p>
               )}
-              
+
               {submitStatus === 'error' && (
                 <p className="text-red-600 dark:text-red-400 text-center">
                   There was an error sending your message. Please try again.
@@ -185,7 +187,7 @@ const Contact = () => {
               <h3 className="text-2xl font-semibold text-gray-900 dark:text-white mb-6">
                 Contact Information
               </h3>
-              
+
               <div className="space-y-6">
                 <div className="flex items-center gap-4">
                   <div className="flex items-center justify-center w-12 h-12 bg-primary-100 dark:bg-primary-900 rounded-lg">
@@ -196,7 +198,7 @@ const Contact = () => {
                     <p className="text-gray-900 dark:text-white font-medium">{contactInfo.email}</p>
                   </div>
                 </div>
-                
+
                 <div className="flex items-center gap-4">
                   <div className="flex items-center justify-center w-12 h-12 bg-secondary-100 dark:bg-secondary-900 rounded-lg">
                     <Phone className="h-6 w-6 text-secondary-600 dark:text-secondary-400" />
@@ -206,7 +208,7 @@ const Contact = () => {
                     <p className="text-gray-900 dark:text-white font-medium">{contactInfo.phone}</p>
                   </div>
                 </div>
-                
+
                 <div className="flex items-center gap-4">
                   <div className="flex items-center justify-center w-12 h-12 bg-accent-100 dark:bg-accent-900 rounded-lg">
                     <MapPin className="h-6 w-6 text-accent-600 dark:text-accent-400" />
@@ -220,6 +222,12 @@ const Contact = () => {
             </div>
           </motion.div>
         </div>
+
+        {/* Scroll to top indicator */}
+        <div className="flex justify-center mt-16">
+          <ScrollToTopIndicator />
+        </div>
+
       </div>
     </section>
   );

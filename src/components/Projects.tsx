@@ -1,9 +1,9 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { ExternalLink, Github, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { projects } from '../data/portfolio';
+import ScrollDownIndicator from './ScrollDownIndicator';
 
 const Projects = () => {
   const [ref, inView] = useInView({
@@ -14,7 +14,7 @@ const Projects = () => {
   const featuredProjects = projects.filter(project => project.featured);
 
   return (
-    <section id="projects" className="py-20 bg-white dark:bg-dark-900">
+    <section id="projects" className="relative min-h-[110vh] py-20 bg-white dark:bg-dark-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
@@ -48,16 +48,16 @@ const Projects = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
               </div>
-              
+
               <div className="p-5">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
                   {project.title}
                 </h3>
-                
+
                 <p className="text-sm text-gray-600 dark:text-gray-300 mb-3 line-clamp-2">
                   {project.description}
                 </p>
-                
+
                 <div className="flex flex-wrap gap-1 mb-3">
                   {project.technologies.map((tech, techIndex) => (
                     <span
@@ -68,7 +68,7 @@ const Projects = () => {
                     </span>
                   ))}
                 </div>
-                
+
                 <div className="flex gap-3">
                   {project.liveDemo && (
                     <a
@@ -112,6 +112,11 @@ const Projects = () => {
             <ArrowRight className="h-5 w-5" />
           </Link>
         </motion.div>
+      </div>
+
+      {/* ✅ Scroll Down Indicator - now outside max-w container */}
+      <div className="flex justify-center mt-10">
+        <ScrollDownIndicator targetId="certifications" />
       </div>
     </section>
   );
