@@ -31,14 +31,28 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <div className="relative animate-float">
-              <img
-                src="./profile.jpg"
-                alt="Palash Bhagwatkar"
-                className="w-96 h-96 rounded-full object-cover border-4 border-white dark:border-dark-900 shadow-lg animate-pulse"
-              />
+            <div className="relative w-72 h-72 sm:w-80 sm:h-80 md:w-96 md:h-96 animate-float">
+
+              {/* Glow pulse behind */}
+              <div className="absolute inset-0 rounded-full bg-primary-500 blur-2xl opacity-20 animate-pulse-slow z-0"></div>
+
+              {/* Optional hue-rotating border ring */}
+              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary-500 to-secondary-500 opacity-10 blur-sm animate-spin-slow z-0"></div>
+
+
+              {/* Image foreground */}
+              <div className="relative z-10 w-full h-full rounded-full overflow-hidden border-4 border-white dark:border-transparent">
+                <img
+                  src="./profile.jpg"
+                  alt="Palash Bhagwatkar"
+                  className="w-full h-full object-cover rounded-full"
+                />
+              </div>
+
             </div>
           </motion.div>
+
+
 
           {/* Right Column - Text Content and Interactive Elements */}
           <motion.div

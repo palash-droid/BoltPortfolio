@@ -60,6 +60,9 @@ export default {
         'fade-in': 'fade-in 0.5s ease-in-out',
         'slide-up': 'slide-up 0.5s ease-in-out',
         'gradient': 'gradient 15s ease infinite',
+        'pulse-slow': 'pulse-slow 5s ease-in-out infinite',
+        'spin-slow': 'spin 12s linear infinite',
+
       },
       keyframes: {
         float: {
@@ -87,9 +90,13 @@ export default {
             'background-size': '200% 200%',
             'background-position': 'right center'
           }
-        }
+        },
+        'pulse-slow': {
+          '0%, 100%': { opacity: '0.2', transform: 'scale(1)' },
+          '50%': { opacity: '0.4', transform: 'scale(1.05)' },
+        },
       }
-    },
+    }
   },
   plugins: [],
 };
