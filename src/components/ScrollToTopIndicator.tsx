@@ -1,4 +1,5 @@
 import { ChevronUp } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const ScrollToTopIndicator = () => {
     const handleScrollToTop = () => {
@@ -6,13 +7,22 @@ const ScrollToTopIndicator = () => {
     };
 
     return (
-        <button
-            onClick={handleScrollToTop}
-            className="flex items-center justify-center w-12 h-12 rounded-full bg-primary-500 hover:bg-primary-600 transition-all duration-300 shadow-md hover:shadow-lg"
-            aria-label="Scroll to top"
+        <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 1 }}
+            className="flex justify-center"
         >
-            <ChevronUp className="text-white h-6 w-6" />
-        </button>
+            <button
+                type="button" // ✅ Fix 1: explicitly declare button type
+                onClick={handleScrollToTop}
+                aria-label="Scroll to top" // ✅ Fix 2: for screen readers
+                title="Scroll to top"     // ✅ Fix 3: visible tooltip on hover
+                className="flex flex-col items-center text-gray-500 dark:text-gray-400 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200"
+            >
+                <ChevronUp className="h-6 w-6 animate-bounce mb-2" />
+            </button>
+        </motion.div>
     );
 };
 

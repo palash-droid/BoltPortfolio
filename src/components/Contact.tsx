@@ -4,7 +4,7 @@ import { useInView } from 'react-intersection-observer';
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
 import emailjs from 'emailjs-com';
 import { contactInfo } from '../data/portfolio';
-import ScrollToTopIndicator from './ScrollToTopIndicator';
+import { ChevronUp } from 'lucide-react';
 
 
 const Contact = () => {
@@ -224,9 +224,25 @@ const Contact = () => {
         </div>
 
         {/* Scroll to top indicator */}
-        <div className="flex justify-center mt-16">
-          <ScrollToTopIndicator />
-        </div>
+        <motion.div
+          className="mt-16 flex justify-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1 }}
+        >
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            type="button"
+            aria-label="Scroll to top"
+            title="Scroll to top"
+            className="flex flex-col items-center text-gray-500 dark:text-gray-400 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200"
+          >
+            <ChevronUp className="h-6 w-6 animate-bounce mb-2" />
+            <span className="text-sm">scroll to top</span>
+          </button>
+        </motion.div>
+
+
 
       </div>
     </section>
