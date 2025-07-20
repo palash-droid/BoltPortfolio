@@ -26,8 +26,9 @@ const Interests = () => {
   return (
     <section
       id="interests"
-      className="relative min-h-[100vh] py-20 bg-gray-50 dark:bg-dark-800"
+      className="relative min-h-[100vh] lg:min-h-[100vh] xl:min-h-[80vh] pt-20 pb-10 bg-gray-50 dark:bg-dark-800"
     >
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
@@ -71,6 +72,12 @@ const Interests = () => {
           })}
         </div>
       </div>
+
+      {/* <div className="text-center mt-12 lg:mt-20">
+        <p className="italic text-gray-500 dark:text-gray-400">
+          “Turning data into decisions.”
+        </p>
+      </div> */}
 
       {/* Scroll Down Indicator to Projects */}
       <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2">

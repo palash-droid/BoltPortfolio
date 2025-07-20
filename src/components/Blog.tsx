@@ -16,14 +16,14 @@ const Blog = () => {
   const featuredPosts = blogPosts.filter(post => post.featured).slice(0, 3);
 
   return (
-    <section id="blogs" className="relative min-h-[100vh] py-20 bg-gray-50 dark:bg-dark-900">
+    <section id="blogs" className="relative py-16 bg-gray-50 dark:bg-dark-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center mb-10"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
             Latest Blog Posts
@@ -33,7 +33,7 @@ const Blog = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8 max-w-5xl mx-auto">
           {featuredPosts.map((post, index) => (
             <motion.article
               key={post.id}
@@ -86,7 +86,7 @@ const Blog = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.8, delay: 0.5 }}
-          className="text-center"
+          className="text-center mb-6"
         >
           <Link
             to="/blogs"
@@ -96,10 +96,11 @@ const Blog = () => {
             <ArrowRight className="h-5 w-5" />
           </Link>
         </motion.div>
-      </div>
-      {/* Optionally scroll to contact or top */}
-      <div className="flex justify-center mt-10">
-        <ScrollDownIndicator targetId="contact" />
+
+        {/* Scroll indicator with proper spacing */}
+        <div className="flex justify-center pb-4">
+          <ScrollDownIndicator targetId="contact" />
+        </div>
       </div>
     </section>
   );

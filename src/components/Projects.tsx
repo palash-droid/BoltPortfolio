@@ -14,7 +14,7 @@ const Projects = () => {
   const featuredProjects = projects.filter(project => project.featured);
 
   return (
-    <section id="projects" className="relative min-h-[110vh] py-20 bg-white dark:bg-dark-900">
+    <section id="projects" className="relative min-h-[100vh] lg:min-h-[100vh] xl:min-h-[85vh] pt-20 pb-8 lg:pb-4 bg-white dark:bg-dark-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
@@ -23,15 +23,18 @@ const Projects = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-            Featured Projects
-          </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            A showcase of my best work in data analysis, visualization, and machine learning
-          </p>
+          <div className="text-center mb-4 lg:mb-6">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-2">
+              Featured Projects
+            </h2>
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+              A showcase of my best work in data analysis, visualization, and machine learning
+            </p>
+          </div>
+
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-6">
           {featuredProjects.map((project, index) => (
             <motion.div
               key={project.id}
@@ -102,7 +105,7 @@ const Projects = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.8, delay: 0.5 }}
-          className="text-center"
+          className="text-center mb-12"
         >
           <Link
             to="/projects"
@@ -114,8 +117,8 @@ const Projects = () => {
         </motion.div>
       </div>
 
-      {/* ✅ Scroll Down Indicator - now outside max-w container */}
-      <div className="flex justify-center mt-10">
+      {/* ✅ Fixed Scroll Down Indicator - proper spacing */}
+      <div className="flex justify-center mt-8">
         <ScrollDownIndicator targetId="certifications" />
       </div>
     </section>

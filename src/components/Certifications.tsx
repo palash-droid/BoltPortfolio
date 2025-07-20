@@ -11,14 +11,14 @@ const Certifications = () => {
   });
 
   return (
-    <section id="certifications" className="relative min-h-[100vh] py-20 bg-gray-50 dark:bg-dark-800">
+    <section id="certifications" className="relative py-16 bg-gray-50 dark:bg-dark-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
             Certifications & Achievements
@@ -28,7 +28,7 @@ const Certifications = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
           {certifications.map((cert, index) => (
             <motion.div
               key={cert.id}
@@ -71,8 +71,8 @@ const Certifications = () => {
           ))}
         </div>
 
-        {/* ✅ Scroll Indicator */}
-        <div className="flex justify-center mt-12">
+        {/* ✅ Scroll Indicator - with reduced spacing */}
+        <div className="flex justify-center">
           <ScrollDownIndicator targetId="blogs" />
         </div>
       </div>
