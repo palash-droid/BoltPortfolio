@@ -26,9 +26,8 @@ const Interests = () => {
   return (
     <section
       id="interests"
-      className="relative min-h-[100vh] lg:min-h-[100vh] xl:min-h-[80vh] pt-20 pb-10 bg-gray-50 dark:bg-dark-800"
+      className="relative min-h-[100vh] lg:min-h-[100vh] xl:min-h-[80vh] pt-20 pb-20 sm:pb-16 md:pb-10 bg-gray-50 dark:bg-dark-800"
     >
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
@@ -45,7 +44,7 @@ const Interests = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-16 sm:mb-12 md:mb-8">
           {interests.map((interest, index) => {
             const IconComponent = iconMap[interest.icon];
             return (
@@ -75,13 +74,15 @@ const Interests = () => {
 
       {/* <div className="text-center mt-12 lg:mt-20">
         <p className="italic text-gray-500 dark:text-gray-400">
-          “Turning data into decisions.”
+          "Turning data into decisions."
         </p>
       </div> */}
 
-      {/* Scroll Down Indicator to Projects */}
-      <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2">
-        <ScrollDownIndicator targetId="projects" />
+      {/* Scroll Down Indicator to Projects - Fixed for mobile */}
+      <div className="absolute bottom-6 w-full flex justify-center">
+        <div className="px-4">
+          <ScrollDownIndicator targetId="projects" />
+        </div>
       </div>
     </section>
   );

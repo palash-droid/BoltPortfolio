@@ -97,9 +97,11 @@ const Blog = () => {
           </Link>
         </motion.div>
 
-        {/* Scroll indicator with proper spacing */}
-        <div className="flex justify-center pb-4">
-          <ScrollDownIndicator targetId="contact" />
+        {/* Scroll indicator with improved mobile centering */}
+        <div className="w-full flex justify-center items-center pb-4 px-0">
+          <div className="flex justify-center w-full max-w-none">
+            <ScrollDownIndicator targetId="contact" />
+          </div>
         </div>
       </div>
     </section>

@@ -11,7 +11,7 @@ const Certifications = () => {
   });
 
   return (
-    <section id="certifications" className="relative py-16 bg-gray-50 dark:bg-dark-800">
+    <section id="certifications" className="relative py-16 pb-20 sm:pb-16 md:pb-16 bg-gray-50 dark:bg-dark-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
@@ -28,7 +28,7 @@ const Certifications = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16 sm:mb-12 md:mb-8">
           {certifications.map((cert, index) => (
             <motion.div
               key={cert.id}
@@ -70,9 +70,11 @@ const Certifications = () => {
             </motion.div>
           ))}
         </div>
+      </div>
 
-        {/* ✅ Scroll Indicator - with reduced spacing */}
-        <div className="flex justify-center">
+      {/* Scroll Down Indicator - Fixed for mobile */}
+      <div className="absolute bottom-6 w-full flex justify-center">
+        <div className="px-4">
           <ScrollDownIndicator targetId="blogs" />
         </div>
       </div>
