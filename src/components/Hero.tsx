@@ -1,6 +1,7 @@
 import { ChevronDown, Github, Linkedin } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { skills } from '../data/portfolio';
+import SkillsCarousel from './SkillsCarousel';
 
 const Hero = () => {
   const scrollToSection = (sectionId: string) => {
@@ -9,16 +10,6 @@ const Hero = () => {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
-
-  const skillsByCategory = skills.reduce((acc, skill) => {
-    if (!acc[skill.category]) {
-      acc[skill.category] = [];
-    }
-    acc[skill.category].push(skill.name);
-    return acc;
-  }, {} as Record<string, string[]>);
-
-  const allSkills = Object.values(skillsByCategory).flat();
 
   return (
     <section id="home" className="min-h-screen flex items-center justify-center pt-16">
@@ -39,7 +30,6 @@ const Hero = () => {
               {/* Optional hue-rotating border ring */}
               <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary-500 to-secondary-500 opacity-10 blur-sm animate-spin-slow z-0"></div>
 
-
               {/* Image foreground */}
               <div className="relative z-10 w-full h-full rounded-full overflow-hidden border-4 border-white dark:border-transparent">
                 <img
@@ -51,8 +41,6 @@ const Hero = () => {
 
             </div>
           </motion.div>
-
-
 
           {/* Right Column - Text Content and Interactive Elements */}
           <motion.div
@@ -91,25 +79,24 @@ const Hero = () => {
               </button>
             </div>
 
-            {/* Data Analyst Skills Subheading */}
+            {/* Data Analyst Skills Section */}
             <div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-                Data Analyst Skills
-              </h3>
-
-              {/* Auto-scrolling Skills Carousel */}
-              <div className="relative overflow-hidden">
-                <div className="flex animate-scroll">
-                  {[...allSkills, ...allSkills].map((skill, index) => (
-                    <span
-                      key={index}
-                      className="inline-block bg-gray-100 dark:bg-dark-800 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-full text-sm font-medium mr-3 whitespace-nowrap"
-                    >
-                      {skill}
-                    </span>
-                  ))}
+              <div className="flex items-center justify-center lg:justify-start mb-6">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                  Data Analyst Skills
+                </h3>
+                <div className="ml-3 flex items-center space-x-1">
+                  <div className="w-2 h-2 bg-primary-500 rounded-full animate-pulse"></div>
+                  <div className="w-2 h-2 bg-secondary-500 rounded-full animate-pulse pulse-delay-1"></div>
+                  <div className="w-2 h-2 bg-accent-500 rounded-full animate-pulse pulse-delay-2"></div>
                 </div>
               </div>
+
+              {/* Enhanced Skills Carousel */}
+              <SkillsCarousel
+                skills={skills}
+                className="mb-8"
+              />
 
               {/* Social Links */}
               <div className="flex gap-4 justify-center lg:justify-start mt-6">
@@ -133,7 +120,7 @@ const Hero = () => {
                 </a>
               </div>
 
-              {/* Scroll Indicator - moved here */}
+              {/* Scroll Indicator */}
               <motion.div
                 className="mt-10 flex justify-center lg:justify-start"
                 initial={{ opacity: 0, y: -20 }}

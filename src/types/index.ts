@@ -45,5 +45,6 @@ export interface Interest {
 export interface Skill {
   name: string;
   category: string;
-  // icons: string;
+  icon: string; // Added icon property
+  color?: string; // Optional color for the icon
 }
