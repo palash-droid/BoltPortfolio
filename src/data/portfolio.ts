@@ -93,7 +93,7 @@ export const blogPosts: BlogPost[] = [
     slug: 'getting-started-with-data-science-in-python',
     title: 'Getting Started with Data Science in Python',
     excerpt: 'A comprehensive guide to beginning your journey in data science using Python and essential libraries.',
-    image: 'https://images.pexels.com/photos/1181298/pexels-photo-1181298.jpeg?auto=compress&cs=tinysrgb&w=500',
+    image: './profile.jpg',
     category: 'python',
     publishDate: '2024-01-15',
     readTime: '5 min read',
