@@ -133,24 +133,67 @@ export const blogPosts: BlogPost[] = [
 export const certifications: Certification[] = [
   {
     id: '1',
-    title: 'AWS Solutions Architect',
-    issuer: 'Amazon Web Services',
-    issueDate: '2024-01-01',
-    verifyLink: 'https://aws.amazon.com/verification'
+    title: 'PCEP - Certified Entry-Level Python Programmer',
+    issuer: 'Python Institute',
+    issueDate: '2025-05-01',
+    verifyLink: 'https://verify.openedg.org/',
+    image: '/certifications/PCEP_certificate.jpg'
   },
   {
     id: '2',
     title: 'Google Data Analytics Professional',
     issuer: 'Google',
     issueDate: '2023-11-15',
-    verifyLink: 'https://coursera.org/verify/professional-cert'
+    verifyLink: 'https://coursera.org/verify/professional-cert',
+    image: 'https://images.pexels.com/photos/1181676/pexels-photo-1181676.jpeg?auto=compress&cs=tinysrgb&w=500'
   },
   {
     id: '3',
     title: 'Microsoft Power BI Data Analyst',
     issuer: 'Microsoft',
     issueDate: '2023-09-20',
-    verifyLink: 'https://learn.microsoft.com/credentials'
+    verifyLink: 'https://learn.microsoft.com/credentials',
+    image: 'https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&cs=tinysrgb&w=500'
+  },
+  {
+    id: '4',
+    title: 'AWS Certified Solutions Architect',
+    issuer: 'Amazon Web Services',
+    issueDate: '2023-08-15',
+    verifyLink: 'https://aws.amazon.com/verification',
+    image: 'https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg?auto=compress&cs=tinysrgb&w=500'
+  },
+  {
+    id: '5',
+    title: 'TensorFlow Developer Certificate',
+    issuer: 'Google',
+    issueDate: '2023-07-10',
+    verifyLink: 'https://developers.google.com/certification',
+    image: 'https://images.pexels.com/photos/1181676/pexels-photo-1181676.jpeg?auto=compress&cs=tinysrgb&w=500'
+  },
+  {
+    id: '6',
+    title: 'Tableau Desktop Specialist',
+    issuer: 'Tableau',
+    issueDate: '2023-06-25',
+    verifyLink: 'https://www.tableau.com/certification',
+    image: 'https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&cs=tinysrgb&w=500'
+  },
+  {
+    id: '7',
+    title: 'Docker Certified Associate',
+    issuer: 'Docker',
+    issueDate: '2023-05-12',
+    verifyLink: 'https://www.docker.com/certification',
+    image: 'https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg?auto=compress&cs=tinysrgb&w=500'
+  },
+  {
+    id: '8',
+    title: 'Scrum Master Certified',
+    issuer: 'Scrum Alliance',
+    issueDate: '2023-04-08',
+    verifyLink: 'https://www.scrumalliance.org/verify',
+    image: 'https://images.pexels.com/photos/1181676/pexels-photo-1181676.jpeg?auto=compress&cs=tinysrgb&w=500'
   }
 ];
 

@@ -17,6 +17,33 @@
     border: 0;
 }
 
+/* Hide scrollbar for certification scrollable container */
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    /* Internet Explorer 10+ */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+    /* Safari and Chrome */
+}
+
+/* Certification cards container - show exactly 3 cards */
+.certification-container {
+    width: calc(3 * 320px + 2 * 24px);
+    /* 3 cards * 320px width + 2 gaps * 24px */
+    max-width: 100%;
+}
+
+@media (max-width: 768px) {
+    .certification-container {
+        width: calc(2 * 280px + 1 * 24px);
+        /* 2 cards * 280px width + 1 gap * 24px on mobile */
+    }
+}
+
 /* Skills carousel animations and interactions */
 .skills-carousel {
     -webkit-mask: linear-gradient(90deg,

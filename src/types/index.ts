@@ -33,6 +33,7 @@ export interface Certification {
   issuer: string;
   issueDate: string;
   verifyLink?: string;
+  image?: string; // Optional image URL for the certification
 }
 
 export interface Interest {
