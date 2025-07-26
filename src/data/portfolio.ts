@@ -1,7 +1,6 @@
 import { Project, BlogPost, Certification, Interest, Skill } from '../types';
 
 export const skills: Skill[] = [
-  { name: 'Python', category: 'Programming' },
   { name: 'SQL', category: 'Database' },
   { name: 'Power BI', category: 'Visualization' },
   { name: 'Pandas', category: 'Data Science' },

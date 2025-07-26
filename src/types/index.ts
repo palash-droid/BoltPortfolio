@@ -45,4 +45,5 @@ export interface Interest {
 export interface Skill {
   name: string;
   category: string;
+  // icons: string;
 }
