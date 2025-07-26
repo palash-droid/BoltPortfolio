@@ -47,38 +47,46 @@ interface SkillsCarouselProps {
 const SkillsCarousel: React.FC<SkillsCarouselProps> = ({ skills, className = '' }) => {
     const [isPaused, setIsPaused] = useState(false);
     const [showTooltip, setShowTooltip] = useState<string | null>(null);
-    const carouselRef = useRef<HTMLDivElement>(null);
+    const [isManualScrolling, setIsManualScrolling] = useState(false);
+    const containerRef = useRef<HTMLDivElement>(null);
     const trackRef = useRef<HTMLDivElement>(null);
+    const animationRef = useRef<number>();
+    const positionRef = useRef(0);
 
-    // Double the skills array for seamless infinite scroll
-    const duplicatedSkills = [...skills, ...skills];
+    // Create multiple copies for seamless infinite scroll
+    const duplicatedSkills = [...skills, ...skills, ...skills, ...skills];
 
-    // Auto-scroll functionality
+    // Auto-scroll functionality with proper infinite scroll
     useEffect(() => {
         const track = trackRef.current;
-        if (!track || isPaused) return;
+        if (!track || isPaused || isManualScrolling) return;
 
-        const scrollSpeed = 1; // pixels per frame
-        let animationId: number;
+        const speed = 0.5; // pixels per frame
+        const skillWidth = 200; // approximate width of each skill item
+        const totalWidth = skills.length * skillWidth;
 
         const animate = () => {
-            if (!isPaused && track) {
-                const currentTransform = track.style.transform;
-                const translateX = currentTransform.match(/translateX\(([^)]+)\)/);
-                const currentX = translateX ? parseFloat(translateX[1]) : 0;
+            if (!isPaused && !isManualScrolling && track) {
+                positionRef.current -= speed;
 
-                // Reset position when halfway through
-                const resetPoint = -((skills.length * 200) / 2); // Approximate width per skill item
-                const newX = currentX <= resetPoint ? 0 : currentX - scrollSpeed;
+                // Reset position when we've scrolled through one complete set
+                if (positionRef.current <= -totalWidth) {
+                    positionRef.current = 0;
+                }
 
-                track.style.transform = `translateX(${newX}px)`;
+                track.style.transform = `translateX(${positionRef.current}px)`;
             }
-            animationId = requestAnimationFrame(animate);
+            animationRef.current = requestAnimationFrame(animate);
         };
 
-        animationId = requestAnimationFrame(animate);
-        return () => cancelAnimationFrame(animationId);
-    }, [isPaused, skills.length]);
+        animationRef.current = requestAnimationFrame(animate);
+
+        return () => {
+            if (animationRef.current) {
+                cancelAnimationFrame(animationRef.current);
+            }
+        };
+    }, [isPaused, isManualScrolling, skills.length]);
 
     const handleMouseEnter = () => {
         setIsPaused(true);
@@ -98,18 +106,40 @@ const SkillsCarousel: React.FC<SkillsCarouselProps> = ({ skills, className = '' 
     };
 
     const scrollCarousel = (direction: 'left' | 'right') => {
-        if (!carouselRef.current) return;
+        if (!trackRef.current) return;
+
+        // Pause auto-scroll during manual scrolling
+        setIsManualScrolling(true);
 
         const scrollAmount = 200;
-        const currentScroll = carouselRef.current.scrollLeft;
-        const targetScroll = direction === 'left'
-            ? currentScroll - scrollAmount
-            : currentScroll + scrollAmount;
+        const skillWidth = 200; // approximate width of each skill item
+        const totalWidth = skills.length * skillWidth;
 
-        carouselRef.current.scrollTo({
-            left: targetScroll,
-            behavior: 'smooth'
-        });
+        // Update the position reference
+        if (direction === 'left') {
+            positionRef.current += scrollAmount;
+        } else {
+            positionRef.current -= scrollAmount;
+        }
+
+        // Handle wrapping for infinite scroll
+        if (positionRef.current > 0) {
+            positionRef.current = -totalWidth + (positionRef.current % totalWidth);
+        } else if (positionRef.current <= -totalWidth) {
+            positionRef.current = positionRef.current % totalWidth;
+        }
+
+        // Apply the new position with smooth transition
+        trackRef.current.style.transition = 'transform 0.5s ease-in-out';
+        trackRef.current.style.transform = `translateX(${positionRef.current}px)`;
+
+        // Resume auto-scroll after transition completes
+        setTimeout(() => {
+            setIsManualScrolling(false);
+            if (trackRef.current) {
+                trackRef.current.style.transition = 'none';
+            }
+        }, 500);
     };
 
     const getIconComponent = (iconName: string) => {
@@ -137,15 +167,14 @@ const SkillsCarousel: React.FC<SkillsCarouselProps> = ({ skills, className = '' 
 
             {/* Carousel Container */}
             <div
-                ref={carouselRef}
-                className="skills-carousel relative overflow-hidden overflow-x-auto"
+                ref={containerRef}
+                className="skills-carousel relative overflow-hidden"
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
-                style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
             >
                 <div
                     ref={trackRef}
-                    className="flex transition-none"
+                    className="flex"
                     style={{ width: 'fit-content' }}
                 >
                     {duplicatedSkills.map((skill, index) => {
@@ -179,8 +208,7 @@ const SkillsCarousel: React.FC<SkillsCarouselProps> = ({ skills, className = '' 
 
                                 {/* Tooltip */}
                                 <div
-                                    className={`tooltip absolute -top-16 left-1/2 -translate-x-1/2 px-3 py-2 bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 text-xs rounded-lg shadow-lg whitespace-nowrap ${isShowingTooltip ? 'opacity-100 visible translate-y-0' : ''
-                                        }`}
+                                    className={`tooltip absolute -top-16 left-1/2 -translate-x-1/2 px-3 py-2 bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 text-xs rounded-lg shadow-lg whitespace-nowrap ${isShowingTooltip ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible translate-y-2'}`}
                                 >
                                     <div className="font-medium">{skill.name}</div>
                                     <div className="text-gray-300 dark:text-gray-600 text-xs">{skill.category}</div>
@@ -198,8 +226,7 @@ const SkillsCarousel: React.FC<SkillsCarouselProps> = ({ skills, className = '' 
                 {skills.slice(0, 5).map((_, index) => (
                     <div
                         key={index}
-                        className={`h-1 w-8 rounded-full transition-all duration-300 ${isPaused ? 'bg-primary-300' : 'bg-primary-500'
-                            }`}
+                        className={`h-1 w-8 rounded-full transition-all duration-300 ${isPaused || isManualScrolling ? 'bg-primary-300' : 'bg-primary-500'}`}
                     />
                 ))}
             </div>

@@ -80,7 +80,7 @@ const Contact = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
           {/* Contact Form */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -238,23 +238,21 @@ const Contact = () => {
           </motion.div>
         </div>
 
-        {/* Scroll to top indicator with improved mobile centering */}
-        <div className="mt-16 w-full flex justify-center items-center px-0">
-          <div className="flex justify-center w-full max-w-none">
-            <motion.button
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              type="button"
-              aria-label="Scroll to top"
-              title="Scroll to top"
-              className="flex flex-col items-center text-gray-500 dark:text-gray-400 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1 }}
-            >
-              <ChevronUp className="h-6 w-6 animate-bounce mb-2" />
-              <span className="text-sm">scroll to top</span>
-            </motion.button>
-          </div>
+        {/* Scroll to top indicator */}
+        <div className="flex justify-center">
+          <motion.button
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            type="button"
+            aria-label="Scroll to top"
+            title="Scroll to top"
+            className="flex flex-col items-center text-gray-500 dark:text-gray-400 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 1 }}
+          >
+            <ChevronUp className="h-6 w-6 animate-bounce mb-2" />
+            <span className="text-sm">scroll to top</span>
+          </motion.button>
         </div>
       </div>
     </section>

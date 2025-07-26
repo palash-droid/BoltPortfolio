@@ -4,6 +4,23 @@ import { ArrowLeft, ExternalLink, Github } from 'lucide-react';
 import { projects } from '../data/portfolio';
 
 const ProjectsPage = () => {
+  const scrollToProjectsSection = () => {
+    // Navigate to home page and then scroll to projects section
+    setTimeout(() => {
+      // Try multiple times to ensure the element is available
+      const attemptScroll = (attempts = 0) => {
+        const element = document.getElementById('projects');
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        } else if (attempts < 10) {
+          // Retry after 100ms if element not found
+          setTimeout(() => attemptScroll(attempts + 1), 100);
+        }
+      };
+      attemptScroll();
+    }, 500); // Increased timeout to ensure page loads properly
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -22,14 +39,7 @@ const ProjectsPage = () => {
         >
           <Link
             to="/"
-            onClick={() => {
-              setTimeout(() => {
-                const element = document.getElementById('projects');
-                if (element) {
-                  element.scrollIntoView({ behavior: 'smooth' });
-                }
-              }, 100);
-            }}
+            onClick={scrollToProjectsSection}
             className="inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors duration-200 mb-8 cursor-pointer"
           >
             <ArrowLeft className="h-5 w-5" />
@@ -128,14 +138,7 @@ const ProjectsPage = () => {
         >
           <Link
             to="/"
-            onClick={() => {
-              setTimeout(() => {
-                const element = document.getElementById('projects');
-                if (element) {
-                  element.scrollIntoView({ behavior: 'smooth' });
-                }
-              }, 100);
-            }}
+            onClick={scrollToProjectsSection}
             className="inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors duration-200 cursor-pointer"
           >
             <ArrowLeft className="h-5 w-5" />

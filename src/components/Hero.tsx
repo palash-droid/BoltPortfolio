@@ -1,7 +1,6 @@
 import { ChevronDown, Github, Linkedin } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { skills } from '../data/portfolio';
-import SkillsCarousel from './SkillsCarousel';
+import ScrollDownIndicator from './ScrollDownIndicator';
 
 const Hero = () => {
   const scrollToSection = (sectionId: string) => {
@@ -79,63 +78,43 @@ const Hero = () => {
               </button>
             </div>
 
-            {/* Data Analyst Skills Section */}
-            <div>
-              <div className="flex items-center justify-center lg:justify-start mb-6">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                  Data Analyst Skills
-                </h3>
-                <div className="ml-3 flex items-center space-x-1">
-                  <div className="w-2 h-2 bg-primary-500 rounded-full animate-pulse"></div>
-                  <div className="w-2 h-2 bg-secondary-500 rounded-full animate-pulse pulse-delay-1"></div>
-                  <div className="w-2 h-2 bg-accent-500 rounded-full animate-pulse pulse-delay-2"></div>
-                </div>
-              </div>
-
-              {/* Enhanced Skills Carousel */}
-              <SkillsCarousel
-                skills={skills}
-                className="mb-8"
-              />
-
-              {/* Social Links */}
-              <div className="flex gap-4 justify-center lg:justify-start mt-6">
-                <a
-                  href="https://github.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label='GitHub'
-                  className="p-3 bg-gray-100 dark:bg-dark-800 rounded-lg hover:bg-gray-200 dark:hover:bg-dark-700 transition-colors duration-200 group"
-                >
-                  <Github className="h-6 w-6 text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
-                </a>
-                <a
-                  href="https://linkedin.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label='Linkedin'
-                  className="p-3 bg-gray-100 dark:bg-dark-800 rounded-lg hover:bg-gray-200 dark:hover:bg-dark-700 transition-colors duration-200 group"
-                >
-                  <Linkedin className="h-6 w-6 text-gray-600 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400" />
-                </a>
-              </div>
-
-              {/* Scroll Indicator */}
-              <motion.div
-                className="mt-10 flex justify-center lg:justify-start"
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 1 }}
+            {/* Social Links */}
+            <div className="flex gap-4 justify-center lg:justify-start mt-6">
+              <a
+                href="https://github.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label='GitHub'
+                className="p-3 bg-gray-100 dark:bg-dark-800 rounded-lg hover:bg-gray-200 dark:hover:bg-dark-700 transition-colors duration-200 group"
               >
-                <button
-                  onClick={() => scrollToSection('interests')}
-                  className="flex flex-col items-center text-gray-500 dark:text-gray-400 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200"
-                >
-                  <span className="text-sm mb-2">Scroll Down</span>
-                  <ChevronDown className="h-6 w-6 animate-bounce" />
-                </button>
-              </motion.div>
+                <Github className="h-6 w-6 text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
+              </a>
+              <a
+                href="https://linkedin.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label='Linkedin'
+                className="p-3 bg-gray-100 dark:bg-dark-800 rounded-lg hover:bg-gray-200 dark:hover:bg-dark-700 transition-colors duration-200 group"
+              >
+                <Linkedin className="h-6 w-6 text-gray-600 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400" />
+              </a>
             </div>
+
+            {/* Scroll Indicator */}
+            <motion.div
+              className="mt-10 flex justify-center lg:justify-start"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 1 }}
+            >
+              <button
+                onClick={() => scrollToSection('interests')}
+                className="flex flex-col items-center text-gray-500 dark:text-gray-400 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200"
+              >
+                <span className="text-sm mb-2">Scroll Down</span>
+                <ChevronDown className="h-6 w-6 animate-bounce" />
+              </button>
+            </motion.div>
           </motion.div>
         </div>
       </div>

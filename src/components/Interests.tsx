@@ -7,7 +7,8 @@ import {
   DivideIcon,
   LucideIcon as LucideIconType,
 } from 'lucide-react';
-import { interests } from '../data/portfolio';
+import { interests, skills } from '../data/portfolio';
+import SkillsCarousel from './SkillsCarousel';
 import ScrollDownIndicator from './ScrollDownIndicator';
 
 const iconMap: Record<string, LucideIconType> = {
@@ -26,14 +27,96 @@ const Interests = () => {
   return (
     <section
       id="interests"
-      className="relative min-h-[100vh] lg:min-h-[100vh] xl:min-h-[80vh] pt-20 pb-20 sm:pb-16 md:pb-10 bg-gray-50 dark:bg-dark-800"
+      className="relative py-20 bg-gray-50 dark:bg-dark-800"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Skills Carousel Section with Animated Heading - Moved to top */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.8 }}
+          className="mb-20"
+        >
+          {/* Animated Skills Heading */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-center mb-12"
+          >
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4"
+            >
+              Technical Skills & Expertise
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto"
+            >
+              A comprehensive toolkit of technologies and tools I use to transform data into actionable insights
+            </motion.p>
+
+            {/* Animated decorative elements */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0 }}
+              animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
+              transition={{ duration: 0.6, delay: 0.8 }}
+              className="flex justify-center items-center space-x-2 mt-4"
+            >
+              <motion.div
+                animate={{
+                  scale: [1, 1.2, 1],
+                  opacity: [0.5, 1, 0.5]
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  delay: 0
+                }}
+                className="w-2 h-2 bg-primary-500 rounded-full"
+              />
+              <motion.div
+                animate={{
+                  scale: [1, 1.2, 1],
+                  opacity: [0.5, 1, 0.5]
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  delay: 0.3
+                }}
+                className="w-2 h-2 bg-secondary-500 rounded-full"
+              />
+              <motion.div
+                animate={{
+                  scale: [1, 1.2, 1],
+                  opacity: [0.5, 1, 0.5]
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  delay: 0.6
+                }}
+                className="w-2 h-2 bg-accent-500 rounded-full"
+              />
+            </motion.div>
+          </motion.div>
+
+          {/* Skills Carousel */}
+          <SkillsCarousel skills={skills} className="w-full" />
+        </motion.div>
+
+        {/* Areas of Interest Section */}
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
@@ -44,7 +127,7 @@ const Interests = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-16 sm:mb-12 md:mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-16">
           {interests.map((interest, index) => {
             const IconComponent = iconMap[interest.icon];
             return (
@@ -70,17 +153,9 @@ const Interests = () => {
             );
           })}
         </div>
-      </div>
 
-      {/* <div className="text-center mt-12 lg:mt-20">
-        <p className="italic text-gray-500 dark:text-gray-400">
-          "Turning data into decisions."
-        </p>
-      </div> */}
-
-      {/* Scroll Down Indicator to Projects - Fixed for mobile */}
-      <div className="absolute bottom-6 w-full flex justify-center">
-        <div className="px-4">
+        {/* Scroll Down Indicator */}
+        <div className="flex justify-center">
           <ScrollDownIndicator targetId="projects" />
         </div>
       </div>

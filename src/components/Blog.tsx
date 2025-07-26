@@ -16,14 +16,14 @@ const Blog = () => {
   const featuredPosts = blogPosts.filter(post => post.featured).slice(0, 3);
 
   return (
-    <section id="blogs" className="relative py-16 bg-gray-50 dark:bg-dark-900">
+    <section id="blogs" className="relative py-20 bg-gray-50 dark:bg-dark-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-10"
+          className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
             Latest Blog Posts
@@ -33,7 +33,7 @@ const Blog = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16 max-w-5xl mx-auto">
           {featuredPosts.map((post, index) => (
             <motion.article
               key={post.id}
@@ -86,10 +86,14 @@ const Blog = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.8, delay: 0.5 }}
-          className="text-center mb-6"
+          className="text-center mb-16"
         >
           <Link
             to="/blogs"
+            onClick={() => {
+              // Scroll to top of the page when navigating
+              window.scrollTo(0, 0);
+            }}
             className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-secondary-500 to-secondary-600 text-white rounded-lg font-semibold hover:from-secondary-600 hover:to-secondary-700 transition-all duration-300 shadow-lg hover:shadow-xl"
           >
             Read All Articles
@@ -97,11 +101,9 @@ const Blog = () => {
           </Link>
         </motion.div>
 
-        {/* Scroll indicator with improved mobile centering */}
-        <div className="w-full flex justify-center items-center pb-4 px-0">
-          <div className="flex justify-center w-full max-w-none">
-            <ScrollDownIndicator targetId="contact" />
-          </div>
+        {/* Scroll indicator */}
+        <div className="flex justify-center">
+          <ScrollDownIndicator targetId="contact" />
         </div>
       </div>
     </section>

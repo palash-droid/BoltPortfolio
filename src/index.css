@@ -48,6 +48,67 @@
     transform: rotate(10deg) scale(1.1);
 }
 
+/* Apply skill colors to icons */
+.skill-icon[data-color="#FF6B6B"] svg {
+    color: #FF6B6B;
+}
+
+.skill-icon[data-color="#FFD93D"] svg {
+    color: #FFD93D;
+}
+
+.skill-icon[data-color="#6BCF7F"] svg {
+    color: #6BCF7F;
+}
+
+.skill-icon[data-color="#4D96FF"] svg {
+    color: #4D96FF;
+}
+
+.skill-icon[data-color="#9B59B6"] svg {
+    color: #9B59B6;
+}
+
+.skill-icon[data-color="#FF8C42"] svg {
+    color: #FF8C42;
+}
+
+.skill-icon[data-color="#26D0CE"] svg {
+    color: #26D0CE;
+}
+
+.skill-icon[data-color="#FF6B35"] svg {
+    color: #FF6B35;
+}
+
+.skill-icon[data-color="#1B9AAA"] svg {
+    color: #1B9AAA;
+}
+
+.skill-icon[data-color="#2ECC71"] svg {
+    color: #2ECC71;
+}
+
+.skill-icon[data-color="#E74C3C"] svg {
+    color: #E74C3C;
+}
+
+.skill-icon[data-color="#3776AB"] svg {
+    color: #3776AB;
+}
+
+.skill-icon[data-color="#F39C12"] svg {
+    color: #F39C12;
+}
+
+.skill-icon[data-color="#FF9500"] svg {
+    color: #FF9500;
+}
+
+.skill-icon[data-color="#0DB7ED"] svg {
+    color: #0DB7ED;
+}
+
 /* Tooltip styles */
 .tooltip {
     opacity: 0;
@@ -73,8 +134,6 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
-
-
 
 /* Navigation arrows */
 .carousel-nav {
