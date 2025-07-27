@@ -30,7 +30,7 @@
     /* Safari and Chrome */
 }
 
-/* Certification cards container - show exactly 3 cards */
+/* Certification cards container - show exactly 3 cards on desktop, 1 on mobile */
 .certification-container {
     width: calc(3 * 320px + 2 * 24px);
     /* 3 cards * 320px width + 2 gaps * 24px */
@@ -39,18 +39,36 @@
 
 @media (max-width: 768px) {
     .certification-container {
-        width: 100%;
-        /* Full width on mobile to allow proper scrolling */
+        width: calc(1 * 288px);
+        /* 1 card * 288px width on mobile */
+    }
+}
+
+/* Ensure proper card sizing */
+.certification-card {
+    flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+    .certification-card {
+        width: 288px !important;
+        /* Force mobile width */
+    }
+}
+
+@media (min-width: 769px) {
+    .certification-card {
+        width: 320px !important;
+        /* Force desktop width */
     }
 }
 
 /* Mobile certification card styling */
 @media (max-width: 768px) {
     .certification-card-mobile {
-        min-width: 288px;
-        /* w-72 */
-        max-width: calc(100vw - 2rem);
-        /* Account for container padding */
+        width: 288px;
+        /* w-72 - fixed width */
+        flex-shrink: 0;
     }
 }
 

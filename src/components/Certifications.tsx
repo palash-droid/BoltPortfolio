@@ -113,7 +113,7 @@ const Certifications = () => {
             <div className="flex-1 overflow-hidden">
               <div
                 ref={scrollContainerRef}
-                className="flex gap-4 md:gap-6 overflow-x-auto scrollbar-hide"
+                className="flex gap-4 md:gap-6 overflow-x-auto scrollbar-hide certification-container"
                 style={{
                   scrollbarWidth: 'none',
                   msOverflowStyle: 'none'
@@ -125,7 +125,7 @@ const Certifications = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                     transition={{ duration: 0.8, delay: index * 0.1 }}
-                    className="flex-shrink-0 w-72 md:w-80 bg-white dark:bg-dark-900 rounded-xl p-4 md:p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group certification-card-mobile"
+                    className="flex-shrink-0 w-72 md:w-80 bg-white dark:bg-dark-900 rounded-xl p-4 md:p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group certification-card"
                   >
                     <div className="flex items-center justify-center w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-accent-500 to-accent-600 rounded-lg mb-4 group-hover:scale-110 transition-transform duration-300">
                       <Award className="h-5 w-5 md:h-6 md:w-6 text-white" />
