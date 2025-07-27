@@ -36,15 +36,11 @@ const Certifications = () => {
 
   const scrollLeft = () => {
     if (scrollContainerRef.current) {
-      const isSmallMobile = window.innerWidth < 480;
       const isMobile = window.innerWidth < 768;
 
       let cardWidth, gap;
-      if (isSmallMobile) {
-        cardWidth = 256; // w-64
-        gap = 16;
-      } else if (isMobile) {
-        cardWidth = 256; // w-64 on mobile
+      if (isMobile) {
+        cardWidth = 280; // Single card width on mobile
         gap = 16;
       } else {
         cardWidth = 320; // w-80 on desktop
@@ -62,15 +58,11 @@ const Certifications = () => {
 
   const scrollRight = () => {
     if (scrollContainerRef.current) {
-      const isSmallMobile = window.innerWidth < 480;
       const isMobile = window.innerWidth < 768;
 
       let cardWidth, gap;
-      if (isSmallMobile) {
-        cardWidth = 256; // w-64
-        gap = 16;
-      } else if (isMobile) {
-        cardWidth = 256; // w-64 on mobile
+      if (isMobile) {
+        cardWidth = 280; // Single card width on mobile
         gap = 16;
       } else {
         cardWidth = 320; // w-80 on desktop
@@ -133,7 +125,7 @@ const Certifications = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                     transition={{ duration: 0.8, delay: index * 0.1 }}
-                    className="flex-shrink-0 w-64 sm:w-70 md:w-80 bg-white dark:bg-dark-900 rounded-xl p-4 md:p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group"
+                    className="flex-shrink-0 w-70 md:w-80 bg-white dark:bg-dark-900 rounded-xl p-4 md:p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group"
                   >
                     <div className="flex items-center justify-center w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-accent-500 to-accent-600 rounded-lg mb-4 group-hover:scale-110 transition-transform duration-300">
                       <Award className="h-5 w-5 md:h-6 md:w-6 text-white" />
