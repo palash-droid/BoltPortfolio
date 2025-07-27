@@ -36,9 +36,21 @@ const Certifications = () => {
 
   const scrollLeft = () => {
     if (scrollContainerRef.current) {
+      const isSmallMobile = window.innerWidth < 480;
       const isMobile = window.innerWidth < 768;
-      const cardWidth = isMobile ? 280 : 320; // Smaller cards on mobile
-      const gap = 24; // Gap between cards
+
+      let cardWidth, gap;
+      if (isSmallMobile) {
+        cardWidth = 256; // w-64
+        gap = 16;
+      } else if (isMobile) {
+        cardWidth = 256; // w-64 on mobile
+        gap = 16;
+      } else {
+        cardWidth = 320; // w-80 on desktop
+        gap = 24;
+      }
+
       const scrollAmount = cardWidth + gap;
 
       scrollContainerRef.current.scrollBy({
@@ -50,9 +62,21 @@ const Certifications = () => {
 
   const scrollRight = () => {
     if (scrollContainerRef.current) {
+      const isSmallMobile = window.innerWidth < 480;
       const isMobile = window.innerWidth < 768;
-      const cardWidth = isMobile ? 280 : 320; // Smaller cards on mobile
-      const gap = 24; // Gap between cards
+
+      let cardWidth, gap;
+      if (isSmallMobile) {
+        cardWidth = 256; // w-64
+        gap = 16;
+      } else if (isMobile) {
+        cardWidth = 256; // w-64 on mobile
+        gap = 16;
+      } else {
+        cardWidth = 320; // w-80 on desktop
+        gap = 24;
+      }
+
       const scrollAmount = cardWidth + gap;
 
       scrollContainerRef.current.scrollBy({
