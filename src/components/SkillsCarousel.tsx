@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import {
     ChevronLeft,
     ChevronRight,
@@ -52,6 +52,8 @@ const SkillsCarousel: React.FC<SkillsCarouselProps> = ({ skills, className = '' 
     const trackRef = useRef<HTMLDivElement>(null);
     const animationRef = useRef<number>();
     const positionRef = useRef(0);
+    const scrollTimeoutRef = useRef<number>();
+    const isScrollingRef = useRef(false);
 
     // Create multiple copies for seamless infinite scroll
     const duplicatedSkills = [...skills, ...skills, ...skills, ...skills];
@@ -105,42 +107,54 @@ const SkillsCarousel: React.FC<SkillsCarouselProps> = ({ skills, className = '' 
         setShowTooltip(null);
     };
 
-    const scrollCarousel = (direction: 'left' | 'right') => {
-        if (!trackRef.current) return;
+    // Debounced scroll function to prevent rapid clicking issues
+    const scrollCarousel = useCallback((direction: 'left' | 'right') => {
+        if (!trackRef.current || isScrollingRef.current) return;
 
-        // Pause auto-scroll during manual scrolling
+        // Prevent multiple rapid clicks
+        isScrollingRef.current = true;
         setIsManualScrolling(true);
+
+        // Clear any existing timeout
+        if (scrollTimeoutRef.current) {
+            clearTimeout(scrollTimeoutRef.current);
+        }
 
         const scrollAmount = 200;
         const skillWidth = 200; // approximate width of each skill item
         const totalWidth = skills.length * skillWidth;
 
-        // Update the position reference
+        // Calculate new position
+        let newPosition = positionRef.current;
         if (direction === 'left') {
-            positionRef.current += scrollAmount;
+            newPosition += scrollAmount;
         } else {
-            positionRef.current -= scrollAmount;
+            newPosition -= scrollAmount;
         }
 
-        // Handle wrapping for infinite scroll
-        if (positionRef.current > 0) {
-            positionRef.current = -totalWidth + (positionRef.current % totalWidth);
-        } else if (positionRef.current <= -totalWidth) {
-            positionRef.current = positionRef.current % totalWidth;
+        // Handle infinite scroll wrapping
+        if (newPosition > 0) {
+            newPosition = -totalWidth + (newPosition % totalWidth);
+        } else if (newPosition <= -totalWidth) {
+            newPosition = newPosition % totalWidth;
         }
 
-        // Apply the new position with smooth transition
-        trackRef.current.style.transition = 'transform 0.5s ease-in-out';
-        trackRef.current.style.transform = `translateX(${positionRef.current}px)`;
+        // Update position reference
+        positionRef.current = newPosition;
 
-        // Resume auto-scroll after transition completes
-        setTimeout(() => {
+        // Apply smooth transition
+        trackRef.current.style.transition = 'transform 0.3s ease-out';
+        trackRef.current.style.transform = `translateX(${newPosition}px)`;
+
+        // Resume auto-scroll after transition
+        scrollTimeoutRef.current = setTimeout(() => {
             setIsManualScrolling(false);
+            isScrollingRef.current = false;
             if (trackRef.current) {
                 trackRef.current.style.transition = 'none';
             }
-        }, 500);
-    };
+        }, 300);
+    }, [skills.length]);
 
     const getIconComponent = (iconName: string) => {
         return iconMap[iconName as keyof typeof iconMap] || Code;

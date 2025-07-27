@@ -127,7 +127,7 @@ const Interests = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 mb-16">
           {interests.map((interest, index) => {
             const IconComponent = iconMap[interest.icon];
             return (
@@ -136,17 +136,17 @@ const Interests = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 transition={{ duration: 0.8, delay: index * 0.1 }}
-                className="bg-white dark:bg-dark-900 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group"
+                className="bg-white dark:bg-dark-900 rounded-xl p-4 md:p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group"
               >
-                <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-lg mb-4 group-hover:scale-110 transition-transform duration-300">
-                  <IconComponent className="h-6 w-6 text-white" />
+                <div className="flex items-center justify-center w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-lg mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <IconComponent className="h-5 w-5 md:h-6 md:w-6 text-white" />
                 </div>
 
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
+                <h3 className="text-base md:text-lg font-semibold text-gray-900 dark:text-white mb-3">
                   {interest.title}
                 </h3>
 
-                <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+                <p className="text-xs md:text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
                   {interest.description}
                 </p>
               </motion.div>
