@@ -4,6 +4,13 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Prevent horizontal overflow globally */
+html,
+body {
+    overflow-x: hidden;
+    max-width: 100vw;
+}
+
 /* Custom utility classes */
 .sr-only {
     position: absolute;
@@ -30,17 +37,20 @@
     /* Safari and Chrome */
 }
 
-/* Certification cards container - show exactly 3 cards on desktop, 1 on mobile */
+/* Certification cards container - responsive width */
 .certification-container {
-    width: calc(3 * 320px + 2 * 24px);
+    width: 100%;
+    max-width: calc(3 * 320px + 2 * 24px);
     /* 3 cards * 320px width + 2 gaps * 24px */
-    max-width: 100%;
 }
 
 @media (max-width: 768px) {
     .certification-container {
-        width: calc(1 * 288px);
-        /* 1 card * 288px width on mobile */
+        width: 100vw;
+        max-width: 100vw;
+        /* Full viewport width on mobile */
+        margin-left: calc(-50vw + 50%);
+        /* Center the container */
     }
 }
 
@@ -51,8 +61,10 @@
 
 @media (max-width: 768px) {
     .certification-card {
-        width: 288px !important;
-        /* Force mobile width */
+        width: calc(100vw - 2rem) !important;
+        /* Full viewport width minus padding */
+        max-width: 320px;
+        /* Maximum card width */
     }
 }
 
@@ -69,6 +81,16 @@
         width: 288px;
         /* w-72 - fixed width */
         flex-shrink: 0;
+    }
+}
+
+/* Mobile container centering */
+@media (max-width: 768px) {
+    .certification-container {
+        display: flex;
+        justify-content: center;
+        padding-left: 1rem;
+        padding-right: 1rem;
     }
 }
 

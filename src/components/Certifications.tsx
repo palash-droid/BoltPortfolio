@@ -40,7 +40,7 @@ const Certifications = () => {
 
       let cardWidth, gap;
       if (isMobile) {
-        cardWidth = 288; // w-72 (288px) on mobile
+        cardWidth = Math.min(window.innerWidth - 32, 320); // Responsive width with max 320px
         gap = 16;
       } else {
         cardWidth = 320; // w-80 on desktop
@@ -62,7 +62,7 @@ const Certifications = () => {
 
       let cardWidth, gap;
       if (isMobile) {
-        cardWidth = 288; // w-72 (288px) on mobile
+        cardWidth = Math.min(window.innerWidth - 32, 320); // Responsive width with max 320px
         gap = 16;
       } else {
         cardWidth = 320; // w-80 on desktop
@@ -79,7 +79,7 @@ const Certifications = () => {
   };
 
   return (
-    <section id="certifications" className="relative py-20 bg-gray-50 dark:bg-dark-800">
+    <section id="certifications" className="relative py-20 bg-gray-50 dark:bg-dark-800 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
@@ -97,13 +97,13 @@ const Certifications = () => {
         </motion.div>
 
         {/* Scrollable Container with Navigation */}
-        <div className="relative mb-16">
+        <div className="relative mb-16 overflow-hidden">
           {/* Container with padding for navigation buttons */}
           <div className="flex items-center">
             {/* Left Navigation Button */}
             <button
               onClick={scrollLeft}
-              className="flex-shrink-0 mr-4 bg-white dark:bg-dark-900 rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 border border-gray-200 dark:border-gray-700 hidden md:flex"
+              className="flex-shrink-0 mr-2 md:mr-4 bg-white dark:bg-dark-900 rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 border border-gray-200 dark:border-gray-700 hidden md:flex"
               aria-label="Scroll left"
             >
               <ChevronLeft className="h-6 w-6 text-gray-600 dark:text-gray-300" />
@@ -125,7 +125,7 @@ const Certifications = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                     transition={{ duration: 0.8, delay: index * 0.1 }}
-                    className="flex-shrink-0 w-72 md:w-80 bg-white dark:bg-dark-900 rounded-xl p-4 md:p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group certification-card"
+                    className="flex-shrink-0 bg-white dark:bg-dark-900 rounded-xl p-4 md:p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group certification-card"
                   >
                     <div className="flex items-center justify-center w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-accent-500 to-accent-600 rounded-lg mb-4 group-hover:scale-110 transition-transform duration-300">
                       <Award className="h-5 w-5 md:h-6 md:w-6 text-white" />
@@ -178,7 +178,7 @@ const Certifications = () => {
             {/* Right Navigation Button */}
             <button
               onClick={scrollRight}
-              className="flex-shrink-0 ml-4 bg-white dark:bg-dark-900 rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 border border-gray-200 dark:border-gray-700 hidden md:flex"
+              className="flex-shrink-0 ml-2 md:ml-4 bg-white dark:bg-dark-900 rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 border border-gray-200 dark:border-gray-700 hidden md:flex"
               aria-label="Scroll right"
             >
               <ChevronRight className="h-6 w-6 text-gray-600 dark:text-gray-300" />
