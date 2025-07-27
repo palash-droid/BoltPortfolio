@@ -39,8 +39,18 @@
 
 @media (max-width: 768px) {
     .certification-container {
-        width: calc(1 * 280px);
-        /* 1 card on mobile */
+        width: 100%;
+        /* Full width on mobile to allow proper scrolling */
+    }
+}
+
+/* Mobile certification card styling */
+@media (max-width: 768px) {
+    .certification-card-mobile {
+        min-width: 288px;
+        /* w-72 */
+        max-width: calc(100vw - 2rem);
+        /* Account for container padding */
     }
 }
 
