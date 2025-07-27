@@ -40,10 +40,10 @@ const Certifications = () => {
 
       let cardWidth, gap;
       if (isMobile) {
-        cardWidth = Math.min(window.innerWidth - 32, 320); // Responsive width with max 320px
+        cardWidth = 320; // Updated mobile width
         gap = 16;
       } else {
-        cardWidth = 320; // w-80 on desktop
+        cardWidth = 400; // Updated desktop width
         gap = 24;
       }
 
@@ -62,10 +62,10 @@ const Certifications = () => {
 
       let cardWidth, gap;
       if (isMobile) {
-        cardWidth = Math.min(window.innerWidth - 32, 320); // Responsive width with max 320px
+        cardWidth = 320; // Updated mobile width
         gap = 16;
       } else {
-        cardWidth = 320; // w-80 on desktop
+        cardWidth = 400; // Updated desktop width
         gap = 24;
       }
 
@@ -125,7 +125,7 @@ const Certifications = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                     transition={{ duration: 0.8, delay: index * 0.1 }}
-                    className="flex-shrink-0 bg-white dark:bg-dark-900 rounded-xl p-4 md:p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group certification-card"
+                    className="w-80 md:w-[400px] flex-shrink-0 bg-white dark:bg-dark-900 rounded-xl p-4 md:p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group certification-card"
                   >
                     <div className="flex items-center justify-center w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-accent-500 to-accent-600 rounded-lg mb-4 group-hover:scale-110 transition-transform duration-300">
                       <Award className="h-5 w-5 md:h-6 md:w-6 text-white" />
