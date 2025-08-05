@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import { X, Play, Pause, RotateCcw } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -13,9 +13,30 @@ const VideoCVModal = ({ isOpen, onClose }: VideoCVModalProps) => {
     const [duration, setDuration] = useState(0);
     const [showOverlay, setShowOverlay] = useState(true);
     const [isHovering, setIsHovering] = useState(false);
+    const [isDragging, setIsDragging] = useState(false);
     const videoRef = useRef<HTMLVideoElement>(null);
+    const dragRef = useRef<{ rect: DOMRect | null; isActive: boolean }>({ rect: null, isActive: false });
 
-    const togglePlayPause = () => {
+    // Reset state when modal opens
+    useEffect(() => {
+        if (isOpen) {
+            setIsPlaying(false);
+            setProgress(0);
+            setDuration(0);
+            setShowOverlay(true);
+            setIsHovering(false);
+            setIsDragging(false);
+            dragRef.current = { rect: null, isActive: false };
+
+            // Reset video if it exists
+            if (videoRef.current) {
+                videoRef.current.currentTime = 0;
+                videoRef.current.pause();
+            }
+        }
+    }, [isOpen]);
+
+    const togglePlayPause = useCallback(() => {
         if (videoRef.current) {
             if (isPlaying) {
                 videoRef.current.pause();
@@ -24,60 +45,130 @@ const VideoCVModal = ({ isOpen, onClose }: VideoCVModalProps) => {
             }
             setIsPlaying(!isPlaying);
         }
-    };
+    }, [isPlaying]);
 
-    const handleReplay = () => {
+    const handleReplay = useCallback(() => {
         if (videoRef.current) {
             videoRef.current.currentTime = 0;
             videoRef.current.play();
             setIsPlaying(true);
         }
-    };
+    }, []);
 
-    const handleVideoEnded = () => {
+    const handleVideoEnded = useCallback(() => {
         setIsPlaying(false);
         setProgress(100);
-    };
+    }, []);
 
-    const handleVideoPlay = () => {
+    const handleVideoPlay = useCallback(() => {
         setIsPlaying(true);
         setShowOverlay(false);
-    };
+    }, []);
 
-    const handleVideoPause = () => {
+    const handleVideoPause = useCallback(() => {
         setIsPlaying(false);
         setShowOverlay(true);
-    };
+    }, []);
 
-    const handleVideoMouseEnter = () => {
+    const handleVideoMouseEnter = useCallback(() => {
         setIsHovering(true);
-    };
+    }, []);
 
-    const handleVideoMouseLeave = () => {
+    const handleVideoMouseLeave = useCallback(() => {
         setIsHovering(false);
-    };
+    }, []);
 
-    const handleTimeUpdate = () => {
-        if (videoRef.current) {
+    const handleTimeUpdate = useCallback(() => {
+        // Only update progress from video if not dragging
+        if (videoRef.current && !isDragging) {
             const currentTime = videoRef.current.currentTime;
             const duration = videoRef.current.duration;
             if (duration > 0) {
                 setProgress((currentTime / duration) * 100);
             }
         }
-    };
+    }, [isDragging]);
 
-    const handleLoadedMetadata = () => {
+    const handleLoadedMetadata = useCallback(() => {
         if (videoRef.current) {
             setDuration(videoRef.current.duration);
         }
-    };
+    }, []);
 
-    const formatTime = (seconds: number) => {
+    const formatTime = useCallback((seconds: number) => {
         const mins = Math.floor(seconds / 60);
         const secs = Math.floor(seconds % 60);
         return `${mins}:${secs.toString().padStart(2, '0')}`;
-    };
+    }, []);
+
+    const updateVideoProgress = useCallback((percentage: number) => {
+        if (videoRef.current && duration > 0) {
+            const newTime = (percentage / 100) * duration;
+            videoRef.current.currentTime = newTime;
+            setProgress(percentage);
+        }
+    }, [duration]);
+
+    const handleProgressBarClick = useCallback((event: React.MouseEvent<HTMLDivElement>) => {
+        // Only handle click if it's not part of a drag operation
+        if (event.detail === 1 && !dragRef.current.isActive) {
+            const progressBar = event.currentTarget;
+            const rect = progressBar.getBoundingClientRect();
+            const clickX = event.clientX - rect.left;
+            const percentage = Math.max(0, Math.min(100, (clickX / rect.width) * 100));
+            updateVideoProgress(percentage);
+        }
+    }, [updateVideoProgress]);
+
+    const handleProgressBarMouseDown = useCallback((event: React.MouseEvent<HTMLDivElement>) => {
+        event.preventDefault();
+        setIsDragging(true);
+        dragRef.current.isActive = true;
+
+        const progressBar = event.currentTarget;
+        const rect = progressBar.getBoundingClientRect();
+        dragRef.current.rect = rect;
+
+        const handleMouseMove = (e: MouseEvent) => {
+            if (videoRef.current && duration > 0 && dragRef.current.rect) {
+                const clickX = e.clientX - dragRef.current.rect.left;
+                const percentage = Math.max(0, Math.min(100, (clickX / dragRef.current.rect.width) * 100));
+                updateVideoProgress(percentage);
+            }
+        };
+
+        const handleMouseUp = () => {
+            setIsDragging(false);
+            dragRef.current.isActive = false;
+            dragRef.current.rect = null;
+            document.removeEventListener('mousemove', handleMouseMove);
+            document.removeEventListener('mouseup', handleMouseUp);
+        };
+
+        // Set initial position on mouse down immediately
+        const clickX = event.clientX - rect.left;
+        const percentage = Math.max(0, Math.min(100, (clickX / rect.width) * 100));
+        updateVideoProgress(percentage);
+
+        document.addEventListener('mousemove', handleMouseMove);
+        document.addEventListener('mouseup', handleMouseUp);
+    }, [updateVideoProgress, duration]);
+
+    // Memoized values for better performance
+    const showPlayOverlay = useMemo(() => {
+        return showOverlay || (isPlaying && isHovering);
+    }, [showOverlay, isPlaying, isHovering]);
+
+    const showReplayOverlay = useMemo(() => {
+        return progress >= 100;
+    }, [progress]);
+
+    const footerText = useMemo(() => {
+        if (progress >= 100) {
+            return 'Video completed. Click replay to watch again.';
+        }
+        return isPlaying ? 'Click pause button to pause the video' : 'Click the play button to start the video';
+    }, [progress, isPlaying]);
 
     return (
         <AnimatePresence>
@@ -138,7 +229,7 @@ const VideoCVModal = ({ isOpen, onClose }: VideoCVModalProps) => {
 
                                 {/* Play/Pause Overlay Button - Show when not playing OR when hovering while playing */}
                                 <AnimatePresence>
-                                    {(showOverlay || (isPlaying && isHovering)) && (
+                                    {showPlayOverlay && (
                                         <motion.button
                                             onClick={togglePlayPause}
                                             className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 hover:bg-opacity-50 transition-all duration-200 group"
@@ -160,7 +251,7 @@ const VideoCVModal = ({ isOpen, onClose }: VideoCVModalProps) => {
 
                                 {/* Replay Button - Only show when video ends */}
                                 <AnimatePresence>
-                                    {progress >= 100 && (
+                                    {showReplayOverlay && (
                                         <motion.button
                                             onClick={handleReplay}
                                             className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 hover:bg-opacity-50 transition-all duration-200 group"
@@ -180,11 +271,22 @@ const VideoCVModal = ({ isOpen, onClose }: VideoCVModalProps) => {
                                 <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 p-4">
                                     <div className="flex items-center gap-3">
                                         <div className="flex-1">
-                                            <div className="w-full bg-gray-600 rounded-full h-2">
+                                            <div
+                                                className="w-full bg-gray-600 rounded-full h-2 cursor-pointer relative group"
+                                                onClick={handleProgressBarClick}
+                                                onMouseDown={handleProgressBarMouseDown}
+                                            >
                                                 <div
                                                     className="bg-primary-500 h-2 rounded-full transition-all duration-200"
                                                     style={{ width: `${progress}%` }}
                                                 />
+                                                {/* Progress indicator dot */}
+                                                <div
+                                                    className="absolute top-1/2 transform -translate-y-1/2 w-3 h-3 bg-white rounded-full shadow-lg border border-gray-300 transition-all duration-200"
+                                                    style={{ left: `${progress}%`, transform: 'translate(-50%, -50%)' }}
+                                                />
+                                                {/* Progress bar hover indicator */}
+                                                <div className="absolute inset-0 bg-transparent group-hover:bg-white group-hover:bg-opacity-20 rounded-full transition-all duration-200" />
                                             </div>
                                         </div>
                                         <div className="text-white text-sm font-medium">
@@ -198,15 +300,10 @@ const VideoCVModal = ({ isOpen, onClose }: VideoCVModalProps) => {
                         {/* Footer */}
                         <div className="flex items-center justify-between p-6 border-t border-gray-200 dark:border-gray-700">
                             <p className="text-sm text-gray-600 dark:text-gray-400">
-                                {progress >= 100
-                                    ? 'Video completed. Click replay to watch again.'
-                                    : isPlaying
-                                        ? 'Click pause button to pause the video'
-                                        : 'Click the play button to start the video'
-                                }
+                                {footerText}
                             </p>
                             <div className="flex gap-2">
-                                {progress >= 100 ? (
+                                {showReplayOverlay ? (
                                     <button
                                         onClick={handleReplay}
                                         className="flex items-center gap-2 px-4 py-2 bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition-colors duration-200"
