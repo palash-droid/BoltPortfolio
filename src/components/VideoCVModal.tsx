@@ -104,8 +104,14 @@ const VideoCVModal = ({ isOpen, onClose }: VideoCVModalProps) => {
     const updateVideoProgress = useCallback((percentage: number) => {
         if (videoRef.current && duration > 0) {
             const newTime = (percentage / 100) * duration;
-            videoRef.current.currentTime = newTime;
+            // Update progress immediately for responsive UI
             setProgress(percentage);
+            // Set video time with a small delay to ensure smooth seeking
+            requestAnimationFrame(() => {
+                if (videoRef.current) {
+                    videoRef.current.currentTime = newTime;
+                }
+            });
         }
     }, [duration]);
 
@@ -133,7 +139,13 @@ const VideoCVModal = ({ isOpen, onClose }: VideoCVModalProps) => {
             if (videoRef.current && duration > 0 && dragRef.current.rect) {
                 const clickX = e.clientX - dragRef.current.rect.left;
                 const percentage = Math.max(0, Math.min(100, (clickX / dragRef.current.rect.width) * 100));
-                updateVideoProgress(percentage);
+                // Update progress immediately for smooth dragging
+                setProgress(percentage);
+                // Update video time with throttling for better performance
+                if (videoRef.current) {
+                    const newTime = (percentage / 100) * duration;
+                    videoRef.current.currentTime = newTime;
+                }
             }
         };
 
@@ -148,7 +160,11 @@ const VideoCVModal = ({ isOpen, onClose }: VideoCVModalProps) => {
         // Set initial position on mouse down immediately
         const clickX = event.clientX - rect.left;
         const percentage = Math.max(0, Math.min(100, (clickX / rect.width) * 100));
-        updateVideoProgress(percentage);
+        setProgress(percentage);
+        if (videoRef.current && duration > 0) {
+            const newTime = (percentage / 100) * duration;
+            videoRef.current.currentTime = newTime;
+        }
 
         document.addEventListener('mousemove', handleMouseMove);
         document.addEventListener('mouseup', handleMouseUp);
@@ -169,7 +185,13 @@ const VideoCVModal = ({ isOpen, onClose }: VideoCVModalProps) => {
                 const touch = e.touches[0];
                 const clickX = touch.clientX - dragRef.current.rect.left;
                 const percentage = Math.max(0, Math.min(100, (clickX / dragRef.current.rect.width) * 100));
-                updateVideoProgress(percentage);
+                // Update progress immediately for smooth dragging
+                setProgress(percentage);
+                // Update video time with throttling for better performance
+                if (videoRef.current) {
+                    const newTime = (percentage / 100) * duration;
+                    videoRef.current.currentTime = newTime;
+                }
             }
         };
 
@@ -186,7 +208,11 @@ const VideoCVModal = ({ isOpen, onClose }: VideoCVModalProps) => {
             const touch = event.touches[0];
             const clickX = touch.clientX - rect.left;
             const percentage = Math.max(0, Math.min(100, (clickX / rect.width) * 100));
-            updateVideoProgress(percentage);
+            setProgress(percentage);
+            if (videoRef.current && duration > 0) {
+                const newTime = (percentage / 100) * duration;
+                videoRef.current.currentTime = newTime;
+            }
         }
 
         document.addEventListener('touchmove', handleTouchMove);
@@ -195,6 +221,11 @@ const VideoCVModal = ({ isOpen, onClose }: VideoCVModalProps) => {
 
     // Memoized values for better performance
     const showPlayOverlay = useMemo(() => {
+        // On mobile, don't show overlay when playing (no hover support)
+        const isMobile = 'ontouchstart' in window;
+        if (isMobile && isPlaying) {
+            return false;
+        }
         return showOverlay || (isPlaying && isHovering);
     }, [showOverlay, isPlaying, isHovering]);
 
