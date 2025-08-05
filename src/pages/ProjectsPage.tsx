@@ -1,9 +1,14 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, ExternalLink, Github } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Github, BookOpen } from 'lucide-react';
+import { useState } from 'react';
 import { projects } from '../data/portfolio';
+import LearningModal from '../components/LearningModal';
 
 const ProjectsPage = () => {
+  const [learningModalOpen, setLearningModalOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<{ id: string; title: string } | null>(null);
+
   const scrollToProjectsSection = () => {
     // Navigate to home page and then scroll to projects section
     setTimeout(() => {
@@ -19,6 +24,16 @@ const ProjectsPage = () => {
       };
       attemptScroll();
     }, 500); // Increased timeout to ensure page loads properly
+  };
+
+  const handleLearningClick = (projectId: string, projectTitle: string) => {
+    setSelectedProject({ id: projectId, title: projectTitle });
+    setLearningModalOpen(true);
+  };
+
+  const handleCloseLearningModal = () => {
+    setLearningModalOpen(false);
+    setSelectedProject(null);
   };
 
   return (
@@ -100,7 +115,7 @@ const ProjectsPage = () => {
                   ))}
                 </div>
 
-                <div className="flex gap-4">
+                <div className="flex gap-4 flex-wrap">
                   {project.liveDemo && (
                     <a
                       href={project.liveDemo}
@@ -123,6 +138,13 @@ const ProjectsPage = () => {
                       Code
                     </a>
                   )}
+                  <button
+                    onClick={() => handleLearningClick(project.id, project.title)}
+                    className="flex items-center gap-2 text-red-600 dark:text-green-400 hover:text-red-700 dark:hover:text-green-300 transition-colors duration-200"
+                  >
+                    <BookOpen className="h-4 w-4" />
+                    What I Learned
+                  </button>
                 </div>
               </div>
             </motion.div>
@@ -146,6 +168,16 @@ const ProjectsPage = () => {
           </Link>
         </motion.div>
       </div>
+
+      {/* Learning Modal */}
+      {selectedProject && (
+        <LearningModal
+          isOpen={learningModalOpen}
+          onClose={handleCloseLearningModal}
+          projectId={selectedProject.id}
+          projectTitle={selectedProject.title}
+        />
+      )}
     </motion.div>
   );
 };

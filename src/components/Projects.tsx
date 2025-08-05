@@ -1,9 +1,11 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { ExternalLink, Github, ArrowRight } from 'lucide-react';
+import { ExternalLink, Github, ArrowRight, BookOpen } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 import { projects } from '../data/portfolio';
 import ScrollDownIndicator from './ScrollDownIndicator';
+import LearningModal from './LearningModal';
 
 const Projects = () => {
   const [ref, inView] = useInView({
@@ -11,7 +13,20 @@ const Projects = () => {
     threshold: 0.1,
   });
 
+  const [learningModalOpen, setLearningModalOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<{ id: string; title: string } | null>(null);
+
   const featuredProjects = projects.filter(project => project.featured);
+
+  const handleLearningClick = (projectId: string, projectTitle: string) => {
+    setSelectedProject({ id: projectId, title: projectTitle });
+    setLearningModalOpen(true);
+  };
+
+  const handleCloseLearningModal = () => {
+    setLearningModalOpen(false);
+    setSelectedProject(null);
+  };
 
   return (
     <section id="projects" className="relative min-h-[100vh] lg:min-h-[100vh] xl:min-h-[85vh] pt-20 pb-20 sm:pb-16 md:pb-10 bg-white dark:bg-dark-900">
@@ -69,7 +84,7 @@ const Projects = () => {
                   ))}
                 </div>
 
-                <div className="flex gap-3">
+                <div className="flex gap-3 flex-wrap">
                   {project.liveDemo && (
                     <a
                       href={project.liveDemo}
@@ -92,6 +107,13 @@ const Projects = () => {
                       Code
                     </a>
                   )}
+                  <button
+                    onClick={() => handleLearningClick(project.id, project.title)}
+                    className="flex items-center gap-2 text-red-600 dark:text-green-400 hover:text-red-700 dark:hover:text-green-300 transition-colors duration-200 text-sm"
+                  >
+                    <BookOpen className="h-4 w-4" />
+                    What I Learned
+                  </button>
                 </div>
               </div>
             </motion.div>
@@ -122,6 +144,16 @@ const Projects = () => {
           <ScrollDownIndicator targetId="certifications" />
         </div>
       </div>
+
+      {/* Learning Modal */}
+      {selectedProject && (
+        <LearningModal
+          isOpen={learningModalOpen}
+          onClose={handleCloseLearningModal}
+          projectId={selectedProject.id}
+          projectTitle={selectedProject.title}
+        />
+      )}
     </section>
   );
 };
