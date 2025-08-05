@@ -154,6 +154,45 @@ const VideoCVModal = ({ isOpen, onClose }: VideoCVModalProps) => {
         document.addEventListener('mouseup', handleMouseUp);
     }, [updateVideoProgress, duration]);
 
+    // Touch event handlers for mobile
+    const handleProgressBarTouchStart = useCallback((event: React.TouchEvent<HTMLDivElement>) => {
+        event.preventDefault();
+        setIsDragging(true);
+        dragRef.current.isActive = true;
+
+        const progressBar = event.currentTarget;
+        const rect = progressBar.getBoundingClientRect();
+        dragRef.current.rect = rect;
+
+        const handleTouchMove = (e: TouchEvent) => {
+            if (videoRef.current && duration > 0 && dragRef.current.rect && e.touches[0]) {
+                const touch = e.touches[0];
+                const clickX = touch.clientX - dragRef.current.rect.left;
+                const percentage = Math.max(0, Math.min(100, (clickX / dragRef.current.rect.width) * 100));
+                updateVideoProgress(percentage);
+            }
+        };
+
+        const handleTouchEnd = () => {
+            setIsDragging(false);
+            dragRef.current.isActive = false;
+            dragRef.current.rect = null;
+            document.removeEventListener('touchmove', handleTouchMove);
+            document.removeEventListener('touchend', handleTouchEnd);
+        };
+
+        // Set initial position on touch start immediately
+        if (event.touches[0]) {
+            const touch = event.touches[0];
+            const clickX = touch.clientX - rect.left;
+            const percentage = Math.max(0, Math.min(100, (clickX / rect.width) * 100));
+            updateVideoProgress(percentage);
+        }
+
+        document.addEventListener('touchmove', handleTouchMove);
+        document.addEventListener('touchend', handleTouchEnd);
+    }, [updateVideoProgress, duration]);
+
     // Memoized values for better performance
     const showPlayOverlay = useMemo(() => {
         return showOverlay || (isPlaying && isHovering);
@@ -275,6 +314,7 @@ const VideoCVModal = ({ isOpen, onClose }: VideoCVModalProps) => {
                                                 className="w-full bg-gray-600 rounded-full h-2 cursor-pointer relative group"
                                                 onClick={handleProgressBarClick}
                                                 onMouseDown={handleProgressBarMouseDown}
+                                                onTouchStart={handleProgressBarTouchStart}
                                             >
                                                 <div
                                                     className="bg-primary-500 h-2 rounded-full transition-all duration-200"
