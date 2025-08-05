@@ -1,21 +1,21 @@
 import { Project, BlogPost, Certification, Interest, Skill } from '../types';
 
 export const skills: Skill[] = [
-  { name: 'SQL', category: 'Database', icon: 'Database', color: '#FF6B6B' },
-  { name: 'Power BI', category: 'Visualization', icon: 'BarChart3', color: '#FFD93D' },
+  { name: 'Python', category: 'Programming', icon: 'Terminal', color: '#3776AB' },
   { name: 'Pandas', category: 'Data Science', icon: 'Brain', color: '#6BCF7F' },
   { name: 'NumPy', category: 'Data Science', icon: 'Calculator', color: '#4D96FF' },
   { name: 'Matplotlib', category: 'Visualization', icon: 'TrendingUp', color: '#9B59B6' },
   { name: 'Seaborn', category: 'Visualization', icon: 'PieChart', color: '#FF8C42' },
+  { name: 'SQL', category: 'Database', icon: 'Database', color: '#FF6B6B' },
+  { name: 'Power BI', category: 'Visualization', icon: 'BarChart3', color: '#FFD93D' },
+  { name: 'Excel', category: 'Analysis', icon: 'FileSpreadsheet', color: '#2ECC71' },
+  { name: 'R Programming', category: 'Programming', icon: 'Code', color: '#E74C3C' },
+  { name: 'Docker', category: 'DevOps', icon: 'Box', color: '#0DB7ED' }
   // { name: 'Scikit-learn', category: 'Machine Learning', icon: 'Bot', color: '#26D0CE' },
   // { name: 'TensorFlow', category: 'Deep Learning', icon: 'Zap', color: '#FF6B35' },
   // { name: 'Tableau', category: 'Visualization', icon: 'Activity', color: '#1B9AAA' },
-  { name: 'Excel', category: 'Analysis', icon: 'FileSpreadsheet', color: '#2ECC71' },
-  { name: 'R Programming', category: 'Programming', icon: 'Code', color: '#E74C3C' },
-  { name: 'Python', category: 'Programming', icon: 'Terminal', color: '#3776AB' },
   // { name: 'Statistics', category: 'Analysis', icon: 'Target', color: '#F39C12' },
-  // { name: 'AWS', category: 'Cloud', icon: 'Cloud', color: '#FF9500' },
-  { name: 'Docker', category: 'DevOps', icon: 'Box', color: '#0DB7ED' },
+  // { name: 'AWS', category: 'Cloud', icon: 'Cloud', color: '#FF9500' },,
 ];
 
 export const interests: Interest[] = [
