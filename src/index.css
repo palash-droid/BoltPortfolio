@@ -1,10 +1,16 @@
+/* stylelint-disable at-rule-no-unknown */
 @import 'highlight.js/styles/github-dark.css';
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* stylelint-enable at-rule-no-unknown */
 
-/* Prevent horizontal overflow globally */
+/* Global styles and accessibility improvements */
+html {
+    scroll-behavior: smooth;
+}
+
 html,
 body {
     overflow-x: hidden;
@@ -24,17 +30,32 @@ body {
     border: 0;
 }
 
-/* Hide scrollbar for certification scrollable container */
+/* Hide scrollbar for scrollable containers */
 .scrollbar-hide {
-    -ms-overflow-style: none;
     /* Internet Explorer 10+ */
-    scrollbar-width: none;
-    /* Firefox */
+    -ms-overflow-style: none;
 }
 
+/* Webkit browsers (Chrome, Safari, Edge, iOS) */
 .scrollbar-hide::-webkit-scrollbar {
     display: none;
-    /* Safari and Chrome */
+    width: 0;
+    height: 0;
+}
+
+.scrollbar-hide::-webkit-scrollbar-track {
+    display: none;
+    background: transparent;
+}
+
+.scrollbar-hide::-webkit-scrollbar-thumb {
+    display: none;
+    background: transparent;
+}
+
+.scrollbar-hide::-webkit-scrollbar-corner {
+    display: none;
+    background: transparent;
 }
 
 /* Certification cards container - responsive width */
@@ -77,8 +98,6 @@ body {
     }
 }
 
-
-
 /* Skills carousel animations and interactions */
 .skills-carousel {
     -webkit-mask: linear-gradient(90deg,
@@ -102,11 +121,17 @@ body {
     transform: translateY(-2px) scale(1.05);
 }
 
+.skill-item:focus {
+    transform: translateY(-2px) scale(1.05);
+    outline: none;
+}
+
 .skill-icon {
     transition: all 0.3s ease;
 }
 
-.skill-item:hover .skill-icon {
+.skill-item:hover .skill-icon,
+.skill-item:focus .skill-icon {
     transform: rotate(10deg) scale(1.1);
 }
 
@@ -181,20 +206,11 @@ body {
     z-index: 50;
 }
 
-.skill-item:hover .tooltip {
+.skill-item:hover .tooltip,
+.skill-item:focus .tooltip {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
-}
-
-/* Custom scrollbar for manual control */
-.skills-carousel::-webkit-scrollbar {
-    display: none;
-}
-
-.skills-carousel {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
 }
 
 /* Navigation arrows */
@@ -228,4 +244,57 @@ body {
 
 .pulse-delay-2 {
     animation-delay: 1s;
+}
+
+/* Print styles for better accessibility */
+@media print {
+    * {
+        background: transparent !important;
+        color: black !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+
+    a,
+    a:visited {
+        text-decoration: underline;
+    }
+
+    a[href]:after {
+        content: " (" attr(href) ")";
+    }
+
+    abbr[title]:after {
+        content: " (" attr(title) ")";
+    }
+
+    .no-print {
+        display: none !important;
+    }
+}
+
+/* Reduced motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .skill-item {
+        border: 2px solid currentColor;
+    }
+
+    .tooltip {
+        border: 2px solid currentColor;
+        background: white;
+        color: black;
+    }
 }

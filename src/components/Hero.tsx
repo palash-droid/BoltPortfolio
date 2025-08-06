@@ -1,13 +1,13 @@
 import { ChevronDown, Github, Linkedin, Play, FileText } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import ScrollDownIndicator from './ScrollDownIndicator';
 import VideoCVModal from './VideoCVModal';
 import ResumeModal from './ResumeModal';
 
 const Hero = () => {
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
   const [isResumeModalOpen, setIsResumeModalOpen] = useState(false);
+
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -27,7 +27,6 @@ const Hero = () => {
             transition={{ duration: 0.8 }}
           >
             <div className="relative w-72 h-72 sm:w-80 sm:h-80 md:w-96 md:h-96 animate-float">
-
               {/* Glow pulse behind */}
               <div className="absolute inset-0 rounded-full bg-primary-500 blur-2xl opacity-20 animate-pulse-slow z-0"></div>
 
@@ -40,9 +39,9 @@ const Hero = () => {
                   src="./profile.jpg"
                   alt="Palash Bhagwatkar"
                   className="w-full h-full object-cover rounded-full"
+                  loading="eager"
                 />
               </div>
-
             </div>
           </motion.div>
 
@@ -71,13 +70,15 @@ const Hero = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-12">
               <button
                 onClick={() => scrollToSection('projects')}
-                className="px-8 py-3 bg-gradient-to-r from-primary-500 to-primary-600 text-white rounded-lg font-semibold hover:from-primary-600 hover:to-primary-700 transition-all duration-300 shadow-lg hover:shadow-xl"
+                className="px-8 py-3 bg-gradient-to-r from-primary-500 to-primary-600 text-white rounded-lg font-semibold hover:from-primary-600 hover:to-primary-700 transition-all duration-300 shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+                aria-label="View my projects"
               >
                 View My Work
               </button>
               <button
                 onClick={() => scrollToSection('contact')}
-                className="px-8 py-3 border-2 border-primary-500 text-primary-600 dark:text-primary-400 rounded-lg font-semibold hover:bg-primary-500 hover:text-white transition-all duration-300"
+                className="px-8 py-3 border-2 border-primary-500 text-primary-600 dark:text-primary-400 rounded-lg font-semibold hover:bg-primary-500 hover:text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+                aria-label="Get in touch"
               >
                 Get in Touch
               </button>
@@ -89,8 +90,8 @@ const Hero = () => {
                 href="https://github.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label='GitHub'
-                className="p-3 bg-gray-100 dark:bg-dark-800 rounded-lg hover:bg-gray-200 dark:hover:bg-dark-700 transition-colors duration-200 group"
+                aria-label="GitHub Profile"
+                className="p-3 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 group focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
               >
                 <Github className="h-6 w-6 text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
               </a>
@@ -98,16 +99,18 @@ const Hero = () => {
                 href="https://linkedin.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label='Linkedin'
-                className="p-3 bg-gray-100 dark:bg-dark-800 rounded-lg hover:bg-gray-200 dark:hover:bg-dark-700 transition-colors duration-200 group"
+                aria-label="LinkedIn Profile"
+                className="p-3 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 group focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
               >
                 <Linkedin className="h-6 w-6 text-gray-600 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400" />
               </a>
+
+              {/* Video CV Button */}
               <div className="relative group">
                 <button
                   onClick={() => setIsVideoModalOpen(true)}
-                  aria-label='Video CV'
-                  className="relative p-3 bg-gray-100 dark:bg-dark-800 rounded-lg hover:bg-gray-200 dark:hover:bg-dark-700 transition-colors duration-200 group"
+                  aria-label="Watch Video CV"
+                  className="relative p-3 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 group focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
                 >
                   <Play className="h-6 w-6 text-gray-600 dark:text-gray-400 group-hover:text-red-600 dark:group-hover:text-red-400" />
 
@@ -126,11 +129,13 @@ const Hero = () => {
                   </span>
                 </div>
               </div>
+
+              {/* Resume Button */}
               <div className="relative group">
                 <button
                   onClick={() => setIsResumeModalOpen(true)}
-                  aria-label='Resume'
-                  className="relative p-3 bg-gray-100 dark:bg-dark-800 rounded-lg hover:bg-gray-200 dark:hover:bg-dark-700 transition-colors duration-200 group"
+                  aria-label="View Resume"
+                  className="relative p-3 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 group focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
                 >
                   <FileText className="h-6 w-6 text-gray-600 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400" />
 
@@ -160,7 +165,8 @@ const Hero = () => {
             >
               <button
                 onClick={() => scrollToSection('interests')}
-                className="flex flex-col items-center text-gray-500 dark:text-gray-400 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200"
+                className="flex flex-col items-center text-gray-500 dark:text-gray-400 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 rounded-lg p-2"
+                aria-label="Scroll to interests section"
               >
                 <span className="text-sm mb-2">Scroll Down</span>
                 <ChevronDown className="h-6 w-6 animate-bounce" />
