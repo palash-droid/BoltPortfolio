@@ -104,12 +104,15 @@ const VideoCVModal = ({ isOpen, onClose }: VideoCVModalProps) => {
     const updateVideoProgress = useCallback((percentage: number) => {
         if (videoRef.current && duration > 0) {
             const newTime = (percentage / 100) * duration;
+            console.log(`Seeking to ${newTime.toFixed(2)}s (${percentage.toFixed(1)}%)`);
             // Update progress immediately for responsive UI
             setProgress(percentage);
             // Set video time with a small delay to ensure smooth seeking
             requestAnimationFrame(() => {
                 if (videoRef.current) {
+                    const startTime = performance.now();
                     videoRef.current.currentTime = newTime;
+                    console.log(`Video seek completed in ${(performance.now() - startTime).toFixed(2)}ms`);
                 }
             });
         }
@@ -292,6 +295,7 @@ const VideoCVModal = ({ isOpen, onClose }: VideoCVModalProps) => {
                                     onPause={handleVideoPause}
                                     onTimeUpdate={handleTimeUpdate}
                                     onLoadedMetadata={handleLoadedMetadata}
+                                    preload="metadata"
                                 >
                                     <source src="/video-cv.mp4" type="video/mp4" />
                                     Your browser does not support the video tag.

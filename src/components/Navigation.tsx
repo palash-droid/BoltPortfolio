@@ -23,7 +23,7 @@ const Navigation = () => {
       window.location.href = `/#${sectionId}`;
       return;
     }
-    
+
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
@@ -41,9 +41,8 @@ const Navigation = () => {
   ];
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      scrolled ? 'bg-white/95 dark:bg-dark-900/95 backdrop-blur-md shadow-lg' : 'bg-transparent'
-    }`}>
+    <nav className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${scrolled ? 'bg-white/95 dark:bg-dark-900/95 backdrop-blur-md shadow-lg' : 'bg-transparent'
+      }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -62,7 +61,7 @@ const Navigation = () => {
                 {item.name}
               </button>
             ))}
-            
+
             {/* Theme Toggle */}
             <button
               onClick={toggleTheme}
@@ -88,7 +87,7 @@ const Navigation = () => {
                 <Moon className="h-5 w-5 text-gray-600" />
               )}
             </button>
-            
+
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="p-2 rounded-lg bg-gray-100 dark:bg-dark-800 hover:bg-gray-200 dark:hover:bg-dark-700 transition-colors duration-200"

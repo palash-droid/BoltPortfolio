@@ -4,7 +4,7 @@ import { contactInfo } from '../data/portfolio';
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 dark:bg-dark-900 border-t border-gray-800 dark:border-dark-700">
+    <footer className="bg-gray-900 dark:bg-dark-900 border-t border-gray-800 dark:border-dark-700 relative z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="mb-4 md:mb-0">
@@ -12,7 +12,7 @@ const Footer = () => {
               © 2024 Palash Bhagwatkar. All rights reserved.
             </p>
           </div>
-          
+
           <div className="flex gap-6">
             <a
               href="https://github.com"

@@ -1,11 +1,13 @@
-import { ChevronDown, Github, Linkedin, Play } from 'lucide-react';
+import { ChevronDown, Github, Linkedin, Play, FileText } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import ScrollDownIndicator from './ScrollDownIndicator';
 import VideoCVModal from './VideoCVModal';
+import ResumeModal from './ResumeModal';
 
 const Hero = () => {
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+  const [isResumeModalOpen, setIsResumeModalOpen] = useState(false);
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -124,6 +126,29 @@ const Hero = () => {
                   </span>
                 </div>
               </div>
+              <div className="relative group">
+                <button
+                  onClick={() => setIsResumeModalOpen(true)}
+                  aria-label='Resume'
+                  className="relative p-3 bg-gray-100 dark:bg-dark-800 rounded-lg hover:bg-gray-200 dark:hover:bg-dark-700 transition-colors duration-200 group"
+                >
+                  <FileText className="h-6 w-6 text-gray-600 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400" />
+
+                  {/* Permanent Resume indicator */}
+                  <div className="absolute -top-3 -right-1 bg-blue-500 text-white text-xs px-1.5 py-0.5 rounded-full font-medium">
+                    Resume
+                  </div>
+                </button>
+
+                {/* Tooltip */}
+                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 dark:bg-gray-700 text-white text-sm rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10">
+                  <span className="relative">
+                    Resume
+                    {/* Tooltip arrow */}
+                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900 dark:border-t-gray-700"></div>
+                  </span>
+                </div>
+              </div>
             </div>
 
             {/* Scroll Indicator */}
@@ -149,6 +174,12 @@ const Hero = () => {
       <VideoCVModal
         isOpen={isVideoModalOpen}
         onClose={() => setIsVideoModalOpen(false)}
+      />
+
+      {/* Resume Modal */}
+      <ResumeModal
+        isOpen={isResumeModalOpen}
+        onClose={() => setIsResumeModalOpen(false)}
       />
     </section>
   );
