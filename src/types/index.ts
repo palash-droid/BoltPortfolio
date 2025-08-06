@@ -49,3 +49,14 @@ export interface Skill {
   icon: string; // Added icon property
   color?: string; // Optional color for the icon
 }
+
+export interface Resume {
+  id: string;
+  title: string;
+  role: string;
+  description: string;
+  filePath: string;
+  fileName: string;
+  lastUpdated: string;
+  featured?: boolean;
+}

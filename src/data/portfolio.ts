@@ -1,4 +1,4 @@
-import { Project, BlogPost, Certification, Interest, Skill } from '../types';
+import { Project, BlogPost, Certification, Interest, Skill, Resume } from '../types';
 
 export const skills: Skill[] = [
   { name: 'Python', category: 'Programming', icon: 'Terminal', color: '#3776AB' },
@@ -202,3 +202,43 @@ export const contactInfo = {
   phone: '+91 7045011986',
   location: 'Mumbai, India, IND'
 };
+
+export const resumes: Resume[] = [
+  {
+    id: '1',
+    title: 'Data Analyst Resume',
+    role: 'Data Analyst',
+    description: 'Specialized resume highlighting data analysis, SQL, and business intelligence skills.',
+    filePath: '/resume-data-analyst.pdf',
+    fileName: 'Palash_Bhagwatkar_Data_Analyst_Resume.pdf',
+    lastUpdated: '2024-01-15',
+    featured: true
+  },
+  {
+    id: '2',
+    title: 'Data Scientist Resume',
+    role: 'Data Scientist',
+    description: 'Advanced resume focusing on machine learning, Python, and statistical analysis.',
+    filePath: '/resume-data-scientist.pdf',
+    fileName: 'Palash_Bhagwatkar_Data_Scientist_Resume.pdf',
+    lastUpdated: '2024-01-10'
+  },
+  {
+    id: '3',
+    title: 'Business Intelligence Resume',
+    role: 'Business Intelligence',
+    description: 'Resume emphasizing Power BI, Tableau, and dashboard development expertise.',
+    filePath: '/resume-business-intelligence.pdf',
+    fileName: 'Palash_Bhagwatkar_BI_Resume.pdf',
+    lastUpdated: '2024-01-08'
+  },
+  {
+    id: '4',
+    title: 'Full Stack Developer Resume',
+    role: 'Full Stack Developer',
+    description: 'Comprehensive resume covering web development, databases, and cloud technologies.',
+    filePath: '/resume-full-stack.pdf',
+    fileName: 'Palash_Bhagwatkar_Full_Stack_Resume.pdf',
+    lastUpdated: '2024-01-05'
+  }
+];
