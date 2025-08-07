@@ -76,7 +76,7 @@ const Contact = () => {
             Get in Touch
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            Ready to discuss your next data project? Let's connect and explore how we can work together
+            If you're looking for a detail-oriented and quick-learning Data Analyst who can clean data, uncover insights, and build clear dashboards from day one — let’s connect.
           </p>
         </motion.div>
 

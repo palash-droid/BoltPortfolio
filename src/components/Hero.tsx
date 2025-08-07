@@ -62,8 +62,9 @@ const Hero = () => {
 
             {/* Professional Summary */}
             <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
-              Data Analyst passionate about transforming complex data into actionable insights.
-              Specialized in Python, SQL, and Business Intelligence tools.
+              As a Data Analyst, I specialize in the end-to-end data workflow.
+              I clean Data using Python, perform comprehensive Exploratory Data Analysis with libraries like NumPy, Pandas, Matplotlib and Seaborn to uncover Trends, Outliers and Relationships, and optimize workflows with SQL.
+              I then translate these complex findings into clear, user-friendly Power BI dashboards.
             </p>
 
             {/* Call-to-Action Buttons */}
