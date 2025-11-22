@@ -117,6 +117,14 @@ const Terminal: React.FC = () => {
         inputRef.current?.focus();
     };
 
+    const handleMobileAction = (action: () => void) => {
+        action();
+        // Explicitly blur to prevent/close keyboard
+        setTimeout(() => {
+            inputRef.current?.blur();
+        }, 0);
+    };
+
     return (
         <>
             {isRaining && <MatrixRain onComplete={handleRainComplete} />}
@@ -152,10 +160,10 @@ const Terminal: React.FC = () => {
                 </div>
             </div>
             <MobileToolbar
-                onTab={handleTab}
-                onArrowUp={handleArrowUp}
-                onArrowDown={handleArrowDown}
-                onEnter={executeInput}
+                onTab={() => handleMobileAction(handleTab)}
+                onArrowUp={() => handleMobileAction(handleArrowUp)}
+                onArrowDown={() => handleMobileAction(handleArrowDown)}
+                onEnter={() => handleMobileAction(executeInput)}
             />
         </>
     );
