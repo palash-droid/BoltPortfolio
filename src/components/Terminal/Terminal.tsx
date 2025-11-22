@@ -47,7 +47,7 @@ const Terminal: React.FC = () => {
         } else if (matches.length > 1) {
             addOutput({ type: 'info', content: matches.join('  '), className: 'text-blue-300' });
         }
-        inputRef.current?.focus();
+        // Removed focus call to prevent keyboard popping up on mobile
     };
 
     const handleArrowUp = () => {
@@ -56,7 +56,7 @@ const Terminal: React.FC = () => {
             setHistoryIndex(newIndex);
             setInput(history[history.length - 1 - newIndex]);
         }
-        inputRef.current?.focus();
+        // Removed focus call
     };
 
     const handleArrowDown = () => {
@@ -68,35 +68,39 @@ const Terminal: React.FC = () => {
             setHistoryIndex(-1);
             setInput('');
         }
-        inputRef.current?.focus();
+        // Removed focus call
+    };
+
+    const executeInput = () => {
+        const cmd = input.trim();
+        if (!cmd) return;
+
+        addOutput({ type: 'text', content: `${currentPath} ❯ ${cmd}`, className: 'text-gray-100 font-bold' });
+        addToHistory(cmd);
+
+        const result = executeCommand(cmd, { currentPath, setCurrentPath });
+
+        if (result.action === 'clear') {
+            clearOutput();
+        } else if (result.action === 'switch_mode') {
+            setTerminalMode(false);
+        } else if (result.action === 'rain') {
+            triggerTransition('rain');
+        } else if (result.action === 'matrix_transition') {
+            triggerTransition('simple');
+        } else if (result.action === 'switch_mode_contact') {
+            triggerTransition('contact');
+        } else {
+            result.output.forEach(addOutput);
+        }
+
+        setInput('');
+        setHistoryIndex(-1);
     };
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
-            const cmd = input.trim();
-            if (!cmd) return;
-
-            addOutput({ type: 'text', content: `${currentPath} ❯ ${cmd}`, className: 'text-gray-100 font-bold' });
-            addToHistory(cmd);
-
-            const result = executeCommand(cmd, { currentPath, setCurrentPath });
-
-            if (result.action === 'clear') {
-                clearOutput();
-            } else if (result.action === 'switch_mode') {
-                setTerminalMode(false);
-            } else if (result.action === 'rain') {
-                triggerTransition('rain');
-            } else if (result.action === 'matrix_transition') {
-                triggerTransition('simple');
-            } else if (result.action === 'switch_mode_contact') {
-                triggerTransition('contact');
-            } else {
-                result.output.forEach(addOutput);
-            }
-
-            setInput('');
-            setHistoryIndex(-1);
+            executeInput();
         } else if (e.key === 'ArrowUp') {
             e.preventDefault();
             handleArrowUp();
@@ -151,6 +155,7 @@ const Terminal: React.FC = () => {
                 onTab={handleTab}
                 onArrowUp={handleArrowUp}
                 onArrowDown={handleArrowDown}
+                onEnter={executeInput}
             />
         </>
     );
