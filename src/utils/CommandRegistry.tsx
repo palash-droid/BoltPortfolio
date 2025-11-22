@@ -1,3 +1,4 @@
+import React from 'react';
 import { TerminalOutputItem } from '../contexts/TerminalContext';
 import { Command } from '../commands/types';
 import * as fileSystem from '../commands/fileSystem';
@@ -9,11 +10,20 @@ export const commands: Record<string, Command> = {
         name: 'help',
         description: 'List available commands',
         handler: () => {
-            const commandList = Object.values(commands)
-                .map((cmd) => `${cmd.name.padEnd(15)} - ${cmd.description}`)
-                .join('\n');
             return [
-                { type: 'info', content: commandList, className: 'text-blue-300' },
+                {
+                    type: 'component',
+                    content: (
+                        <div className="flex flex-col gap-1">
+                            {Object.values(commands).map((cmd) => (
+                                <div key={cmd.name} className="grid grid-cols-[140px_1fr] gap-2 sm:grid-cols-[180px_1fr]">
+                                    <span className="text-yellow-300">{cmd.name}</span>
+                                    <span className="text-blue-300">{cmd.description}</span>
+                                </div>
+                            ))}
+                        </div>
+                    ),
+                },
                 { type: 'info', content: '\nTip: Try running "about" to learn more about me.', className: 'text-gray-400 italic' }
             ];
         },
