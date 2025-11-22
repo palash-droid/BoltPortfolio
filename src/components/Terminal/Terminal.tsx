@@ -150,11 +150,12 @@ const Terminal: React.FC = () => {
                             ref={inputRef}
                             type="text"
                             value={input}
-                            onChange={(e) => setInput(e.target.value)}
+                            onChange={(e) => setInput(e.target.value.toLowerCase())}
                             onKeyDown={handleKeyDown}
                             className="bg-transparent border-none outline-none text-gray-100 flex-1 caret-green-500"
                             autoComplete="off"
                             spellCheck="false"
+                            autoCapitalize="none"
                         />
                     </div>
                 </div>
