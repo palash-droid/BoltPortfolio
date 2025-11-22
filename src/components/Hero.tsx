@@ -40,6 +40,8 @@ const Hero = () => {
                   alt="Palash Bhagwatkar"
                   className="w-full h-full object-cover rounded-full"
                   loading="eager"
+                  width="384"
+                  height="384"
                 />
               </div>
             </div>

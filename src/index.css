@@ -4,6 +4,137 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+    .font-mono {
+        font-family: 'Fira Code', 'Courier New', Courier, monospace;
+    }
+
+    /* CRT Effects */
+    .crt::before {
+        content: " ";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background: linear-gradient(rgba(18, 16, 16, 0) 50%,
+                rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg,
+                rgba(255, 0, 0, 0.06),
+                rgba(0, 255, 0, 0.02),
+                rgba(0, 0, 255, 0.06));
+        z-index: 2;
+        background-size: 100% 2px, 3px 100%;
+        pointer-events: none;
+    }
+
+    .crt::after {
+        content: " ";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background: rgba(18, 16, 16, 0.1);
+        opacity: 0;
+        z-index: 2;
+        pointer-events: none;
+        animation: flicker 0.15s infinite;
+    }
+
+    @keyframes flicker {
+        0% {
+            opacity: 0.027906;
+        }
+
+        5% {
+            opacity: 0.048532;
+        }
+
+        10% {
+            opacity: 0.030253;
+        }
+
+        15% {
+            opacity: 0.042790;
+        }
+
+        20% {
+            opacity: 0.020629;
+        }
+
+        25% {
+            opacity: 0.047986;
+        }
+
+        30% {
+            opacity: 0.032642;
+        }
+
+        35% {
+            opacity: 0.045358;
+        }
+
+        40% {
+            opacity: 0.021812;
+        }
+
+        45% {
+            opacity: 0.043298;
+        }
+
+        50% {
+            opacity: 0.026012;
+        }
+
+        55% {
+            opacity: 0.044092;
+        }
+
+        60% {
+            opacity: 0.030303;
+        }
+
+        65% {
+            opacity: 0.041989;
+        }
+
+        70% {
+            opacity: 0.023488;
+        }
+
+        75% {
+            opacity: 0.048485;
+        }
+
+        80% {
+            opacity: 0.031442;
+        }
+
+        85% {
+            opacity: 0.046633;
+        }
+
+        90% {
+            opacity: 0.029174;
+        }
+
+        95% {
+            opacity: 0.044923;
+        }
+
+        100% {
+            opacity: 0.025369;
+        }
+    }
+
+    .text-shadow-glow {
+        text-shadow: 0 0 5px rgba(34, 197, 94, 0.5);
+    }
+}
+
 /* stylelint-enable at-rule-no-unknown */
 
 /* Global styles and accessibility improvements */

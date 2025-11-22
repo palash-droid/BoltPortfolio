@@ -198,9 +198,9 @@ export const certifications: Certification[] = [
 ];
 
 export const contactInfo = {
-  email: 'palash@example.com',
+  email: 'palash.jain.work@gmail.com',
   phone: '+91 7045011986',
-  location: 'Mumbai, India, IND'
+  location: 'Mumbai, Pune, IND'
 };
 
 export const resumes: Resume[] = [
