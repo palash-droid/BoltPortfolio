@@ -166,10 +166,16 @@ const Terminal: React.FC = () => {
                 onClick={handleContainerClick}
             >
                 <div className="max-w-4xl mx-auto relative z-10">
-                    <AsciiLogo />
-                    <div className="mb-4">
-                        <div className="text-blue-300">Welcome to Palash's Portfolio Terminal v1.0.0</div>
-                        <div className="text-blue-300">Type "help" for commands, "ask &lt;question&gt;" to chat with AI, or "simple" for GUI.</div>
+                    <div className="flex flex-col lg:flex-row items-start gap-2 lg:gap-6 mb-6">
+                        <div className="w-full lg:w-auto overflow-hidden">
+                            <div className="origin-top-left scale-[0.4] sm:scale-[0.5] md:scale-[0.7] lg:scale-100">
+                                <AsciiLogo />
+                            </div>
+                        </div>
+                        <div className="mt-[-40px] sm:mt-[-40px] md:mt-[-20px] lg:mt-8">
+                            <div className="text-blue-300 font-bold text-lg mb-2">Welcome to Palash's Portfolio Terminal v1.0.0</div>
+                            <div className="text-blue-300">Type "help" for commands, "ask &lt;question&gt;" to chat with AI, or "simple" for GUI.</div>
+                        </div>
                     </div>
 
                     {output.map((item, index) => (
