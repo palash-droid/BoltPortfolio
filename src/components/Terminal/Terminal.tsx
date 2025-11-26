@@ -16,6 +16,8 @@ const Terminal: React.FC = () => {
         currentPath,
         setCurrentPath,
         setTerminalMode,
+        inputOverride,
+        setInputOverride,
     } = useTerminal();
 
     const [input, setInput] = useState('');
@@ -78,7 +80,22 @@ const Terminal: React.FC = () => {
         addOutput({ type: 'text', content: `${currentPath} ❯ ${cmd}`, className: 'text-gray-100 font-bold' });
         addToHistory(cmd);
 
-        const result = executeCommand(cmd, { currentPath, setCurrentPath });
+        if (inputOverride) {
+            inputOverride(cmd, addOutput);
+            setInputOverride?.(null);
+            setInput('');
+            setHistoryIndex(-1);
+            return;
+        }
+
+        const [commandName, ...args] = cmd.split(' ');
+
+        const result = executeCommand(commandName, args, {
+            currentPath,
+            setCurrentPath,
+            setInputOverride,
+            triggerTransition
+        });
 
         if (result.action === 'clear') {
             clearOutput();
@@ -90,13 +107,17 @@ const Terminal: React.FC = () => {
             triggerTransition('simple');
         } else if (result.action === 'switch_mode_contact') {
             triggerTransition('contact');
+        } else if (result.action === 'navigate_projects') {
+            triggerTransition('projects');
+        } else if (result.action === 'navigate_contact') {
+            triggerTransition('contact');
         } else {
             result.output.forEach(addOutput);
         }
 
         setInput('');
         setHistoryIndex(-1);
-    }, [input, currentPath, addOutput, addToHistory, setCurrentPath, clearOutput, setTerminalMode, triggerTransition]);
+    }, [input, currentPath, addOutput, addToHistory, setCurrentPath, clearOutput, setTerminalMode, triggerTransition, inputOverride, setInputOverride]);
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {

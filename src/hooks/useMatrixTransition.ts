@@ -4,9 +4,9 @@ import { useTerminal } from '../contexts/TerminalContext';
 export const useMatrixTransition = () => {
     const { setTerminalMode } = useTerminal();
     const [isRaining, setIsRaining] = useState(false);
-    const [pendingTransition, setPendingTransition] = useState<'simple' | 'contact' | null>(null);
+    const [pendingTransition, setPendingTransition] = useState<'simple' | 'contact' | 'projects' | null>(null);
 
-    const triggerTransition = (type: 'simple' | 'contact' | 'rain') => {
+    const triggerTransition = (type: 'simple' | 'contact' | 'projects' | 'rain') => {
         setIsRaining(true);
         if (type !== 'rain') {
             setPendingTransition(type);
@@ -31,6 +31,20 @@ export const useMatrixTransition = () => {
                     }
                 };
                 setTimeout(() => scrollToContact(), 100);
+            } else if (pendingTransition === 'projects') {
+                // Wait for mode switch then scroll with retry logic
+                const scrollToProjects = (retries = 0) => {
+                    const projectsSection = document.getElementById('projects');
+                    if (projectsSection) {
+                        projectsSection.scrollIntoView({ behavior: 'smooth' });
+                    } else if (retries < 10) {
+                        setTimeout(() => scrollToProjects(retries + 1), 100);
+                    } else {
+                        // Fallback
+                        window.location.hash = 'projects';
+                    }
+                };
+                setTimeout(() => scrollToProjects(), 100);
             }
             setPendingTransition(null);
         }

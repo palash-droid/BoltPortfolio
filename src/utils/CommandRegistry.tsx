@@ -55,10 +55,15 @@ export const commands: Record<string, Command> = {
 };
 
 export const executeCommand = (
-    input: string,
-    context: { currentPath: string; setCurrentPath: (path: string) => void }
-): { output: TerminalOutputItem[]; action?: 'clear' | 'switch_mode' | 'rain' | 'matrix_transition' | 'switch_mode_contact' } => {
-    const [cmdName, ...args] = input.trim().split(/\s+/);
+    cmdName: string,
+    args: string[],
+    context: {
+        currentPath: string;
+        setCurrentPath: (path: string) => void;
+        setInputOverride?: (handler: ((input: string, addOutput: (item: TerminalOutputItem) => void) => void) | null) => void;
+        triggerTransition?: (action: 'simple' | 'contact' | 'projects' | 'rain') => void;
+    }
+): { output: TerminalOutputItem[]; action?: 'clear' | 'switch_mode' | 'rain' | 'matrix_transition' | 'switch_mode_contact' | 'navigate_projects' | 'navigate_contact' } => {
 
     if (!cmdName) return { output: [] };
 
