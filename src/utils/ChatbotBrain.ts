@@ -10,12 +10,15 @@ const portfolioData = {
     },
     skills,
     projects,
-    certifications
 };
+
 
 export interface ChatResponse {
     text: string;
     relatedCommand?: string;
+    type?: 'text' | 'choice';
+    choices?: { label: string; action: 'navigate' | 'view'; value: string }[];
+    data?: any;
 }
 
 // Define the knowledge base structure
@@ -24,6 +27,8 @@ interface KnowledgeItem {
     answer: string;
     relatedCommand?: string;
     keywords: string[];
+    type?: 'text' | 'choice';
+    choices?: { label: string; action: 'navigate' | 'view'; value: string }[];
 }
 
 // Transform portfolio data into a knowledge base
@@ -43,15 +48,25 @@ const createKnowledgeBase = (): KnowledgeItem[] => {
         },
         {
             question: ['projects', 'work', 'portfolio', 'what have you built', 'show me your code', 'my projects', 'recent work'],
-            answer: `I've built several projects including:\n\n${portfolioData.projects.map(p => `• ${p.title}`).join('\n')}\n\nRun 'projects' to see details!`,
+            answer: "Would you like to navigate to the Projects section, or view the details here?",
             relatedCommand: 'projects',
-            keywords: ['project', 'projects', 'app', 'website', 'github', 'built', 'work']
+            keywords: ['project', 'projects', 'app', 'website', 'github', 'built', 'work'],
+            type: 'choice',
+            choices: [
+                { label: 'Go to Projects', action: 'navigate', value: 'projects' },
+                { label: 'View Details', action: 'view', value: 'projects' }
+            ]
         },
         {
             question: ['contact', 'email', 'socials', 'how to reach you', 'hire you', 'contact info', 'phone number'],
-            answer: `You can reach me at:\n• Email: ${portfolioData.about.email}\n• GitHub/LinkedIn: Check the contact section!`,
+            answer: "Would you like to navigate to the Contact section, or view the details here?",
             relatedCommand: 'contact-me',
-            keywords: ['email', 'github', 'linkedin', 'twitter', 'phone', 'contact', 'reach', 'hire']
+            keywords: ['email', 'github', 'linkedin', 'twitter', 'phone', 'contact', 'reach', 'hire'],
+            type: 'choice',
+            choices: [
+                { label: 'Go to Contact', action: 'navigate', value: 'contact' },
+                { label: 'View Details', action: 'view', value: 'contact' }
+            ]
         },
         {
             question: ['help', 'commands', 'what can you do', 'guide', 'features', 'how to use'],
@@ -122,7 +137,9 @@ export const processQuery = (query: string): ChatResponse => {
         const bestMatch = results[0].item;
         return {
             text: bestMatch.answer,
-            relatedCommand: bestMatch.relatedCommand
+            relatedCommand: bestMatch.relatedCommand,
+            type: bestMatch.type || 'text',
+            choices: bestMatch.choices
         };
     }
 
@@ -131,4 +148,14 @@ export const processQuery = (query: string): ChatResponse => {
         text: "I'm not sure about that one. Try asking about my 'skills', 'projects', or 'contact' info!",
         relatedCommand: 'help'
     };
+};
+
+export const getProjectDetails = () => {
+    return portfolioData.projects.map(p =>
+        `Title: ${p.title}\nTechnologies: ${p.technologies.join(', ')}\nDescription: ${p.description}\nLink: ${p.code || p.liveDemo}`
+    ).join('\n\n---\n\n');
+};
+
+export const getContactDetails = () => {
+    return `You can reach me at:\n• Email: ${portfolioData.about.email}\n• Phone: ${contactInfo.phone}\n• Location: ${contactInfo.location}`;
 };
