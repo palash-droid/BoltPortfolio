@@ -111,6 +111,7 @@ export const loadBlogContent = async (slug: string): Promise<string> => {
     // Find the blog post by slug (assuming slug is the same as id, or you have a slug field)
     const blogPost = blogPosts.find(post =>
         post.id === slug ||
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (post as any).slug === slug ||
         post.title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '') === slug
     );

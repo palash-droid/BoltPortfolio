@@ -50,20 +50,20 @@ export const TerminalProvider: React.FC<{ children: ReactNode }> = ({ children }
         setOutput([]);
     }, []);
 
+    const value = React.useMemo(() => ({
+        isTerminalMode,
+        setTerminalMode: setIsTerminalMode,
+        history,
+        addToHistory,
+        output,
+        addOutput,
+        clearOutput,
+        currentPath,
+        setCurrentPath,
+    }), [isTerminalMode, history, addToHistory, output, addOutput, clearOutput, currentPath]);
+
     return (
-        <TerminalContext.Provider
-            value={{
-                isTerminalMode,
-                setTerminalMode: setIsTerminalMode,
-                history,
-                addToHistory,
-                output,
-                addOutput,
-                clearOutput,
-                currentPath,
-                setCurrentPath,
-            }}
-        >
+        <TerminalContext.Provider value={value}>
             {children}
         </TerminalContext.Provider>
     );

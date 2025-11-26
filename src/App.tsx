@@ -6,6 +6,8 @@ import Footer from './components/Footer';
 import BlogModal from './components/BlogModal';
 import { BlogProvider } from './contexts/BlogContext';
 import { TerminalProvider, useTerminal } from './contexts/TerminalContext';
+import ChatWidget from './components/ChatWidget';
+
 import Terminal from './components/Terminal/Terminal';
 
 // Lazy load pages for better performance
@@ -43,6 +45,7 @@ const AppContent = () => {
       </main>
       <Footer />
       <BlogModal />
+      <ChatWidget />
 
       {/* Floating button to return to terminal */}
       <button

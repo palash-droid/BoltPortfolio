@@ -4,6 +4,7 @@ import { Command } from '../commands/types';
 import * as fileSystem from '../commands/fileSystem';
 import * as portfolio from '../commands/portfolio';
 import * as system from '../commands/system';
+import * as chatbot from '../commands/chatbot';
 
 export const commands: Record<string, Command> = {
     help: {
@@ -29,6 +30,7 @@ export const commands: Record<string, Command> = {
         },
     },
     // Primary Commands
+    ask: chatbot.ask,
     about: portfolio.about,
     projects: portfolio.projectsCmd,
     'contact-me': portfolio.contact,

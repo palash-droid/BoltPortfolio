@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useTerminal } from '../../contexts/TerminalContext';
 import TerminalOutput from './TerminalOutput';
 import MatrixRain from './MatrixRain';
@@ -35,7 +35,7 @@ const Terminal: React.FC = () => {
         inputRef.current?.focus();
     }, []);
 
-    const handleTab = () => {
+    const handleTab = useCallback(() => {
         const trimmedInput = input.trim();
         if (!trimmedInput) return;
 
@@ -48,18 +48,18 @@ const Terminal: React.FC = () => {
             addOutput({ type: 'info', content: matches.join('  '), className: 'text-blue-300' });
         }
         // Removed focus call to prevent keyboard popping up on mobile
-    };
+    }, [input, addOutput]);
 
-    const handleArrowUp = () => {
+    const handleArrowUp = useCallback(() => {
         if (history.length > 0) {
             const newIndex = historyIndex < history.length - 1 ? historyIndex + 1 : historyIndex;
             setHistoryIndex(newIndex);
             setInput(history[history.length - 1 - newIndex]);
         }
         // Removed focus call
-    };
+    }, [history, historyIndex]);
 
-    const handleArrowDown = () => {
+    const handleArrowDown = useCallback(() => {
         if (historyIndex > 0) {
             const newIndex = historyIndex - 1;
             setHistoryIndex(newIndex);
@@ -69,9 +69,9 @@ const Terminal: React.FC = () => {
             setInput('');
         }
         // Removed focus call
-    };
+    }, [history, historyIndex]);
 
-    const executeInput = () => {
+    const executeInput = useCallback(() => {
         const cmd = input.trim();
         if (!cmd) return;
 
@@ -96,7 +96,7 @@ const Terminal: React.FC = () => {
 
         setInput('');
         setHistoryIndex(-1);
-    };
+    }, [input, currentPath, addOutput, addToHistory, setCurrentPath, clearOutput, setTerminalMode, triggerTransition]);
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
@@ -136,7 +136,7 @@ const Terminal: React.FC = () => {
                 <div className="max-w-4xl mx-auto relative z-10">
                     <div className="mb-4">
                         <div className="text-blue-300">Welcome to Palash's Portfolio Terminal v1.0.0</div>
-                        <div className="text-blue-300">Type "help" to see available commands or "simple" for the GUI version.</div>
+                        <div className="text-blue-300">Type "help" for commands, "ask &lt;question&gt;" to chat with AI, or "simple" for GUI.</div>
                     </div>
 
                     {output.map((item, index) => (
@@ -156,6 +156,7 @@ const Terminal: React.FC = () => {
                             autoComplete="off"
                             spellCheck="false"
                             autoCapitalize="none"
+                            aria-label="Terminal Input"
                         />
                     </div>
                 </div>

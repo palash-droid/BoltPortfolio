@@ -20,6 +20,7 @@ const Certifications = () => {
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleImageClick = (cert: any) => {
     if (cert.image) {
       setSelectedCert({

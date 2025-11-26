@@ -43,4 +43,4 @@ const MobileToolbar: React.FC<MobileToolbarProps> = ({ onTab, onArrowUp, onArrow
     );
 };
 
-export default MobileToolbar;
+export default React.memo(MobileToolbar);

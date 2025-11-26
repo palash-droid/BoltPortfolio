@@ -20,7 +20,7 @@ const TerminalOutput: React.FC<TerminalOutputProps> = ({ item }) => {
             const speed = text.length > 100 ? 1 : 10;
 
             const intervalId = setInterval(() => {
-                setDisplayedContent((prev) => text.slice(0, i + 1));
+                setDisplayedContent(() => text.slice(0, i + 1));
                 i++;
                 if (i === text.length) {
                     clearInterval(intervalId);
@@ -61,4 +61,4 @@ const TerminalOutput: React.FC<TerminalOutputProps> = ({ item }) => {
     );
 };
 
-export default TerminalOutput;
+export default React.memo(TerminalOutput);

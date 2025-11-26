@@ -4,6 +4,8 @@ interface MatrixRainProps {
     onComplete: () => void;
 }
 
+const CHARS = '0123456789ABCDEF';
+
 const MatrixRain: React.FC<MatrixRainProps> = ({ onComplete }) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -25,8 +27,6 @@ const MatrixRain: React.FC<MatrixRainProps> = ({ onComplete }) => {
             drops[i] = 1;
         }
 
-        const chars = '0123456789ABCDEF';
-
         const draw = () => {
             // Semi-transparent black to create trail effect
             ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
@@ -36,7 +36,7 @@ const MatrixRain: React.FC<MatrixRainProps> = ({ onComplete }) => {
             ctx.font = '15px monospace';
 
             for (let i = 0; i < drops.length; i++) {
-                const text = chars.charAt(Math.floor(Math.random() * chars.length));
+                const text = CHARS.charAt(Math.floor(Math.random() * CHARS.length));
                 ctx.fillText(text, i * 20, drops[i] * 20);
 
                 if (drops[i] * 20 > canvas.height && Math.random() > 0.975) {
@@ -49,14 +49,18 @@ const MatrixRain: React.FC<MatrixRainProps> = ({ onComplete }) => {
 
         const interval = setInterval(draw, 33);
 
-        // Auto-close after 10 seconds
+        // Auto-close after 5 seconds
         const timeout = setTimeout(() => {
             onComplete();
         }, 5000);
 
+        let resizeTimeout: number;
         const handleResize = () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+            clearTimeout(resizeTimeout);
+            resizeTimeout = window.setTimeout(() => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }, 100);
         };
 
         window.addEventListener('resize', handleResize);
@@ -64,6 +68,7 @@ const MatrixRain: React.FC<MatrixRainProps> = ({ onComplete }) => {
         return () => {
             clearInterval(interval);
             clearTimeout(timeout);
+            clearTimeout(resizeTimeout);
             window.removeEventListener('resize', handleResize);
         };
     }, [onComplete]);

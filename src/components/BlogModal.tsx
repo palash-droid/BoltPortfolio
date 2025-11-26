@@ -131,11 +131,12 @@ const BlogModal = () => {
                         rehypePlugins={[rehypeHighlight, rehypeRaw]}
                         components={{
                           // Custom components for better styling
-                          h1: ({ node, ...props }) => <h1 className="text-3xl font-bold mb-6 mt-8 text-gray-900 dark:text-white" {...props} />,
-                          h2: ({ node, ...props }) => <h2 className="text-2xl font-semibold mb-4 mt-6 text-gray-900 dark:text-white" {...props} />,
-                          h3: ({ node, ...props }) => <h3 className="text-xl font-semibold mb-3 mt-5 text-gray-900 dark:text-white" {...props} />,
-                          p: ({ node, ...props }) => <p className="mb-4 text-gray-700 dark:text-gray-300 leading-relaxed" {...props} />,
-                          code: ({ node, children, className, ...props }: any) => {
+                          h1: ({ ...props }) => <h1 className="text-3xl font-bold mb-6 mt-8 text-gray-900 dark:text-white" {...props} />,
+                          h2: ({ ...props }) => <h2 className="text-2xl font-semibold mb-4 mt-6 text-gray-900 dark:text-white" {...props} />,
+                          h3: ({ ...props }) => <h3 className="text-xl font-semibold mb-3 mt-5 text-gray-900 dark:text-white" {...props} />,
+                          p: ({ ...props }) => <p className="mb-4 text-gray-700 dark:text-gray-300 leading-relaxed" {...props} />,
+                          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                          code: ({ children, className, ...props }: any) => {
                             const match = /language-(\w+)/.exec(className || '');
                             const isInline = !match;
 
@@ -143,17 +144,17 @@ const BlogModal = () => {
                               ? <code className="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-800 text-pink-600 dark:text-pink-400 rounded text-sm font-mono" {...props}>{children}</code>
                               : <code className="block" {...props}>{children}</code>;
                           },
-                          pre: ({ node, ...props }) => <pre className="bg-gray-900 text-gray-100 rounded-lg p-4 overflow-x-auto mb-4" {...props} />,
-                          blockquote: ({ node, ...props }) => <blockquote className="border-l-4 border-blue-500 pl-6 py-2 my-6 bg-gray-50 dark:bg-gray-800 italic" {...props} />,
-                          ul: ({ node, ...props }) => <ul className="mb-4 pl-6 space-y-2 list-disc" {...props} />,
-                          ol: ({ node, ...props }) => <ol className="mb-4 pl-6 space-y-2 list-decimal" {...props} />,
-                          li: ({ node, children, ...props }) => {
+                          pre: ({ ...props }) => <pre className="bg-gray-900 text-gray-100 rounded-lg p-4 overflow-x-auto mb-4" {...props} />,
+                          blockquote: ({ ...props }) => <blockquote className="border-l-4 border-blue-500 pl-6 py-2 my-6 bg-gray-50 dark:bg-gray-800 italic" {...props} />,
+                          ul: ({ ...props }) => <ul className="mb-4 pl-6 space-y-2 list-disc" {...props} />,
+                          ol: ({ ...props }) => <ol className="mb-4 pl-6 space-y-2 list-decimal" {...props} />,
+                          li: ({ children, ...props }) => {
                             // Ensure li is properly structured
                             return <li className="text-gray-700 dark:text-gray-300 ml-0" {...props}>{children}</li>;
                           },
-                          a: ({ node, ...props }) => <a className="text-blue-600 dark:text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer" {...props} />,
-                          img: ({ node, ...props }) => <img className="rounded-lg shadow-md mx-auto my-6" {...props} />,
-                          hr: ({ node, ...props }) => <hr className="my-8 border-gray-200 dark:border-gray-700" {...props} />,
+                          a: ({ ...props }) => <a className="text-blue-600 dark:text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer" {...props} />,
+                          img: ({ ...props }) => <img className="rounded-lg shadow-md mx-auto my-6" {...props} />,
+                          hr: ({ ...props }) => <hr className="my-8 border-gray-200 dark:border-gray-700" {...props} />,
                         }}
                       >
                         {selectedBlogContent}
