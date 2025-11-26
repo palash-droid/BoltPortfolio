@@ -5,6 +5,7 @@ import MatrixRain from './MatrixRain';
 import MobileToolbar from './MobileToolbar';
 import { executeCommand, commands } from '../../utils/CommandRegistry';
 import { useMatrixTransition } from '../../hooks/useMatrixTransition';
+import AsciiLogo from './AsciiLogo';
 
 const Terminal: React.FC = () => {
     const {
@@ -165,6 +166,7 @@ const Terminal: React.FC = () => {
                 onClick={handleContainerClick}
             >
                 <div className="max-w-4xl mx-auto relative z-10">
+                    <AsciiLogo />
                     <div className="mb-4">
                         <div className="text-blue-300">Welcome to Palash's Portfolio Terminal v1.0.0</div>
                         <div className="text-blue-300">Type "help" for commands, "ask &lt;question&gt;" to chat with AI, or "simple" for GUI.</div>
