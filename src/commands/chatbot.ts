@@ -59,6 +59,7 @@ export const ask: Command = {
 
                 // Wrap in arrow function so React doesn't treat it as a state updater
                 context.setInputOverride(() => handleChoiceInput);
+                console.log('[CHATBOT] inputOverride SET');
             }
 
             return output;
