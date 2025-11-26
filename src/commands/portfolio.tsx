@@ -1,40 +1,46 @@
 import React from 'react';
 import { Command } from './types';
 import { projects } from '../data/portfolio';
-import { cat } from './fileSystem';
+import { useTerminal } from '../contexts/TerminalContext';
+
+const ProjectList: React.FC = () => {
+    const { setPendingCommand } = useTerminal();
+
+    const handleProjectClick = (projectTitle: string) => {
+        if (setPendingCommand) {
+            setPendingCommand(`cat "${projectTitle}"`);
+        }
+    };
+
+    return (
+        <div className="flex flex-col gap-2 my-2">
+            {projects.map((p) => (
+                <div
+                    key={p.title}
+                    onClick={() => handleProjectClick(p.title)}
+                    className="group cursor-pointer flex items-center gap-3 p-2 rounded hover:bg-gray-900/50 transition-colors border border-transparent hover:border-gray-800"
+                >
+                    <span className="text-green-500 group-hover:text-green-400">❯</span>
+                    <div className="flex-1">
+                        <div className="text-blue-300 group-hover:text-blue-200 font-bold text-lg">{p.title}</div>
+                    </div>
+                    <span className="text-gray-600 text-xs opacity-0 group-hover:opacity-100 transition-opacity hidden sm:block">
+                        [click to view]
+                    </span>
+                </div>
+            ))}
+        </div>
+    );
+};
 
 export const projectsCmd: Command = {
     name: 'projects',
     description: 'List my projects',
     handler: () => {
-        const content = (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-2">
-                {projects.map((p) => (
-                    <div key={p.title} className="border border-gray-800 p-3 rounded bg-gray-900/30 hover:bg-gray-900/50 transition-colors">
-                        <div className="text-green-400 font-bold text-lg mb-1">{p.title}</div>
-                        <div className="text-gray-400 text-sm mb-2 line-clamp-2">{p.description}</div>
-                        <div className="flex flex-wrap gap-1 mb-2">
-                            {p.technologies.slice(0, 3).map(tech => (
-                                <span key={tech} className="text-xs text-blue-300 bg-blue-900/30 px-1.5 py-0.5 rounded">
-                                    {tech}
-                                </span>
-                            ))}
-                            {p.technologies.length > 3 && (
-                                <span className="text-xs text-gray-500 px-1.5 py-0.5">+{p.technologies.length - 3}</span>
-                            )}
-                        </div>
-                        <div className="text-gray-600 text-xs font-mono">
-                            cmd: cat "{p.title}"
-                        </div>
-                    </div>
-                ))}
-            </div>
-        );
-
         return [
             { type: 'info', content: 'My Projects:', className: 'text-blue-300 font-bold text-xl mb-2' },
-            { type: 'component', content },
-            { type: 'info', content: 'Tip: Run "cat <project-name>" to view full details and links.', className: 'text-gray-500 italic mt-2' }
+            { type: 'component', content: <ProjectList /> },
+            { type: 'info', content: 'Tip: Click on a project to view details.', className: 'text-gray-500 italic mt-2' }
         ];
     },
 };

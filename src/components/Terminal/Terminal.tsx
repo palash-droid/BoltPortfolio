@@ -18,6 +18,8 @@ const Terminal: React.FC = () => {
         setTerminalMode,
         inputOverride,
         setInputOverride,
+        pendingCommand,
+        setPendingCommand,
     } = useTerminal();
 
     const [input, setInput] = useState('');
@@ -36,6 +38,14 @@ const Terminal: React.FC = () => {
     useEffect(() => {
         inputRef.current?.focus();
     }, []);
+
+    // Effect to handle pending commands triggered by UI components
+    useEffect(() => {
+        if (pendingCommand) {
+            executeInput(pendingCommand);
+            setPendingCommand?.(null);
+        }
+    }, [pendingCommand]);
 
     const handleTab = useCallback(() => {
         const trimmedInput = input.trim();
@@ -73,8 +83,8 @@ const Terminal: React.FC = () => {
         // Removed focus call
     }, [history, historyIndex]);
 
-    const executeInput = useCallback(() => {
-        const cmd = input.trim();
+    const executeInput = useCallback((cmdOverride?: string) => {
+        const cmd = cmdOverride || input.trim();
         if (!cmd) return;
 
         addOutput({ type: 'text', content: `${currentPath} ❯ ${cmd}`, className: 'text-gray-100 font-bold' });

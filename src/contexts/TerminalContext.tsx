@@ -18,6 +18,8 @@ interface TerminalContextType {
     setCurrentPath: (path: string) => void;
     inputOverride?: ((input: string, addOutput: (item: TerminalOutputItem) => void) => void) | null;
     setInputOverride?: (handler: ((input: string, addOutput: (item: TerminalOutputItem) => void) => void) | null) => void;
+    pendingCommand?: string | null;
+    setPendingCommand?: (command: string | null) => void;
 }
 
 const TerminalContext = createContext<TerminalContextType | undefined>(undefined);
@@ -32,6 +34,7 @@ export const TerminalProvider: React.FC<{ children: ReactNode }> = ({ children }
     const [output, setOutput] = useState<TerminalOutputItem[]>([]);
     const [currentPath, setCurrentPath] = useState('~/');
     const [inputOverride, setInputOverride] = useState<((input: string, addOutput: (item: TerminalOutputItem) => void) => void) | null>(null);
+    const [pendingCommand, setPendingCommand] = useState<string | null>(null);
 
     useEffect(() => {
         localStorage.setItem('terminal_history', JSON.stringify(history));
@@ -65,7 +68,9 @@ export const TerminalProvider: React.FC<{ children: ReactNode }> = ({ children }
         setCurrentPath,
         inputOverride,
         setInputOverride,
-    }), [isTerminalMode, history, addToHistory, output, addOutput, clearOutput, currentPath, inputOverride]);
+        pendingCommand,
+        setPendingCommand,
+    }), [isTerminalMode, history, addToHistory, output, addOutput, clearOutput, currentPath, inputOverride, pendingCommand]);
 
     return (
         <TerminalContext.Provider value={value}>
