@@ -17,24 +17,27 @@ const AsciiLogo: React.FC = () => {
     useEffect(() => {
         const interval = setInterval(() => {
             setColorIndex((prev) => (prev + 1) % colors.length);
-        }, 500); // Change color every 500ms
+        }, 500);
 
         return () => clearInterval(interval);
     }, []);
 
-    // "Palash Bhagwatkar" in ANSI Shadow font with extra spacing
-    const asciiArt = `
+    const nameArt = `
 ██████╗   █████╗  ██╗       █████╗  ███████╗ ██╗  ██╗      ██████╗  ██╗  ██╗  █████╗   ██████╗   ██╗    ██╗  █████╗  ████████╗ ██╗  ██╗  █████╗  ██████╗ 
 ██╔══██╗ ██╔══██╗ ██║      ██╔══██╗ ██╔════╝ ██║  ██║      ██╔══██╗ ██║  ██║ ██╔══██╗ ██╔════╝   ██║    ██║ ██╔══██╗ ╚══██╔══╝ ██║ ██╔╝ ██╔══██╗ ██╔══██╗
 ██████╔╝ ███████║ ██║      ███████║ ███████╗ ███████║      ██████╔╝ ███████║ ███████║ ██║  ███╗  ██║ █╗ ██║ ███████║    ██║    █████╔╝  ███████║ ██████╔╝
 ██╔═══╝  ██╔══██║ ██║      ██╔══██║ ╚════██║ ██╔══██║      ██╔══██╗ ██╔══██║ ██╔══██║ ██║   ██║  ██║███╗██║ ██╔══██║    ██║    ██╔═██╗  ██╔══██║ ██╔══██╗
 ██║      ██║  ██║ ███████╗ ██║  ██║ ███████║ ██║  ██║      ██████╔╝ ██║  ██║ ██║  ██║ ╚██████╔╝  ╚███╔███╔╝ ██║  ██║    ██║    ██║  ██╗ ██║  ██║ ██║  ██║
 ╚═╝      ╚═╝  ╚═╝ ╚══════╝ ╚═╝  ╚═╝ ╚══════╝ ╚═╝  ╚═╝      ╚═════╝  ╚═╝  ╚═╝ ╚═╝  ╚═╝  ╚═════╝    ╚══╝╚══╝  ╚═╝  ╚═╝    ╚═╝    ╚═╝  ╚═╝ ╚═╝  ╚═╝ ╚═╝  ╚═╝
-    `;
+`.trim();
 
     return (
-        <div className={`font-mono whitespace-pre text-xs sm:text-sm md:text-base leading-none mb-6 transition-colors duration-500 ${colors[colorIndex]}`}>
-            {asciiArt}
+        // Changed classes:
+        // 1. Removed 'text-xs sm:text-sm...'
+        // 2. Added 'text-[0.7vw]' -> Sets font size to 0.7% of the total screen width
+        // 3. Added 'w-full' and 'overflow-hidden' to ensure container behaves
+        <div className={`flex flex-row items-center justify-center w-full overflow-hidden font-mono whitespace-pre leading-none mb-6 transition-colors duration-500 ${colors[colorIndex]} text-[0.7vw] md:text-[0.6vw]`}>
+            <div className="leading-[1.15]">{nameArt}</div>
         </div>
     );
 };
