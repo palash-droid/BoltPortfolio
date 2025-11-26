@@ -34,8 +34,8 @@ export const ask: Command = {
                 // Capture triggerTransition in closure so it's available inside the callback
                 const triggerTransition = context.triggerTransition;
 
-                // IMPORTANT: Wrap the function in an arrow function so React doesn't treat it as a state updater
-                context.setInputOverride(() => (input: string, addOutput: (item: TerminalOutputItem) => void) => {
+                // Create named function for better reliability across browsers (especially mobile)
+                const handleChoiceInput = (input: string, addOutput: (item: TerminalOutputItem) => void) => {
                     const choiceIndex = parseInt(input) - 1;
                     const choice = response.choices?.[choiceIndex];
 
@@ -55,7 +55,10 @@ export const ask: Command = {
                     } else {
                         addOutput({ type: 'error', content: "Invalid choice. Please try asking again." });
                     }
-                });
+                };
+
+                // Wrap in arrow function so React doesn't treat it as a state updater
+                context.setInputOverride(() => handleChoiceInput);
             }
 
             return output;
