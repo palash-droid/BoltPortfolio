@@ -2,6 +2,7 @@ import React from 'react';
 import { Command } from './types';
 import { projects } from '../data/portfolio';
 import { useTerminal } from '../contexts/TerminalContext';
+import { cat } from './fileSystem';
 
 const ProjectList: React.FC = () => {
     const { setPendingCommand } = useTerminal();

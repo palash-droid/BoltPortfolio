@@ -85,8 +85,13 @@ export const cat: Command = {
     name: 'cat',
     description: 'View file content',
     handler: (args, { currentPath }) => {
-        const target = args.join(' '); // Join arguments to handle spaces
+        let target = args.join(' '); // Join arguments to handle spaces
         if (!target) return [{ type: 'error', content: 'usage: cat <file>' }];
+
+        // Strip quotes if present
+        if ((target.startsWith('"') && target.endsWith('"')) || (target.startsWith("'") && target.endsWith("'"))) {
+            target = target.slice(1, -1);
+        }
 
         // Handle root files
         if (currentPath === '~/' || currentPath === '~') {
