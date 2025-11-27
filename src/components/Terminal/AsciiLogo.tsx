@@ -11,8 +11,8 @@ const AsciiLogo: React.FC = () => {
                 2. Sizing: I adjusted the 'lg' text size. 3vw is usually too big for desktop ASCII 
                    and causes wrapping. 1.2vw is safer for wide screens.
             */}
-            <div className={`font-mono whitespace-pre leading-none animate-soothe
-                text-[6vw] 
+            <div className={`font-mono whitespace-pre leading-none animate-soothe tracking-[-0.09em]
+                text-[5vw] 
                 sm:text-[1.8vw]
                 md:text-[1.4vw] 
                 lg:text-[2.4vw] 
