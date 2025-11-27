@@ -12,7 +12,7 @@ const AsciiLogo: React.FC = () => {
                 - Desktop: Standard size.
             */}
             <div className={`font-mono leading-none animate-soothe tracking-[-0.09em] flex flex-col items-start`}>
-                <div className="whitespace-pre text-[6.3vw] sm:text-[6vw] md:text-[4vw] lg:text-[4vw] xl:text-[2.5vw]">
+                <div className="whitespace-pre text-[5.9vw] sm:text-[6vw] md:text-[4vw] lg:text-[4vw] xl:text-[2.5vw]">
                     {logoArt}
                 </div>
             </div>
