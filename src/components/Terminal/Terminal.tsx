@@ -167,13 +167,13 @@ const Terminal: React.FC = () => {
             >
                 <div className="max-w-4xl mx-auto relative z-10">
                     <div className="flex flex-col items-start mb-6 w-full">
-                        {/* Logo Container with Scaling */}
-                        <div className="w-full overflow-hidden origin-top-left transform scale-[0.25] sm:scale-[0.4] md:scale-[0.6] lg:scale-[0.8] transition-transform duration-300">
+                        {/* Logo Container */}
+                        <div className="w-full">
                             <AsciiLogo />
                         </div>
 
-                        {/* Welcome Message - Moved below logo */}
-                        <div className="mt-[-80px] sm:mt-[-60px] md:mt-[-40px] lg:mt-[-20px]">
+                        {/* Welcome Message */}
+                        <div>
                             <div className="text-blue-300 font-bold text-lg mb-2">Welcome to Palash's Portfolio Terminal v1.0.0</div>
                             <div className="text-blue-300">Type "help" for commands, "ask &lt;question&gt;" to chat with AI, or "simple" for GUI.</div>
                         </div>

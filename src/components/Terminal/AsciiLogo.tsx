@@ -1,70 +1,43 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import logoArt from '../../assets/Palash_Logo.txt?raw';
 
 const AsciiLogo: React.FC = () => {
-    const [colorIndex, setColorIndex] = useState(0);
-
-    // Modern Pastel Palette (suited for dark backgrounds)
-    const colors = [
-        'text-rose-400',    // Soft Pink
-        'text-amber-300',   // Pastel Gold/Cream
-        'text-emerald-400', // Mint Green
-        'text-sky-400',     // Baby Blue
-        'text-indigo-400',  // Periwinkle
-        'text-violet-400',  // Lavender
-        'text-fuchsia-400', // Soft Magenta
-        'text-teal-300'     // Aqua
-    ];
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setColorIndex((prev) => (prev + 1) % colors.length);
-        }, 500); // Speed of color change
-        return () => clearInterval(interval);
-    }, []);
-
-    // 1. The Full Wide Logo (For Desktop)
-    const fullArt = `
-██████╗   █████╗  ██╗       █████╗  ███████╗ ██╗  ██╗      ██████╗  ██╗  ██╗  █████╗   ██████╗   ██╗    ██╗  █████╗  ████████╗ ██╗  ██╗  █████╗  ██████╗ 
-██╔══██╗ ██╔══██╗ ██║      ██╔══██╗ ██╔════╝ ██║  ██║      ██╔══██╗ ██║  ██║ ██╔══██╗ ██╔════╝   ██║    ██║ ██╔══██╗ ╚══██╔══╝ ██║ ██╔╝ ██╔══██╗ ██╔══██╗
-██████╔╝ ███████║ ██║      ███████║ ███████╗ ███████║      ██████╔╝ ███████║ ███████║ ██║  ███╗  ██║ █╗ ██║ ███████║    ██║    █████╔╝  ███████║ ██████╔╝
-██╔═══╝  ██╔══██║ ██║      ██╔══██║ ╚════██║ ██╔══██║      ██╔══██╗ ██╔══██║ ██╔══██║ ██║   ██║  ██║███╗██║ ██╔══██║    ██║    ██╔═██╗  ██╔══██║ ██╔══██╗
-██║      ██║  ██║ ███████╗ ██║  ██║ ███████║ ██║  ██║      ██████╔╝ ██║  ██║ ██║  ██║ ╚██████╔╝  ╚███╔███╔╝ ██║  ██║    ██║    ██║  ██╗ ██║  ██║ ██║  ██║
-╚═╝      ╚═╝  ╚═╝ ╚══════╝ ╚═╝  ╚═╝ ╚══════╝ ╚═╝  ╚═╝      ╚═════╝  ╚═╝  ╚═╝ ╚═╝  ╚═╝  ╚═════╝    ╚══╝╚══╝  ╚═╝  ╚═╝    ╚═╝    ╚═╝  ╚═╝ ╚═╝  ╚═╝ ╚═╝  ╚═╝
-`.trim();
-
-    // 2. The Split Logo (For Mobile) - Part 1: PALASH
-    const mobileTop = `
-██████╗  █████╗ ██╗      █████╗ ███████╗██╗  ██╗
-██╔══██╗██╔══██╗██║     ██╔══██╗██╔════╝██║  ██║
-██████╔╝███████║██║     ███████║███████╗███████║
-██╔═══╝ ██╔══██║██║     ██╔══██║╚════██║██╔══██║
-██║     ██║  ██║███████╗██║  ██║███████║██║  ██║
-╚═╝     ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝`.trim();
-
-    // 3. The Split Logo (For Mobile) - Part 2: BHAGWATKAR
-    const mobileBottom = `
-██████╗ ██╗  ██╗ █████╗  ██████╗ ██╗    ██╗ █████╗ ████████╗██╗  ██╗ █████╗ ██████╗ 
-██╔══██╗██║  ██║██╔══██╗██╔════╝ ██║    ██║██╔══██╗╚══██╔══╝██║ ██╔╝██╔══██╗██╔══██╗
-██████╔╝███████║███████║██║  ███╗██║ █╗ ██║███████║   ██║   █████╔╝ ███████║██████╔╝
-██╔══██╗██╔══██║██╔══██║██║   ██║██║███╗██║██╔══██║   ██║   ██╔═██╗ ██╔══██║██╔══██╗
-██████╔╝██║  ██║██║  ██║╚██████╔╝╚███╔███╔╝██║  ██║   ██║   ██║  ██╗██║  ██║██║  ██║
-╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝  ╚══╝╚══╝ ╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝`.trim();
+    // We removed useState/useEffect because CSS animation is smoother and more performant.
 
     return (
-        <div className={`flex flex-col items-center justify-center w-full mb-6 transition-colors duration-500 ${colors[colorIndex]} font-mono whitespace-pre leading-none`}>
+        <div className="flex flex-col items-start justify-start w-full mb-2 md:mb-6">
 
-            {/* MOBILE VIEW: Shows stacked logo. 
-                text-[1.8vw] makes it large enough to read on phone */}
-            <div className="flex flex-col items-center gap-2 md:hidden">
-                <div className="text-[1.8vw] sm:text-[1.2vw]">{mobileTop}</div>
-                <div className="text-[1.8vw] sm:text-[1.2vw]">{mobileBottom}</div>
+            {/* 1. 'animate-soothe': Applies the custom animation defined below.
+                2. Sizing: I adjusted the 'lg' text size. 3vw is usually too big for desktop ASCII 
+                   and causes wrapping. 1.2vw is safer for wide screens.
+            */}
+            <div className={`font-mono whitespace-pre leading-none animate-soothe
+                text-[6vw] 
+                sm:text-[1.8vw]
+                md:text-[1.4vw] 
+                lg:text-[2.4vw] 
+            `}>
+                {logoArt}
             </div>
 
-            {/* DESKTOP VIEW: Shows full single line logo. 
-                Hidden on mobile, appears on 'md' screens and up */}
-            <div className="hidden md:block text-[0.6vw] lg:text-[0.5vw]">
-                {fullArt}
-            </div>
+            {/* Custom CSS for the smooth color morphing.
+               We use specific hex codes matching Tailwind's '300' series for a pastel look.
+            */}
+            <style>{`
+                @keyframes soothe {
+                   0%   { color: #86efac; } /* Emerald-300: Fresh Start */
+                    15%  { color: #67e8f9; } /* Cyan-300: Clear Water */
+                    30%  { color: #93c5fd; } /* Blue-300: Day Sky */
+                    45%  { color: #c4b5fd; } /* Violet-300: Deep Calm */
+                    60%  { color: #f0abfc; } /* Fuchsia-300: Soft Magic */
+                    75%  { color: #fda4af; } /* Rose-300: Gentle Love */
+                    90%  { color: #fcd34d; } /* Amber-300: Warm Sunset */
+                    100% { color: #86efac; } /* Back to Emerald */
+                }
+                .animate-soothe {
+                    animation: soothe 15s ease-in-out infinite;
+                }
+            `}</style>
         </div>
     );
 };
