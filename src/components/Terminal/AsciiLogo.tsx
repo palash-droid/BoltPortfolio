@@ -12,10 +12,10 @@ const AsciiLogo: React.FC = () => {
                    and causes wrapping. 1.2vw is safer for wide screens.
             */}
             <div className={`font-mono whitespace-pre leading-none animate-soothe tracking-[-0.09em]
-                text-[5vw] 
-                sm:text-[1.8vw]
-                md:text-[1.4vw] 
-                lg:text-[2.4vw] 
+                text-[7vw]         // For Mobile Devices
+                sm:text-[1.8vw]    // 
+                md:text-[6vw]      // For Tablets
+                lg:text-[2.4vw]    // For Desktops
             `}>
                 {logoArt}
             </div>
