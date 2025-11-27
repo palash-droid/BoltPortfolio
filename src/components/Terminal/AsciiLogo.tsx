@@ -2,30 +2,17 @@ import React from 'react';
 import logoArt from '../../assets/Palash_Logo.txt?raw';
 
 const AsciiLogo: React.FC = () => {
-    // Split the logo text by space to separate "PALASH" and "BHAGWATKAR"
-    // logoArt is likely "🅿🅰🅻🅰🆂🅷 🅱🅷🅰🅶🆆🅰🆃🅺🅰🆁"
-    const parts = logoArt.trim().split(' ');
-    const firstPart = parts[0] || logoArt;
-    const secondPart = parts[1] || '';
-
     return (
-        <div className="flex flex-col items-center md:items-start justify-start w-full mb-2 md:mb-6">
+        <div className="flex flex-col items-start justify-start w-full mb-2 md:mb-6">
 
             {/* 
                 Responsive Layout:
-                - Mobile (< md): Split into two lines (PALASH \n BHAGWATKAR) to fit width.
-                - Desktop (>= md): Single line.
+                - Unified single line for all devices as per user request.
+                - Mobile: Scaled down to fit width without splitting (approx 2.5vw).
+                - Desktop: Standard size.
             */}
-            <div className={`font-mono leading-none animate-soothe tracking-[-0.09em] flex flex-col items-center md:block`}>
-
-                {/* Mobile: Split View */}
-                <div className="md:hidden flex flex-col items-start gap-2">
-                    <div className="text-[13vw] sm:text-[10vw]">{firstPart}</div>
-                    {secondPart && <div className="text-[13vw] sm:text-[10vw]">{secondPart}</div>}
-                </div>
-
-                {/* Desktop: Full View */}
-                <div className="hidden md:block whitespace-pre text-[6vw] lg:text-[2.4vw]">
+            <div className={`font-mono leading-none animate-soothe tracking-[-0.09em] flex flex-col items-start`}>
+                <div className="whitespace-pre text-[6.3vw] sm:text-[6vw] md:text-[4vw] lg:text-[4vw] xl:text-[2.5vw]">
                     {logoArt}
                 </div>
             </div>
