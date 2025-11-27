@@ -7,6 +7,13 @@ import { executeCommand, commands } from '../../utils/CommandRegistry';
 import { useMatrixTransition } from '../../hooks/useMatrixTransition';
 import AsciiLogo from './AsciiLogo';
 
+const GHOST_COMMANDS = ['help', 'about', 'projects', 'contact-me', 'ask <Question> Example: ask what are your skills?', 'ask <Question> Example: ask what are your Projects?', 'GUI, Note: This Command Takes You To Interactive GUI Mode of my Portfolio'];
+const TYPING_SPEED_MIN = 50;
+const TYPING_SPEED_MAX = 150;
+const DELETING_SPEED = 50;
+const PAUSE_END = 1500;
+const PAUSE_START = 500;
+
 const Terminal: React.FC = () => {
     const {
         history,
@@ -25,7 +32,11 @@ const Terminal: React.FC = () => {
 
     const [input, setInput] = useState('');
     const [historyIndex, setHistoryIndex] = useState(-1);
-    const inputRef = useRef<HTMLInputElement>(null);
+    const [isGhostTyping, setIsGhostTyping] = useState(true);
+    const [ghostIndex, setGhostIndex] = useState(0);
+    const [charIndex, setCharIndex] = useState(0);
+    const [isDeleting, setIsDeleting] = useState(false);
+    const inputRef = useRef<HTMLTextAreaElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
 
     const { isRaining, triggerTransition, handleRainComplete } = useMatrixTransition();
@@ -39,6 +50,56 @@ const Terminal: React.FC = () => {
     useEffect(() => {
         inputRef.current?.focus();
     }, []);
+
+    // Auto-resize textarea when input changes (including ghost typing)
+    useEffect(() => {
+        if (inputRef.current) {
+            inputRef.current.style.height = 'auto';
+            inputRef.current.style.height = `${inputRef.current.scrollHeight}px`;
+        }
+    }, [input]);
+
+    const stopGhostTyping = useCallback(() => {
+        if (isGhostTyping) {
+            setIsGhostTyping(false);
+            setInput('');
+        }
+    }, [isGhostTyping]);
+
+    useEffect(() => {
+        if (!isGhostTyping) return;
+
+        const currentCommand = GHOST_COMMANDS[ghostIndex];
+
+        let timeout: ReturnType<typeof setTimeout>;
+
+        if (isDeleting) {
+            if (charIndex > 0) {
+                timeout = setTimeout(() => {
+                    setInput(currentCommand.substring(0, charIndex - 1));
+                    setCharIndex(charIndex - 1);
+                }, DELETING_SPEED);
+            } else {
+                setIsDeleting(false);
+                setGhostIndex((prev) => (prev + 1) % GHOST_COMMANDS.length);
+                timeout = setTimeout(() => { }, PAUSE_START);
+            }
+        } else {
+            if (charIndex < currentCommand.length) {
+                const randomSpeed = Math.floor(Math.random() * (TYPING_SPEED_MAX - TYPING_SPEED_MIN + 1)) + TYPING_SPEED_MIN;
+                timeout = setTimeout(() => {
+                    setInput(currentCommand.substring(0, charIndex + 1));
+                    setCharIndex(charIndex + 1);
+                }, randomSpeed);
+            } else {
+                timeout = setTimeout(() => {
+                    setIsDeleting(true);
+                }, PAUSE_END);
+            }
+        }
+
+        return () => clearTimeout(timeout);
+    }, [charIndex, isDeleting, ghostIndex, isGhostTyping]);
 
     // Effect to handle pending commands triggered by UI components
     useEffect(() => {
@@ -130,8 +191,10 @@ const Terminal: React.FC = () => {
         setHistoryIndex(-1);
     }, [input, currentPath, addOutput, addToHistory, setCurrentPath, clearOutput, setTerminalMode, triggerTransition, inputOverride, setInputOverride]);
 
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+        stopGhostTyping();
         if (e.key === 'Enter') {
+            e.preventDefault();
             executeInput();
         } else if (e.key === 'ArrowUp') {
             e.preventDefault();
@@ -183,20 +246,27 @@ const Terminal: React.FC = () => {
                         <TerminalOutput key={index} item={item} />
                     ))}
 
-                    <div className="flex items-center mt-2">
-                        <span className="mr-2 text-blue-400 font-bold">{currentPath}</span>
+                    <div className="flex items-start mt-2">
+                        <span className="mr-2 text-blue-400 font-bold whitespace-nowrap">{currentPath}</span>
                         <span className="mr-2 text-green-500">❯</span>
-                        <input
+                        <textarea
                             ref={inputRef}
-                            type="text"
                             value={input}
-                            onChange={(e) => setInput(e.target.value.toLowerCase())}
+                            onChange={(e) => {
+                                if (isGhostTyping) stopGhostTyping();
+                                setInput(e.target.value.toLowerCase());
+                                // Auto-resize
+                                e.target.style.height = 'auto';
+                                e.target.style.height = `${e.target.scrollHeight}px`;
+                            }}
+                            onClick={stopGhostTyping}
                             onKeyDown={handleKeyDown}
-                            className="bg-transparent border-none outline-none text-gray-100 flex-1 caret-green-500"
+                            className="bg-transparent border-none outline-none text-gray-100 flex-1 caret-green-500 resize-none overflow-hidden min-h-[24px] whitespace-pre-wrap break-words"
                             autoComplete="off"
                             spellCheck="false"
                             autoCapitalize="none"
                             aria-label="Terminal Input"
+                            rows={1}
                         />
                     </div>
                 </div>
