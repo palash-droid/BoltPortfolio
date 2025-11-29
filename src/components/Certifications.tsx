@@ -1,10 +1,11 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { Award, ExternalLink, Image, ChevronLeft, ChevronRight } from 'lucide-react';
-import { useState, useRef } from 'react';
+import { Award, ExternalLink, Image } from 'lucide-react';
+import { useState } from 'react';
 import { certifications } from '../data/portfolio';
 import ScrollDownIndicator from './ScrollDownIndicator';
 import CertificationImageModal from './CertificationImageModal';
+import AllCertificationsModal from './AllCertificationsModal';
 
 const Certifications = () => {
   const [ref, inView] = useInView({
@@ -12,13 +13,12 @@ const Certifications = () => {
     threshold: 0.1,
   });
 
+  const [isAllCertificationsModalOpen, setIsAllCertificationsModalOpen] = useState(false);
   const [selectedCert, setSelectedCert] = useState<{
     imageUrl: string;
     title: string;
     issuer: string;
   } | null>(null);
-
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleImageClick = (cert: any) => {
@@ -35,52 +35,8 @@ const Certifications = () => {
     setSelectedCert(null);
   };
 
-  const scrollLeft = () => {
-    if (scrollContainerRef.current) {
-      const isMobile = window.innerWidth < 768;
-
-      let cardWidth, gap;
-      if (isMobile) {
-        cardWidth = 320; // Updated mobile width
-        gap = 16;
-      } else {
-        cardWidth = 400; // Updated desktop width
-        gap = 24;
-      }
-
-      const scrollAmount = cardWidth + gap;
-
-      scrollContainerRef.current.scrollBy({
-        left: -scrollAmount,
-        behavior: 'smooth'
-      });
-    }
-  };
-
-  const scrollRight = () => {
-    if (scrollContainerRef.current) {
-      const isMobile = window.innerWidth < 768;
-
-      let cardWidth, gap;
-      if (isMobile) {
-        cardWidth = 320; // Updated mobile width
-        gap = 16;
-      } else {
-        cardWidth = 400; // Updated desktop width
-        gap = 24;
-      }
-
-      const scrollAmount = cardWidth + gap;
-
-      scrollContainerRef.current.scrollBy({
-        left: scrollAmount,
-        behavior: 'smooth'
-      });
-    }
-  };
-
   return (
-    <section id="certifications" className="relative py-20 bg-gray-50 dark:bg-dark-800 overflow-hidden">
+    <section id="certifications" className="relative min-h-screen flex flex-col justify-center py-20 bg-gray-50 dark:bg-dark-800 w-full max-w-full overflow-x-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
@@ -97,94 +53,76 @@ const Certifications = () => {
           </p>
         </motion.div>
 
-        {/* Scrollable Container with Navigation */}
-        <div className="relative mb-16 overflow-hidden">
-          {/* Container with padding for navigation buttons */}
-          <div className="flex items-center">
-            {/* Left Navigation Button */}
-            <button
-              onClick={scrollLeft}
-              className="flex-shrink-0 mr-2 md:mr-4 bg-white dark:bg-dark-900 rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 border border-gray-200 dark:border-gray-700 hidden md:flex"
-              aria-label="Scroll left"
-            >
-              <ChevronLeft className="h-6 w-6 text-gray-600 dark:text-gray-300" />
-            </button>
-
-            {/* Cards Container - Responsive width */}
-            <div className="flex-1 overflow-hidden">
-              <div
-                ref={scrollContainerRef}
-                className="flex gap-4 md:gap-6 overflow-x-auto scrollbar-hide certification-container"
-                style={{
-                  scrollbarWidth: 'none',
-                  msOverflowStyle: 'none'
-                }}
+        {/* Static Grid Container */}
+        <div className="relative mb-16">
+          <div className="flex justify-center gap-6 flex-wrap">
+            {certifications.slice(0, 3).map((cert, index) => (
+              <motion.div
+                key={cert.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                transition={{ duration: 0.8, delay: index * 0.1 }}
+                className={`w-full md:w-[350px] lg:w-[380px] bg-white dark:bg-dark-900 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group border border-gray-100 dark:border-dark-700 ${index > 0 ? 'hidden md:block' : 'block'
+                  }`}
               >
-                {certifications.map((cert, index) => (
-                  <motion.div
-                    key={cert.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                    transition={{ duration: 0.8, delay: index * 0.1 }}
-                    className="w-80 md:w-[400px] flex-shrink-0 bg-white dark:bg-dark-900 rounded-xl p-4 md:p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group certification-card"
-                  >
-                    <div className="flex items-center justify-center w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-accent-500 to-accent-600 rounded-lg mb-4 group-hover:scale-110 transition-transform duration-300">
-                      <Award className="h-5 w-5 md:h-6 md:w-6 text-white" />
-                    </div>
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-accent-500 to-accent-600 rounded-lg group-hover:scale-110 transition-transform duration-300">
+                    <Award className="h-6 w-6 text-white" />
+                  </div>
+                  {cert.image && (
+                    <button
+                      onClick={() => handleImageClick(cert)}
+                      className="flex items-center gap-2 px-3 py-1.5 text-sm text-gray-500 hover:text-primary-500 hover:bg-gray-50 dark:hover:bg-dark-700 rounded-lg transition-all duration-200"
+                      title="View Certificate"
+                    >
+                      <Image className="h-4 w-4" />
+                      <span>View Certificate</span>
+                    </button>
+                  )}
+                </div>
 
-                    <h3 className="text-sm md:text-lg font-semibold text-gray-900 dark:text-white mb-3 line-clamp-2">
-                      {cert.title}
-                    </h3>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2 line-clamp-2 min-h-[3.5rem]">
+                  {cert.title}
+                </h3>
 
-                    <p className="text-xs md:text-sm text-gray-600 dark:text-gray-300 mb-2">
-                      {cert.issuer}
-                    </p>
+                <p className="text-sm text-gray-600 dark:text-gray-300 mb-4 line-clamp-1">
+                  {cert.issuer}
+                </p>
 
-                    <p className="text-xs text-gray-500 dark:text-gray-400 mb-4">
-                      Issued: {new Date(cert.issueDate).toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'long'
-                      })}
-                    </p>
+                <div className="flex items-center justify-between mt-auto pt-4 border-t border-gray-100 dark:border-dark-700">
+                  <span className="text-xs text-gray-500 dark:text-gray-400">
+                    {new Date(cert.issueDate).toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'short'
+                    })}
+                  </span>
 
-                    <div className="flex items-center gap-3">
-                      {cert.verifyLink && (
-                        <a
-                          href={cert.verifyLink}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors duration-200 text-sm"
-                        >
-                          <ExternalLink className="h-4 w-4" />
-                          Verify
-                        </a>
-                      )}
-
-                      {cert.image && (
-                        <button
-                          onClick={() => handleImageClick(cert)}
-                          className="inline-flex items-center gap-2 text-accent-600 dark:text-accent-400 hover:text-accent-700 dark:hover:text-accent-300 transition-colors duration-200 text-sm"
-                          aria-label={`View ${cert.title} certification image`}
-                        >
-                          <Image className="h-4 w-4" />
-                          View
-                        </button>
-                      )}
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-
-            {/* Right Navigation Button */}
-            <button
-              onClick={scrollRight}
-              className="flex-shrink-0 ml-2 md:ml-4 bg-white dark:bg-dark-900 rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 border border-gray-200 dark:border-gray-700 hidden md:flex"
-              aria-label="Scroll right"
-            >
-              <ChevronRight className="h-6 w-6 text-gray-600 dark:text-gray-300" />
-            </button>
+                  {cert.verifyLink && (
+                    <a
+                      href={cert.verifyLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-sm font-medium text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors duration-200"
+                    >
+                      Verify
+                      <ExternalLink className="h-3 w-3" />
+                    </a>
+                  )}
+                </div>
+              </motion.div>
+            ))}
           </div>
+        </div>
+
+        {/* View All Certifications Button */}
+        <div className="flex justify-center mb-16">
+          <button
+            onClick={() => setIsAllCertificationsModalOpen(true)}
+            className="px-8 py-3 bg-white dark:bg-dark-900 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700 rounded-lg font-semibold hover:bg-gray-50 dark:hover:bg-dark-800 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2"
+          >
+            <Award className="h-5 w-5 text-accent-500" />
+            View All Certifications
+          </button>
         </div>
 
         {/* Scroll Down Indicator */}
@@ -192,6 +130,12 @@ const Certifications = () => {
           <ScrollDownIndicator targetId="blogs" />
         </div>
       </div>
+
+      {/* All Certifications Modal */}
+      <AllCertificationsModal
+        isOpen={isAllCertificationsModalOpen}
+        onClose={() => setIsAllCertificationsModalOpen(false)}
+      />
 
       {/* Certification Image Modal */}
       {selectedCert && (

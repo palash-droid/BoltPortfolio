@@ -30,9 +30,9 @@ const AppContent = () => {
   }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-dark-900 text-gray-900 dark:text-white transition-colors duration-300">
+    <div className="min-h-screen bg-white dark:bg-dark-900 text-gray-900 dark:text-white transition-colors duration-300 overflow-x-hidden w-full">
       <Navigation />
-      <main className="relative">
+      <main className="relative w-full overflow-x-hidden">
         <AnimatePresence mode="wait">
           <Suspense fallback={<LoadingFallback />}>
             <Routes location={location} key={location.pathname}>

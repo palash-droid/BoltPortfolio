@@ -21,12 +21,12 @@ const Hero = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left Column - Profile Picture */}
           <motion.div
-            className="flex justify-center mt-8 lg:-mt-24"
+            className="flex justify-center mt-4 lg:-mt-24"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <div className="relative w-72 h-72 sm:w-80 sm:h-80 md:w-96 md:h-96 animate-float">
+            <div className="relative w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 animate-float">
               {/* Glow pulse behind */}
               <div className="absolute inset-0 rounded-full bg-primary-500 blur-2xl opacity-20 animate-pulse-slow z-0"></div>
 

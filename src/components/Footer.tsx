@@ -1,11 +1,11 @@
-import React from 'react';
+
 import { Github, Linkedin, Mail } from 'lucide-react';
 import { contactInfo } from '../data/portfolio';
 
 const Footer = () => {
   return (
     <footer className="bg-gray-900 dark:bg-gray-800 border-t border-gray-700 dark:border-gray-600 relative z-10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-20 md:py-4">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="text-center md:text-left">
             <p className="text-gray-400 text-sm">

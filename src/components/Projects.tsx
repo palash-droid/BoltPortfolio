@@ -29,7 +29,7 @@ const Projects = () => {
   };
 
   return (
-    <section id="projects" className="relative min-h-[100vh] lg:min-h-[100vh] xl:min-h-[85vh] pt-20 pb-20 sm:pb-16 md:pb-10 bg-white dark:bg-dark-900">
+    <section id="projects" className="relative min-h-screen flex flex-col justify-center pt-20 pb-20 sm:pb-16 md:pb-10 bg-white dark:bg-dark-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}

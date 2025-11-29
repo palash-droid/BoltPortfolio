@@ -27,28 +27,28 @@ const Interests = () => {
   return (
     <section
       id="interests"
-      className="relative py-20 bg-gray-50 dark:bg-dark-800"
+      className="relative min-h-screen flex flex-col justify-center py-20 bg-gray-50 dark:bg-dark-800 w-full overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         {/* Skills Carousel Section with Animated Heading - Moved to top */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.8 }}
-          className="mb-20"
+          className="mb-20 w-full"
         >
           {/* Animated Skills Heading */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-center mb-12"
+            className="text-center mb-12 px-2"
           >
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4"
+              className="text-2xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4 break-words"
             >
               Technical Skills & Expertise
             </motion.h2>
@@ -56,7 +56,7 @@ const Interests = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto"
+              className="text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto break-words px-2"
             >
               A comprehensive toolkit of technologies and tools I use to transform data into actionable insights
             </motion.p>
@@ -117,17 +117,17 @@ const Interests = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-center mb-16"
+          className="text-center mb-16 px-2"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+          <h2 className="text-2xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
             Areas of Interest
           </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+          <p className="text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto px-2">
             Exploring cutting-edge technologies and methodologies that drive innovation in data science and analytics
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 mb-16 w-full">
           {interests.map((interest, index) => {
             const IconComponent = iconMap[interest.icon];
             return (
@@ -136,7 +136,7 @@ const Interests = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 transition={{ duration: 0.8, delay: index * 0.1 }}
-                className="bg-white dark:bg-dark-900 rounded-xl p-4 md:p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group"
+                className="bg-white dark:bg-dark-900 rounded-xl p-4 md:p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group w-full"
               >
                 <div className="flex items-center justify-center w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-lg mb-4 group-hover:scale-110 transition-transform duration-300">
                   <IconComponent className="h-5 w-5 md:h-6 md:w-6 text-white" />

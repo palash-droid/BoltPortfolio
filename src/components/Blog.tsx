@@ -16,7 +16,7 @@ const Blog = () => {
   const featuredPosts = blogPosts.filter(post => post.featured).slice(0, 3);
 
   return (
-    <section id="blogs" className="relative py-20 bg-gray-50 dark:bg-dark-900">
+    <section id="blogs" className="relative min-h-screen flex flex-col justify-center py-20 bg-gray-50 dark:bg-dark-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}

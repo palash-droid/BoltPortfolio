@@ -63,7 +63,7 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-20 bg-gray-50 dark:bg-dark-800">
+    <section id="contact" className="min-h-[calc(100vh-160px)] md:min-h-[calc(100vh-80px)] flex flex-col justify-center py-12 bg-gray-50 dark:bg-dark-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
