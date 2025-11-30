@@ -221,13 +221,16 @@ const ChatWidget: React.FC = () => {
 
     const renderFormattedText = (text: string) => {
         if (!text) return null;
-        const parts = text.split(/(\*\*[^*]+\*\*)|(\[[^\]]+\]\([^)]+\))|(https?:\/\/[^\s]+)|(\n\n---\n\n)/g).filter(t => t);
+        const parts = text.split(/(\*\*[^*]+\*\*)|(\[[^\]]+\]\([^)]+\))|(https?:\/\/[^\s]+)|(\n\n---\n\n)|(\^\^[^\^]+\^\^)/g).filter(t => t);
         return parts.map((token, i) => {
             if (token === '\n\n---\n\n') {
                 return <hr key={i} className="my-3 border-gray-200 dark:border-gray-700 border-t" />;
             }
             if (token.startsWith('**') && token.endsWith('**')) {
                 return <strong key={i} className="font-bold">{token.slice(2, -2)}</strong>;
+            }
+            if (token.startsWith('^^') && token.endsWith('^^')) {
+                return <strong key={i} className="font-bold text-blue-600 dark:text-green-400">{token.slice(2, -2)}</strong>;
             }
             const linkMatch = token.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
             if (linkMatch) {

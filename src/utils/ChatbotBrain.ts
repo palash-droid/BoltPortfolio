@@ -45,7 +45,7 @@ export const getCertificationDetails = () => {
 
 export const getProjectDetails = () => {
     const projectList = portfolioData.projects.map(p =>
-        `**Title:** ${p.title}\n**Description:** ${p.description}\n**Technologies:** ${p.technologies.join(', ')}\n**URL:** [Link](${p.code || p.liveDemo})`
+        `Title: ^^${p.title}^^\n**Description:** ${p.description}\n**Technologies:** ${p.technologies.join(', ')}\n**URL:** [Link](${p.code || p.liveDemo})`
     ).join('\n\n---\n\n');
 
     return `Here are some of my projects i have worked on:\n\n${projectList}\n\n{{VIEW_ALL_PROJECTS}}`;

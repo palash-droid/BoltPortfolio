@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Sun, Moon } from 'lucide-react';
 import { useTheme } from '../contexts/ThemeContext';
@@ -8,6 +8,33 @@ const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
   const { isDark, toggleTheme } = useTheme();
   const location = useLocation();
+  const nameRef = useRef<HTMLDivElement>(null);
+  const waveRef = useRef<SVGSVGElement>(null);
+  const pathRef = useRef<SVGPathElement>(null);
+
+  useEffect(() => {
+    const generateWave = () => {
+      if (!nameRef.current || !waveRef.current || !pathRef.current) return;
+
+      const width = nameRef.current.offsetWidth;
+      const height = 20;
+      //const amplitude = 6;
+      //const frequency = 0.15;
+
+      waveRef.current.setAttribute('viewBox', `0 0 ${width} ${height}`);
+
+      // Straight line path
+      const y = height / 2;
+      const d = `M 0 ${y} L ${width} ${y}`;
+
+      pathRef.current.setAttribute('d', d);
+    };
+
+    // Small delay to ensure font loading/rendering
+    setTimeout(generateWave, 100);
+    window.addEventListener('resize', generateWave);
+    return () => window.removeEventListener('resize', generateWave);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -46,8 +73,11 @@ const Navigation = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="text-xl font-bold text-gray-900 dark:text-white">
-            Palash Bhagwatkar
+          <Link to="/" className="text-xl font-bold text-gray-900 dark:text-white relative inline-block group">
+            <div ref={nameRef} className="relative z-10">Palash Bhagwatkar</div>
+            <svg ref={waveRef} className="wave-container" preserveAspectRatio="none">
+              <path ref={pathRef} className="wave-path" d="" />
+            </svg>
           </Link>
 
           {/* Desktop Navigation */}

@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navbar Animation Demos</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 2rem 0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body.light {
+            background-color: #f3f4f6;
+            color: #111827;
+            --primary: #0284c7;
+            /* Primary 600 */
+        }
+
+        body.dark {
+            background-color: #111827;
+            color: #f3f4f6;
+            --primary: #2dd4bf;
+            /* Secondary 400 */
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+            text-align: center;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .demo-item {
+            position: relative;
+            display: inline-block;
+            margin: 0 auto;
+        }
+
+        .label {
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+            opacity: 0.7;
+        }
+
+        .name {
+            font-size: 2rem;
+            font-weight: bold;
+            position: relative;
+            z-index: 1;
+            display: inline-block;
+        }
+
+        .line-container {
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            pointer-events: none;
+        }
+
+        /* 1. Pulsating Glow (Current) */
+        .pulse-line {
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary);
+            border-radius: 2px;
+            animation: pulse-neon 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-neon {
+
+            0%,
+            100% {
+                opacity: 0.6;
+                box-shadow: 0 0 2px var(--primary);
+            }
+
+            50% {
+                opacity: 1;
+                box-shadow: 0 0 8px var(--primary), 0 0 12px var(--primary);
+            }
+        }
+
+        /* 2. Draw / Trace */
+        .draw-line {
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            border-radius: 2px;
+            animation: draw-trace 3s ease-in-out infinite;
+            box-shadow: 0 0 5px var(--primary);
+        }
+
+        @keyframes draw-trace {
+            0% {
+                width: 0;
+                left: 0;
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            50% {
+                width: 100%;
+                left: 0;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                width: 0;
+                left: 100%;
+                opacity: 0;
+            }
+        }
+
+        /* 3. Gradient Flow */
+        .gradient-line {
+            width: 100%;
+            height: 2px;
+            border-radius: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            background-size: 200% 100%;
+            animation: gradient-flow 2s linear infinite;
+        }
+
+        @keyframes gradient-flow {
+            0% {
+                background-position: 100% 0;
+            }
+
+            100% {
+                background-position: -100% 0;
+            }
+        }
+
+        /* 4. Center Expand */
+        .expand-line {
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary);
+            border-radius: 2px;
+            transform-origin: center;
+            animation: expand-center 3s ease-in-out infinite;
+            box-shadow: 0 0 4px var(--primary);
+        }
+
+        @keyframes expand-center {
+
+            0%,
+            100% {
+                transform: scaleX(0.2);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: scaleX(1);
+                opacity: 1;
+            }
+        }
+
+        /* 5. Cyber Glitch */
+        .glitch-line {
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary);
+            position: relative;
+            animation: glitch-anim 3s infinite;
+        }
+
+        .glitch-line::before,
+        .glitch-line::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--primary);
+            opacity: 0.5;
+        }
+
+        .glitch-line::before {
+            animation: glitch-color-1 3s infinite linear alternate-reverse;
+            background-color: #ff00ff;
+            transform: translateX(-2px);
+        }
+
+        .glitch-line::after {
+            animation: glitch-color-2 3s infinite linear alternate-reverse;
+            background-color: #00ffff;
+            transform: translateX(2px);
+        }
+
+        @keyframes glitch-anim {
+            0% {
+                transform: scaleX(1);
+                opacity: 1;
+            }
+
+            2%,
+            64% {
+                transform: scaleX(1);
+                opacity: 1;
+            }
+
+            4%,
+            60% {
+                transform: skewX(20deg);
+                opacity: 0.8;
+            }
+
+            62% {
+                transform: skewX(0deg);
+                opacity: 1;
+            }
+        }
+
+        @keyframes glitch-color-1 {
+            0% {
+                clip-path: inset(0 0 0 0);
+            }
+
+            20% {
+                clip-path: inset(20% 0 80% 0);
+            }
+
+            40% {
+                clip-path: inset(80% 0 10% 0);
+            }
+
+            60% {
+                clip-path: inset(10% 0 50% 0);
+            }
+
+            80% {
+                clip-path: inset(50% 0 30% 0);
+            }
+
+            100% {
+                clip-path: inset(30% 0 70% 0);
+            }
+        }
+
+        @keyframes glitch-color-2 {
+            0% {
+                clip-path: inset(0 0 0 0);
+            }
+
+            20% {
+                clip-path: inset(60% 0 10% 0);
+            }
+
+            40% {
+                clip-path: inset(10% 0 50% 0);
+            }
+
+            60% {
+                clip-path: inset(40% 0 20% 0);
+            }
+
+            80% {
+                clip-path: inset(20% 0 60% 0);
+            }
+
+            100% {
+                clip-path: inset(70% 0 10% 0);
+            }
+        }
+
+        /* 6. Shooting Star */
+        .star-line {
+            width: 100%;
+            height: 2px;
+            background: rgba(100, 100, 100, 0.2);
+            position: relative;
+            overflow: hidden;
+            border-radius: 2px;
+        }
+
+        .star-line::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -50%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            animation: shooting-star 2s ease-in-out infinite;
+            filter: drop-shadow(0 0 5px var(--primary));
+        }
+
+        @keyframes shooting-star {
+            0% {
+                left: -50%;
+            }
+
+            100% {
+                left: 150%;
+            }
+        }
+
+        /* 7. Neon Flicker */
+        .flicker-line {
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary);
+            box-shadow: 0 0 5px var(--primary), 0 0 10px var(--primary);
+            animation: flicker-anim 4s infinite;
+        }
+
+        @keyframes flicker-anim {
+
+            0%,
+            19%,
+            21%,
+            23%,
+            25%,
+            54%,
+            56%,
+            100% {
+                opacity: 1;
+                box-shadow: 0 0 5px var(--primary), 0 0 10px var(--primary);
+            }
+
+            20%,
+            24%,
+            55% {
+                opacity: 0.2;
+                box-shadow: none;
+            }
+        }
+
+        /* 8. Liquid Flow */
+        .liquid-line {
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), #ffffff, var(--primary));
+            background-size: 200% 100%;
+            border-radius: 10px;
+            animation: liquid-move 3s linear infinite;
+            filter: drop-shadow(0 0 2px var(--primary));
+        }
+
+        @keyframes liquid-move {
+            0% {
+                background-position: 100% 0;
+            }
+
+            100% {
+                background-position: -100% 0;
+            }
+        }
+
+        button {
+            margin-top: 2rem;
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #6b7280;
+            color: white;
+        }
+    </style>
+</head>
+
+<body class="light">
+
+    <div class="container">
+
+        <div class="demo-item">
+            <div class="label">1. Pulsating Glow (Current)</div>
+            <div class="name">Palash Bhagwatkar</div>
+            <div class="line-container">
+                <div class="pulse-line"></div>
+            </div>
+        </div>
+
+        <div class="demo-item">
+            <div class="label">2. Draw & Trace</div>
+            <div class="name">Palash Bhagwatkar</div>
+            <div class="line-container">
+                <div class="draw-line" style="position: absolute; left: 0;"></div>
+            </div>
+        </div>
+
+        <div class="demo-item">
+            <div class="label">3. Gradient Flow</div>
+            <div class="name">Palash Bhagwatkar</div>
+            <div class="line-container">
+                <div class="gradient-line"></div>
+            </div>
+        </div>
+
+        <div class="demo-item">
+            <div class="label">4. Center Expand</div>
+            <div class="name">Palash Bhagwatkar</div>
+            <div class="line-container">
+                <div class="expand-line"></div>
+            </div>
+        </div>
+
+        <hr style="width: 100%; border-color: #ccc; margin: 2rem 0;">
+        <h3>Modern / Experimental</h3>
+
+        <div class="demo-item">
+            <div class="label">5. Cyber Glitch</div>
+            <div class="name">Palash Bhagwatkar</div>
+            <div class="line-container">
+                <div class="glitch-line"></div>
+            </div>
+        </div>
+
+        <div class="demo-item">
+            <div class="label">6. Shooting Star</div>
+            <div class="name">Palash Bhagwatkar</div>
+            <div class="line-container">
+                <div class="star-line"></div>
+            </div>
+        </div>
+
+        <div class="demo-item">
+            <div class="label">7. Neon Flicker</div>
+            <div class="name">Palash Bhagwatkar</div>
+            <div class="line-container">
+                <div class="flicker-line"></div>
+            </div>
+        </div>
+
+        <div class="demo-item">
+            <div class="label">8. Liquid Flow</div>
+            <div class="name">Palash Bhagwatkar</div>
+            <div class="line-container">
+                <div class="liquid-line"></div>
+            </div>
+        </div>
+
+        <button onclick="toggleTheme()">Toggle Theme</button>
+
+    </div>
+
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            if (body.classList.contains('light')) {
+                body.classList.remove('light');
+                body.classList.add('dark');
+            } else {
+                body.classList.remove('dark');
+                body.classList.add('light');
+            }
+        }
+    </script>
+
+</body>
+
+</html>

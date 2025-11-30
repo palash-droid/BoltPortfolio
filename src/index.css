@@ -486,3 +486,65 @@ nav a:focus {
         color: black;
     }
 }
+
+/* Neon Wave Animation Styles */
+.name-container {
+    position: relative;
+    display: inline-block;
+}
+
+.wave-container {
+    position: absolute;
+    bottom: -16px;
+    /* Increased gap */
+    left: 0;
+    width: 100%;
+    height: 20px;
+    overflow: visible;
+    pointer-events: none;
+}
+
+.wave-path {
+    fill: none;
+    stroke-width: 2;
+    /* Slightly thicker for visibility */
+    stroke-linecap: round;
+    transition: all 0.3s ease;
+    animation: flicker-anim 4s infinite;
+}
+
+@keyframes flicker-anim {
+
+    0%,
+    19%,
+    21%,
+    23%,
+    25%,
+    54%,
+    56%,
+    100% {
+        opacity: 1;
+        filter: drop-shadow(0 0 5px currentColor) drop-shadow(0 0 10px currentColor);
+    }
+
+    20%,
+    24%,
+    55% {
+        opacity: 0.2;
+        filter: none;
+    }
+}
+
+/* Light Mode: Primary 600 (#0284c7) */
+html:not(.dark) .wave-path {
+    stroke: #0284c7;
+    color: #0284c7;
+    /* Used for currentColor */
+}
+
+/* Dark Mode: Secondary 400 (#2dd4bf) */
+html.dark .wave-path {
+    stroke: #2dd4bf;
+    color: #2dd4bf;
+    /* Used for currentColor */
+}
