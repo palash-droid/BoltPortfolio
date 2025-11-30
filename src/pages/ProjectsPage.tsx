@@ -16,7 +16,7 @@ const ProjectsPage = () => {
       const attemptScroll = (attempts = 0) => {
         const element = document.getElementById('projects');
         if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
+          element.scrollIntoView({ behavior: 'auto' });
         } else if (attempts < 10) {
           // Retry after 100ms if element not found
           setTimeout(() => attemptScroll(attempts + 1), 100);

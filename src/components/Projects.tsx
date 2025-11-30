@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { ExternalLink, Github, ArrowRight, BookOpen } from 'lucide-react';
+import { ExternalLink, Github, Briefcase, BookOpen } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { projects } from '../data/portfolio';
@@ -16,7 +16,7 @@ const Projects = () => {
   const [learningModalOpen, setLearningModalOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState<{ id: string; title: string } | null>(null);
 
-  const featuredProjects = projects.filter(project => project.featured);
+  const featuredProjects = projects.filter(project => project.featured).slice(0, 3);
 
   const handleLearningClick = (projectId: string, projectTitle: string) => {
     setSelectedProject({ id: projectId, title: projectTitle });
@@ -53,7 +53,7 @@ const Projects = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.8, delay: index * 0.1 }}
-              className="bg-gray-50 dark:bg-dark-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group"
+              className={`bg-gray-50 dark:bg-dark-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group ${index > 0 ? 'hidden md:block' : 'block'}`}
             >
               <div className="relative overflow-hidden">
                 <img
@@ -133,10 +133,10 @@ const Projects = () => {
               // Scroll to top of the page when navigating
               window.scrollTo(0, 0);
             }}
-            className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-primary-500 to-primary-600 text-white rounded-lg font-semibold hover:from-primary-600 hover:to-primary-700 transition-all duration-300 shadow-lg hover:shadow-xl"
+            className="px-8 py-3 bg-white dark:bg-dark-900 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700 rounded-lg font-semibold hover:bg-gray-50 dark:hover:bg-dark-800 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2 inline-flex"
           >
+            <Briefcase className="h-5 w-5 text-primary-500" />
             View All Projects
-            <ArrowRight className="h-5 w-5" />
           </Link>
         </motion.div>
 

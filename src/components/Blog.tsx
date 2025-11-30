@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { Clock, ArrowRight } from 'lucide-react';
+import { Clock, BookOpen } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useBlog } from '../contexts/BlogContext';
 import { blogPosts } from '../data/portfolio';
@@ -40,7 +40,7 @@ const Blog = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.8, delay: index * 0.1 }}
-              className="bg-gray-50 dark:bg-dark-800 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group cursor-pointer"
+              className={`bg-gray-50 dark:bg-dark-800 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group cursor-pointer ${index > 0 ? 'hidden md:block' : 'block'}`}
               onClick={() => openBlog(post)}
             >
               <div className="relative overflow-hidden">
@@ -95,10 +95,10 @@ const Blog = () => {
               // Scroll to top of the page when navigating
               window.scrollTo(0, 0);
             }}
-            className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-secondary-500 to-secondary-600 text-white rounded-lg font-semibold hover:from-secondary-600 hover:to-secondary-700 transition-all duration-300 shadow-lg hover:shadow-xl"
+            className="px-8 py-3 bg-white dark:bg-dark-900 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700 rounded-lg font-semibold hover:bg-gray-50 dark:hover:bg-dark-800 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2 inline-flex"
           >
+            <BookOpen className="h-5 w-5 text-secondary-500" />
             Read All Articles
-            <ArrowRight className="h-5 w-5" />
           </Link>
         </motion.div>
 

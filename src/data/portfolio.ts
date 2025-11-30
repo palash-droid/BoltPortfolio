@@ -9,13 +9,13 @@ export const skills: Skill[] = [
   { name: 'SQL', category: 'Database', icon: 'Database', color: '#FF6B6B' },
   { name: 'Power BI', category: 'Visualization', icon: 'BarChart3', color: '#FFD93D' },
   { name: 'Excel', category: 'Analysis', icon: 'FileSpreadsheet', color: '#2ECC71' },
-  { name: 'R Programming', category: 'Programming', icon: 'Code', color: '#E74C3C' },
-  { name: 'Docker', category: 'DevOps', icon: 'Box', color: '#0DB7ED' }
+  { name: 'R', category: 'Programming', icon: 'Code', color: '#E74C3C' },
+  { name: 'Docker', category: 'DevOps', icon: 'Box', color: '#0DB7ED' },
+  { name: 'AWS', category: 'Cloud', icon: 'Cloud', color: '#FF9500' },
   // { name: 'Scikit-learn', category: 'Machine Learning', icon: 'Bot', color: '#26D0CE' },
   // { name: 'TensorFlow', category: 'Deep Learning', icon: 'Zap', color: '#FF6B35' },
   // { name: 'Tableau', category: 'Visualization', icon: 'Activity', color: '#1B9AAA' },
   // { name: 'Statistics', category: 'Analysis', icon: 'Target', color: '#F39C12' },
-  // { name: 'AWS', category: 'Cloud', icon: 'Cloud', color: '#FF9500' },,
 ];
 
 export const interests: Interest[] = [
